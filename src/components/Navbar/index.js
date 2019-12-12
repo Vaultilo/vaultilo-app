@@ -73,7 +73,7 @@ class NavbarComp extends Component{
 			 				<React.Fragment>
 			 				 <Navbar.Item onClick={this.goToAdminPosts}>Keys</Navbar.Item>
 			 				 <Navbar.Item onClick={this.goToAdminProfile}>My Profile </Navbar.Item>
-			 				 <Navbar.Item onClick={this.handleSignOut}>Signout</Navbar.Item>
+			 				 <Navbar.Item onClick={this.handleSignOut}>Sign Out</Navbar.Item>
 			 				</React.Fragment>
 			 			}
 			 		</Navbar.Container>

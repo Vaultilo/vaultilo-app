@@ -65,8 +65,10 @@ class PostsTable extends Component{
 
       render() {
         const { posts } = this.props
+        const {posts2} =this.props
     
         return (
+          <React.Fragment>
           <Table>
             <thead>
               <tr>
@@ -90,6 +92,30 @@ class PostsTable extends Component{
               }
             </tbody>
           </Table>
+          <Table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>ICON Wallets</th>
+              <th>Menu</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {
+              _.map(posts2, (post) => {
+                return (
+                  <tr key={post.id}>
+                    <td>{post.id}</td>
+                    <td>{post.title}</td>
+                    <td>{this.displayAdminOptions(post)}</td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </Table>
+        </React.Fragment>
           
         )
       }

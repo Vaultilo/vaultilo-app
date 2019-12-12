@@ -7,17 +7,19 @@ import {
   Field,
   Input,
   Label,
-  Textarea,Dropdown
+  Textarea
 } from 'react-bulma-components/lib/components/form'
 import {
   Button,
   Card,
   Content,
 } from 'react-bulma-components'
-import { POST_FILENAME } from '../../utils/constants'
+import { POST_ICONFILE } from '../../utils/constants'
 import generateUUID from '../../utils/generateUUID'
+import {FilePicker} from 'react-file-picker'
 
-class PostForm extends Component{
+
+class PostFormIcon extends Component{
   constructor(props){
     super(props)
 
@@ -27,7 +29,17 @@ class PostForm extends Component{
       title:post.title || '',
       description:post.description || '',
       posts:[],
+      privateKey:post.privateKey||'',
+      keyStore:''
    }
+  }
+
+ buildFileSelector(){
+    const fileSelector = document.createElement('input');
+    fileSelector.setAttribute('type', 'file');
+    fileSelector.setAttribute('single', 'single');
+    fileSelector.setAttribute('name','keystore');
+    return fileSelector;
   }
     
     static propTypes = {
@@ -40,14 +52,17 @@ class PostForm extends Component{
     componentDidMount(){
       this.loadPosts()
       const {post}=this.props
-      console.log(post)
+      this.fileSelector = this.buildFileSelector();
+      
+  
     }
 
     loadPosts = async () => {
       const {userSession}=this.props
       const options={decrypt:false}
 
-      const result= await userSession.getFile(POST_FILENAME,options)
+      const result= await userSession.getFile(POST_ICONFILE,options)
+      
 
       if (result){
         this.setState({posts : JSON.parse(result) })
@@ -70,11 +85,6 @@ class PostForm extends Component{
         description
       }
   
-      // for post-${post-id}.json
-      const detailParams = {
-        ...params,
-        description,
-      }
   
       const editedPostsForIndex = _.map(posts, (p) => {
         if (p.id === post.id) {
@@ -85,7 +95,7 @@ class PostForm extends Component{
       })
   
       try {
-        await userSession.putFile(POST_FILENAME, JSON.stringify(editedPostsForIndex), options)
+        await userSession.putFile(POST_ICONFILE, JSON.stringify(editedPostsForIndex), options)
         //await userSession.putFile(`post-${post.id}.json`, JSON.stringify(detailParams), options)
   
         this.setState({
@@ -102,25 +112,18 @@ class PostForm extends Component{
    createPost = async () => {      
         const options={encrypt:false}
         const {history,userSession,username}=this.props
-        const {title,description,posts}=this.state
+        const {title,description,posts,privateKey,keyStore}=this.state
         const id=generateUUID()
 
        
         const params={
-            id,title,description
+            id,title,description,privateKey
         }
-
-        
-        
-        
-        const detailParams={
-          ...params,
-          description
-        }
-
+  
         try{
-          await userSession.putFile(POST_FILENAME,JSON.stringify([...posts,params]),options)
-          //await userSession.putFile(`post-${id}.json`,JSON.stringify(detailParams),options)
+          console.log("fileContent",keyStore)
+          await userSession.putFile(POST_ICONFILE,JSON.stringify(params),options)
+          //await userSession.putFile(`ICON-${id}.json`,this.keyStore,options)
           this.setState({
             title:'',
             description:''
@@ -145,18 +148,65 @@ class PostForm extends Component{
       const {history}=this.props
       history.push(`/`)
     }
+
+    uploadKeystore = (e) => {
+        e.preventDefault();
+        this.fileSelector.click();
+
+    }
+    handleUpload = async (file) => {
+        const reader = new FileReader();
+        const {keyStore}=this.state
+
+        reader.addEventListener('load', e => {
+             const text = e.target.result;
+             console.log(text);
+          
+        });
+        reader.readAsText(file)
+        const options={encrypt:true}
+        const {history,userSession,username}=this.props
+        await userSession.putFile('/test_file.txt',"Icon Keystore",options)
+        var res=reader.result
+        this.setState({keyStore:res})
+        console.log("FC",keyStore)
+        //await userSession.putFile('/test_file.txt',reader.result,options)
+        
+
+    }
+    
+
+    getKey = async ()=>{
+        const options={decrypt:true}
+        const {userSession}=this.props
+        const keystore=await userSession.getFile('/test_file.txt',options)
+        console.log("keystore-file:  ",keystore)
+    }
     
 
       render() {
-        console.log(this.state.posts)
         return (
           <Card>
             <Card.Content>
+            <Content>
+                <FilePicker
+                    onChange={FileObject => (this.handleUpload(FileObject))}
+                    onError={errMsg => (console.log(errMsg))}
+                >
+                    <button>
+                    Upload Keystore File
+                    </button>
+                </FilePicker>
+                <Button onClick={this.getKey}>
+                    get 
+                </Button>
+                </Content>
+                
               <Content>
             
                 <form onSubmit={this.onSubmit} className="post-form">
                 <Field>
-                <Label>Platform</Label>
+                <Label>Name</Label>
                 <Control>
                   <Input
                     name="title"
@@ -167,16 +217,34 @@ class PostForm extends Component{
                 </Control>
               </Field>   
                   <Field>
-                    <Label>Seed Words</Label>
+                    <Label>Password</Label>
                     <Control>
-                      <Textarea
+                      <Input
                         name="description"
                         onChange={this.onChange}
-                        placeholder="Enter the seed words here!"
-                        rows={5}
+                        placeholder="Enter the password"
+                        rows={1}
                         value={this.state.description}
                       />
                     </Control>
+                  </Field>
+                  <Field>
+                    <Label>Private Key</Label>
+                    <Control>
+                      <Input
+                        name="privateKey"
+                        onChange={this.onChange}
+                        placeholder="Enter the private key"
+                        rows={1}
+                        value={this.state.privateKey}
+                      />
+                    </Control>
+                  </Field>
+                  <Field>
+                  <a className="button" href="" onClick={this.uploadKeystore}>Upload Keystore File</a>
+                  </Field>
+                  <Field>
+                  
                   </Field>
                   <Field kind="group">
                      <Control>
@@ -194,6 +262,8 @@ class PostForm extends Component{
                 </form>
               </Content>
             </Card.Content>
+            
+
           </Card>
         )
       }
@@ -202,4 +272,4 @@ class PostForm extends Component{
    
 
 
-export default withRouter(PostForm)  
+export default withRouter(PostFormIcon)  

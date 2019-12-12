@@ -6,14 +6,17 @@ import {
   Button
 } from 'react-bulma-components'
 import { POST_FILENAME } from 'utils/constants'
+
 import { MyContext} from '../../../../components/User/UserProvider'
 import PostsTable from '../../../../components/Posts/PostsTable'
 import Loader from '../../../../components/Loader/index' 
+import { POST_ICONFILE } from '../../../../utils/constants'
 
 
 class AdminPosts extends Component{
     state={
         posts:[],
+        posts2:[],
         loading:true
     }
     componentDidMount() {
@@ -26,12 +29,13 @@ class AdminPosts extends Component{
     
         try {
           const result = await userSession.getFile(POST_FILENAME, options)
+          const result2 = await userSession.getFile(POST_ICONFILE,options)
     
           if (!result) {
             throw new Error('Posts File does not exist')
           }
     
-          return this.setState({ posts: JSON.parse(result) ,loading:false})
+          return this.setState({ posts: JSON.parse(result) ,loading:false, posts2:JSON.parse(result2)})
         } catch (e) {
           console.log(e.message)
         }
@@ -80,7 +84,7 @@ class AdminPosts extends Component{
       }
 
     render(){
-    const { posts } = this.state
+    const { posts,posts2 } = this.state
     const { username } = this.context.state.currentUser
     const {loading}=this.state
 
@@ -96,6 +100,7 @@ class AdminPosts extends Component{
               posts={posts}
               username={username}
               deletePost={this.deletePost}
+              posts2={posts2}
               
               
             />

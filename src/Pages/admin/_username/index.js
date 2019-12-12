@@ -1,7 +1,8 @@
 import React,{Component} from 'react'
 import PropTypes from 'prop-types'
-import {Button,Card,Content,Heading,Columns} from 'react-bulma-components'
+import {Button,Card,Content,Heading} from 'react-bulma-components'
 import {withRouter} from 'react-router-dom'
+
 
 
 
@@ -15,6 +16,12 @@ class AdminUsername extends Component{
         history.push(`/admin/${username}/posts/create`)
     }
 
+    navigateToCreatePostIcon = () => {
+        const {history,username}=this.props
+        history.push(`/admin/${username}/posts/create/icon`)
+    }
+
+
     render(){
         const {username} =this.props
         return (
@@ -23,13 +30,17 @@ class AdminUsername extends Component{
                     <Card.Content>
                         <Content>
                             <Heading  renderAs="h2">Hello {username} </Heading>
-                            <Button color="primary" onClick={this.navigateToCreatePost}>Add a key</Button>
+                            <Button color="primary" onClick={this.navigateToCreatePost}>Metamask Wallet</Button>
+                        </Content>
+                        <Content>
+                            
+                            <Button color="primary" onClick={this.navigateToCreatePostIcon}>ICON wallet</Button>
                         </Content>
                     </Card.Content>
                 </Card>
             </div>
-
-        )
+            
+             )
     }
 }
 
