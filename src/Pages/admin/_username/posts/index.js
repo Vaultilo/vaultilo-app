@@ -32,7 +32,7 @@ class AdminPosts extends Component{
           const result = await userSession.getFile(POST_FILENAME, options)
           const result2 = await userSession.getFile(POST_ICONFILE,options)
     
-          if (!result || !result2) {
+          if (!result && !result2) {
             throw new Error('Posts File does not exist')
           }
     
