@@ -34,7 +34,12 @@ class AdminUsernamePostRoute extends Component{
                 <Route 
                     exact   
                     path={`${this.props.match.url}/:post_id`}
-                    render={({match}) => <AdminPostView match={match}/>}
+                    render={({match}) => <AdminPostView match={match}loadType="metamask" />}
+                />
+                <Route 
+                    exact   
+                    path={`${this.props.match.url}/:post_id/icon`}
+                    render={({match}) => <AdminPostView match={match} loadType="icon" />}
                 />
                 <Route    
                     path={`${this.props.match.url}/:post_id/edit`}

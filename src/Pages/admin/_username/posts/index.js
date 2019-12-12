@@ -17,7 +17,8 @@ class AdminPosts extends Component{
     state={
         posts:[],
         posts2:[],
-        loading:true
+        loading:true,
+        warning:false
     }
     componentDidMount() {
         this.loadPosts()
@@ -31,12 +32,13 @@ class AdminPosts extends Component{
           const result = await userSession.getFile(POST_FILENAME, options)
           const result2 = await userSession.getFile(POST_ICONFILE,options)
     
-          if (!result) {
+          if (!result || !result2) {
             throw new Error('Posts File does not exist')
           }
     
           return this.setState({ posts: JSON.parse(result) ,loading:false, posts2:JSON.parse(result2)})
         } catch (e) {
+          this.setState({loading:false,warning:true})
           console.log(e.message)
         }
       }
@@ -86,11 +88,16 @@ class AdminPosts extends Component{
     render(){
     const { posts,posts2 } = this.state
     const { username } = this.context.state.currentUser
-    const {loading}=this.state
+    const {loading,warning}=this.state
 
     if (loading){
       return <Loader/>
     } 
+
+    if (warning){
+      return (<div>No keys found,add Some Key </div>)
+    }
+
 
     return (
       <Card>

@@ -24,10 +24,12 @@ class PostsTable extends Component{
 
       }
 
-      viewAdminPosts = (post) =>{
+      viewAdminPosts = (post,loadType) =>{
           const {history,username}=this.props 
-
-          return history.push(`/admin/${username}/posts/${post.id}`)
+          if (loadType==="metamask"){
+            return history.push(`/admin/${username}/posts/${post.id}`)
+          }
+          return history.push(`/admin/${username}/posts/${post.id}/icon`)
 
       }
       // getFilesList = () => {
@@ -35,7 +37,7 @@ class PostsTable extends Component{
 
       // }
 
-      displayAdminOptions(post) {
+      displayAdminOptions(post,loadType) {
     return (
       <React.Fragment>
         <Button
@@ -48,7 +50,7 @@ class PostsTable extends Component{
         <Button
           className="mr-one"
           color="info"
-          onClick={() => this.viewAdminPosts(post)}
+          onClick={() => this.viewAdminPosts(post,loadType)}
         >
           View
         </Button>
@@ -85,7 +87,7 @@ class PostsTable extends Component{
                     <tr key={post.id}>
                       <td>{post.id}</td>
                       <td>{post.title}</td>
-                      <td>{this.displayAdminOptions(post)}</td>
+                      <td>{this.displayAdminOptions(post,"metamask")}</td>
                     </tr>
                   )
                 })
@@ -96,7 +98,7 @@ class PostsTable extends Component{
           <thead>
             <tr>
               <th>Id</th>
-              <th>ICON Wallets</th>
+              <th>ICON Wallet</th>
               <th>Menu</th>
               
             </tr>
@@ -108,7 +110,7 @@ class PostsTable extends Component{
                   <tr key={post.id}>
                     <td>{post.id}</td>
                     <td>{post.title}</td>
-                    <td>{this.displayAdminOptions(post)}</td>
+                    <td>{this.displayAdminOptions(post,"icon")}</td>
                   </tr>
                 )
               })

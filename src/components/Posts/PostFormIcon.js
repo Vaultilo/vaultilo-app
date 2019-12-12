@@ -76,7 +76,7 @@ class PostFormIcon extends Component{
       const { title, description, posts } = this.state
       const { history, userSession, username, post } = this.props
 
-      console.log(post)
+      console.log(posts)
   
       // for posts.json
       const params = {
@@ -114,6 +114,7 @@ class PostFormIcon extends Component{
         const {history,userSession,username}=this.props
         const {title,description,posts,privateKey,keyStore}=this.state
         const id=generateUUID()
+        //console.log(posts)
 
        
         const params={
@@ -122,8 +123,8 @@ class PostFormIcon extends Component{
   
         try{
           console.log("fileContent",keyStore)
-          await userSession.putFile(POST_ICONFILE,JSON.stringify(params),options)
-          //await userSession.putFile(`ICON-${id}.json`,this.keyStore,options)
+          await userSession.putFile(POST_ICONFILE,JSON.stringify([...posts,params]),options)
+          await userSession.putFile(`ICON-${id}.txt`,keyStore,options)
           this.setState({
             title:'',
             description:''
@@ -158,19 +159,25 @@ class PostFormIcon extends Component{
         const reader = new FileReader();
         const {keyStore}=this.state
 
-        reader.addEventListener('load', e => {
-             const text = e.target.result;
-             console.log(text);
-          
-        });
+        const afterFileRead = (e) => {
+          const text = e.target.result;
+          console.log(text);
+          this.setState({ keyStore: text });
+        };
+    
+        reader.addEventListener(
+          'load',
+          function(e) {
+            afterFileRead(e);
+          }.bind(this),
+        );
+    
         reader.readAsText(file)
         const options={encrypt:true}
         const {history,userSession,username}=this.props
         await userSession.putFile('/test_file.txt',"Icon Keystore",options)
-        var res=reader.result
+         var res=reader.result
         this.setState({keyStore:res})
-        console.log("FC",keyStore)
-        //await userSession.putFile('/test_file.txt',reader.result,options)
         
 
     }
@@ -197,9 +204,7 @@ class PostFormIcon extends Component{
                     Upload Keystore File
                     </button>
                 </FilePicker>
-                <Button onClick={this.getKey}>
-                    get 
-                </Button>
+                
                 </Content>
                 
               <Content>
@@ -241,10 +246,6 @@ class PostFormIcon extends Component{
                     </Control>
                   </Field>
                   <Field>
-                  <a className="button" href="" onClick={this.uploadKeystore}>Upload Keystore File</a>
-                  </Field>
-                  <Field>
-                  
                   </Field>
                   <Field kind="group">
                      <Control>
