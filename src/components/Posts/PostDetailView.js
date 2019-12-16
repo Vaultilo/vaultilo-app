@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-import { Card, Heading, Content,Button } from 'react-bulma-components'
+import { Card, Heading, Content,Button,Input} from 'react-bulma-components'
 import Loader from '../Loader/index'
 import {POST_FILENAME,POST_ICONFILE} from '../../utils/constants'
 import _ from 'lodash'
 import {MyContext} from '../User/UserProvider'
+import toaster from 'toasted-notes';
+import 'toasted-notes/src/styles.css'
+
 
 
 
@@ -15,7 +18,9 @@ class PostDetailView extends Component {
       post: {},
       loading:true,
       icon:false,
-      keyStore:''
+      keyStore:'',
+      pwShow:false,
+      privShow:false
     }
   
     static propTypes = {
@@ -60,7 +65,7 @@ class PostDetailView extends Component {
       }
   
       
-      return history.push(`/admin/${username}/posts`)
+      return history.textpush(`/admin/${username}/posts`)
 
     }
 
@@ -77,33 +82,86 @@ class PostDetailView extends Component {
       a.click();
     }
 
+    textCopy  (text){
+     navigator.clipboard.writeText(text)
+     this.toastResult("Copied to clipboard")
+      console.log(text)
+    }
     
-  
+    toastResult(text){
+      const CustomNotification = ({ title }) => {
+        
+        return <Button style={{ color:"Green" }}>{title}</Button>
+      }
+      
+      toaster.notify(() => <CustomNotification title={text} />,
+                            {position:'bottom',duration:1500}
+              )
+    }
+
+   togglePw=()=>{
+      const {pwShow}=this.state
+      this.setState({pwShow:!pwShow})
+      console.log(pwShow)
+    }
+
+   togglePk=()=>{
+      const {privShow}=this.state
+      this.setState({privShow:!privShow})
+    }
+
+
+    
+    
      render() {
-      const { post,icon } = this.state
+      const { post,icon,pwShow ,privShow} = this.state
       const{loading}=this.state
       if(loading){
           return <Loader/>
       }
       if (icon){
               
-      return(  <Card>
-          <Card.Content>
-            <Content>
-              <Heading renderAs="h3">ID - {post.id}</Heading>
-              <Heading renderAs="h1">Wallet-name: {post.title}</Heading>
-              <Heading renderAs="h2">Private Key: {post.privateKey}</Heading>
-              <Heading renderAs="h1">Password:{post.password}</Heading>
-              <p>{post.description}</p>
-            </Content>
-            <Content>
-            <Button onClick={this.onKeystore}>
-              Download keystore
+      return(  
+      <React.Fragment>
+        <Card>
+        <Card.Content>
+          <Content>
+            <Heading renderAs="h1">{post.title}</Heading>
+          </Content>
+          <Content>
+        <text>Password</text>
+        <input type={ pwShow ? "text":"password"} value={post.description} style={{marginLeft:"10px" }}/>
+        <button id="h-s" onClick={this.togglePw} style={{marginLeft:"10px" }}>{pwShow ? "Hide":"Show"}</button>
+    
+       <button id="copy" onClick={() => this.textCopy(post.description)} style={{marginLeft:"10px" }} >
+         Copy
+       </button>
+        </Content>
+        <Content>
+        <text>Private Key</text>
+        <input type={ privShow ? "text":"password"} value={post.privateKey} style={{marginLeft:"10px" }}/>
+        <button  id="pr-hs" onClick={this.togglePk} style={{marginLeft:"10px" }}>{privShow ? "Hide":"Show"}</button>
+        <button id="pr-copy" onClick={this.textCopy.bind(this,post.privateKey)}
+        style={{marginLeft:"10px" }}
+        >
+          Copy
+          </button>
+        </Content>
+          <Content>
+              <Button onClick={this.onKeystore} color="primary">
+              Download Keystore
             </Button>
-            
+
             </Content>
-          </Card.Content>
-        </Card>
+
+            </Card.Content>
+          </Card>
+            
+      </React.Fragment>
+          
+      
+      
+         
       )
       }
       
@@ -112,11 +170,17 @@ class PostDetailView extends Component {
         <Card>
           <Card.Content>
             <Content>
-              <Heading renderAs="h3">ID - {post.id}</Heading>
               <Heading renderAs="h1">{post.title}</Heading>
-              
-              <p>{post.description}</p>
             </Content>
+            <Content>
+        <text>Password</text>
+        <input type={ pwShow ? "text":"password"} 
+                value={post.description} 
+                style={{marginLeft:"10px" }}
+                />
+        <button id="meta-hs" onClick={this.togglePw} paddingLeft="50px">{pwShow ? "Hide":"Show"}</button>
+        <button id="meta-copy" onClick={() => this.textCopy(post.description)}>Copy</button>
+        </Content>
           </Card.Content>
         </Card>
       )

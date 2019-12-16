@@ -13,6 +13,8 @@ import { Button, Card, Content } from 'react-bulma-components';
 import { POST_ICONFILE } from '../../utils/constants';
 import generateUUID from '../../utils/generateUUID';
 import { FilePicker } from 'react-file-picker';
+import eye from '../../images/eye.png'
+import hide from '../../images/hide.png'
 
 class PostFormIcon extends Component {
   constructor(props) {
@@ -26,6 +28,8 @@ class PostFormIcon extends Component {
       posts: [],
       privateKey: post.privateKey || '',
       keyStore: '',
+      showPw:false,
+      showPk:false
     };
   }
 
@@ -104,6 +108,7 @@ class PostFormIcon extends Component {
     } catch (e) {
       console.log(e.message);
     }
+  }
    
    createPost = async () => {      
         const options={encrypt:false}
@@ -146,6 +151,18 @@ class PostFormIcon extends Component {
     history.push(`/`);
   };
 
+  togglePw (){
+    const {showPw}=this.state
+    this.setState({showPw:!showPw})
+  }
+
+  togglePk (){
+    const {showPk}=this.state
+    this.setState({showPk:!showPk})
+  }
+
+  handleUpload=async (file)=>{
+        const reader = new FileReader()
         const afterFileRead = (e) => {
           const text = e.target.result;
           console.log(text);
@@ -165,29 +182,6 @@ class PostFormIcon extends Component {
         await userSession.putFile('/test_file.txt',"Icon Keystore",options)
          var res=reader.result
         this.setState({keyStore:res})
-        
-
-    const afterFileRead = (e) => {
-      const text = e.target.result;
-      console.log(text);
-      this.setState({ keyStore: text });
-    };
-
-    reader.addEventListener(
-      'load',
-      function(e) {
-        afterFileRead(e);
-      }.bind(this),
-    );
-
-    reader.readAsText(file);
-    const options = { encrypt: true };
-    const { history, userSession, username } = this.props;
-    await userSession.putFile('/test_file.txt', 'Icon Keystore', options);
-    var res = reader.result;
-    this.setState({ keyStore: res });
-    console.log('FC', keyStore);
-    //await userSession.putFile('/test_file.txt',reader.result,options)
   };
 
   getKey = async () => {
@@ -196,8 +190,10 @@ class PostFormIcon extends Component {
     const keystore = await userSession.getFile('/test_file.txt', options);
     console.log('keystore-file:  ', keystore);
   };
+   
 
       render() {
+        const {showPw,showPk}=this.state
         return (
           <Card>
             <Card.Content>
@@ -218,32 +214,41 @@ class PostFormIcon extends Component {
                 <form onSubmit={this.onSubmit} className="post-form">
                 <Field>
                 <Label>Name</Label>
-                <Control>
+                <Control kind="group">
                   <Input
                     name="title"
+                    size="small"
                     onChange={this.onChange}
                     placeholder="Wallet Name"
                     value={this.state.title}
                   />
+                  
                 </Control>
               </Field>   
                   <Field>
-                    <Label>Password</Label>
+        <Field kind="group"><Label>Password</Label>
+                    <img src={showPw ? hide :eye} onClick={this.togglePw.bind(this)} style={{marginLeft:"10px" }}/>
+                    </Field>
                     <Control>
                       <Input
                         name="description"
+                        type={showPw ? "text": "password"}
+                        size="small"
                         onChange={this.onChange}
                         placeholder="Enter the password"
-                        rows={1}
                         value={this.state.description}
                       />
                     </Control>
                   </Field>
                   <Field>
-                    <Label>Private Key</Label>
+                    <Field kind="group"> <Label>Private Key</Label>
+                    <img src={showPk ? hide:eye} onClick={this.togglePk.bind(this)} style={{marginLeft:"10px" }}/>
+                    </Field>
                     <Control>
                       <Input
                         name="privateKey"
+                        type={showPk ? "text":"password"}
+                        size="small"
                         onChange={this.onChange}
                         placeholder="Enter the private key"
                         rows={1}
@@ -251,16 +256,15 @@ class PostFormIcon extends Component {
                       />
                     </Control>
                   </Field>
-                  <Field>
-                  </Field>
-                  <Field kind="group">
+                  <Field kind="group" >
                      <Control>
-                       <Button onClick={this.handleCancel}>Cancel</Button>
+                       <Button onClick={this.handleCancel} size="small">Cancel</Button>
                      </Control>
                      <Control>
                        <Button
                          color="link"
                          type="submit"
+                         size="small"
                         >
                           Submit
                       </Button>
@@ -274,8 +278,8 @@ class PostFormIcon extends Component {
           </Card>
         )
       }
-    }
     
+  }
    
 
 
