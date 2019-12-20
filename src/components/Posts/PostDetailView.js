@@ -20,7 +20,8 @@ class PostDetailView extends Component {
       icon:false,
       keyStore:'',
       pwShow:false,
-      privShow:false
+      privShow:false,
+      
     }
   
     static propTypes = {
@@ -121,7 +122,7 @@ class PostDetailView extends Component {
       }
       if (icon){
               
-      return(  
+      return(
       <React.Fragment>
         <Card>
         <Card.Content>

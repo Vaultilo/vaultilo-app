@@ -15,6 +15,8 @@ import generateUUID from '../../utils/generateUUID';
 import { FilePicker } from 'react-file-picker';
 import eye from '../../images/eye.png'
 import hide from '../../images/hide.png'
+import toaster from 'toasted-notes';
+import 'toasted-notes/src/styles.css'
 
 class PostFormIcon extends Component {
   constructor(props) {
@@ -30,6 +32,7 @@ class PostFormIcon extends Component {
       keyStore: '',
       showPw:false,
       showPk:false
+      
     };
   }
 
@@ -144,6 +147,7 @@ class PostFormIcon extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { type } = this.props;
+    this.toastResult("Saving the details",3000)
     return type === 'edit' ? this.editPost() : this.createPost();
   };
   handleCancel = () => {
@@ -182,7 +186,19 @@ class PostFormIcon extends Component {
         await userSession.putFile('/test_file.txt',"Icon Keystore",options)
          var res=reader.result
         this.setState({keyStore:res})
+        this.toastResult("File Upload Successful",1500)
   };
+
+  toastResult(text,time){
+    const CustomNotification = ({ title }) => {
+      
+      return <Button style={{ color:"Blue" }}>{title}</Button>
+    }
+    
+    toaster.notify(() => <CustomNotification title={text} />,
+                          {position:'top',duration:time}
+            )
+  }
 
   getKey = async () => {
     const options = { decrypt: true };
