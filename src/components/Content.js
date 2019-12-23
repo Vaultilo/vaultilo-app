@@ -1,7 +1,7 @@
 import React from 'react';
 import TopBar from './TopBar.js';
 import { BrowserRouter } from 'react-router-dom';
-import AppRouter from '../AppRouter.js';
+import AppRouter from './AppRouter.js';
 
 export default function Content ({ person }) {
   const avatarUrl = person.avatarUrl() || 'https://s3.amazonaws.com/onename/avatar-placeholder.png';

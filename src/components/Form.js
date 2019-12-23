@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { useFile } from "react-blockstack";
 import { Link } from "react-router-dom";
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import MainContent from './components/MainContent';
-import Dashboard from './components/Dashboard';
-import Form from './components/Form';
+import MainContent from './MainContent';
+import Dashboard from './Dashboard';
+import Form from './Form';
 
 export default function AppRouter () {
   return (

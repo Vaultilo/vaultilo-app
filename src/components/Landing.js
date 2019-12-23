@@ -6,8 +6,8 @@ export default function Landing() {
   const { signIn } = useBlockstack();
   return (
     <>
-      <nav class="navbar fixed-top navbar-dark bg-dark text-light">
-        <a class="navbar-brand" href="/" href="#">
+      <nav className="navbar fixed-top navbar-dark bg-dark text-light">
+        <a className="navbar-brand" href="/">
           Home
         </a>
       </nav>
