@@ -1,0 +1,38 @@
+/* Globals */
+
+:root  {
+  /* https://projects.invisionapp.com/boards/HE2VVROFSGB27 */
+  --brand-background: #270F34;
+  --brand-lines: #4B3457;
+  /* Blockstack colors */
+  --brand-dark: #191d24;
+  --brand-mild: #C4D8E5;
+  --brand-greyish: #F1F6F9;
+  --brand-bright: #3700FF;
+  --brand-accent: #00D4FF;
+}
+
+html,body{background-color:#F4F4FC;}
+
+inspect {
+  border: thin solid red;
+}
+
+.navbar-dark {
+  background-color: var(--brand-dark) !important;
+}
+
+/* Avatar */
+
+.avatar{width:40px; height:40px; border-radius: 50%}
+
+/* Scaffolding */
+
+#App {
+  min-height: 100vh;
+}
+
+.panel-landing {
+  max-width: 50em;
+  margin: auto;
+}
