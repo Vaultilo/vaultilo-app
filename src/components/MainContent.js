@@ -1,15 +1,14 @@
-import React from "react";
-import Card from "react-bootstrap/Card";
-import { useFile } from "react-blockstack";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Card from 'react-bootstrap/Card';
+import { useFile } from 'react-blockstack';
+import { Link } from 'react-router-dom';
 
 export default function MainContent(props) {
-  const componentPath = props.match.path;
-  const {walletPath} = props;
+  const { walletPath } = props.match.params;
   const [credentials, setCredentials] = useFile(`${walletPath}.json`);
   const handleDelete = () => {
     setCredentials(null);
-  }
+  };
   return (
     <>
       <div className="row mt-3">
@@ -31,10 +30,10 @@ export default function MainContent(props) {
               {credentials === null ? (
                 <div>0 Wallets</div>
               ) : (
-                JSON.parse(credentials).map(credential => {
+                JSON.parse(credentials).map((credential) => {
                   return (
                     <Card
-                      style={{ width: "17rem" }}
+                      style={{ width: '17rem' }}
                       className="mr-2"
                       key={credential.walletAddress}
                     >
@@ -50,14 +49,16 @@ export default function MainContent(props) {
           </div>
           <div className="row mt-3">
             <div className="col-2 py-1">
-              <Link to={`${componentPath}/new`}>
+              <Link to={`${walletPath}/new`}>
                 <span className="p-2 border">
                   Create New <i className="fa fa-plus"></i>
                 </span>
               </Link>
             </div>
             <div className="col-2 py-1">
-              <button className="btn btn-link" onClick={handleDelete}>Delete All</button>
+              <button className="btn btn-link" onClick={handleDelete}>
+                Delete All
+              </button>
             </div>
           </div>
         </>

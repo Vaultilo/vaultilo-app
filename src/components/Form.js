@@ -1,19 +1,18 @@
-import React, { useRef } from "react";
-import { useFile } from "react-blockstack";
-import { Link } from "react-router-dom";
-
+import React, { useRef } from 'react';
+import { useFile } from 'react-blockstack';
+import { Link } from 'react-router-dom';
 
 export default function Form(props) {
-  const {walletPath} = props;
+  const { walletPath } = props.match.params;
   const [credentials, setCredentials] = useFile(`${walletPath}.json`);
-  const title = useRef("");
-  const address = useRef("");
+  const title = useRef('');
+  const address = useRef('');
 
   const handleClick = () => {
     if (title.current.value.length && address.current.value.length) {
       const newCred = {
         walletName: title.current.value,
-        walletAddress: address.current.value
+        walletAddress: address.current.value,
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
       setCredentials(JSON.stringify([...oldCred, newCred]));
@@ -30,7 +29,7 @@ export default function Form(props) {
             </span>
           </Link>
           <div className="mt-2 font-weight-bold text-uppercase">
-            {"Create New Credential"}
+            {'Create New Credential'}
           </div>
         </div>
       </div>
