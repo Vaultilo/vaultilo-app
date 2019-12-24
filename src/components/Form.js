@@ -1,23 +1,48 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useFile } from 'react-blockstack';
 import { Link } from 'react-router-dom';
 
 export default function Form(props) {
-  const { walletPath } = props.match.params;
+  const paramsState = props.location.state;
+  const { walletPath, wallet } = props.match.params;
   const [credentials, setCredentials] = useFile(`${walletPath}.json`);
-  const title = useRef('');
-  const address = useRef('');
+  const name = useRef(null);
+  const address = useRef(null);
+  const [clicked, setClicked] = useState(false);
+
+  useEffect(() => {
+    if (clicked) {
+      setClicked(false);
+      props.history.push(`/${walletPath}`);
+    }
+  }, [credentials]);
 
   const handleClick = () => {
-    if (title.current.value.length && address.current.value.length) {
+    if (name.current.value.length && address.current.value.length) {
       const newCred = {
-        walletName: title.current.value,
+        id: Date.now(),
+        walletName: name.current.value,
         walletAddress: address.current.value,
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
+      setClicked(true);
       setCredentials(JSON.stringify([...oldCred, newCred]));
     }
   };
+
+  const handleUpdate = () => {
+    if (name.current.value.length && address.current.value.length) {
+      const updatedCreds = JSON.parse(credentials).map(cred => {
+        if(cred.id === paramsState.id) {
+          cred.walletName = name.current.value;
+          cred.walletAddress = address.current.value;
+        }
+        return cred;
+      });
+      setClicked(true);
+      setCredentials(JSON.stringify(updatedCreds));
+    }
+  }
 
   return (
     <>
@@ -29,7 +54,7 @@ export default function Form(props) {
             </span>
           </Link>
           <div className="mt-2 font-weight-bold text-uppercase">
-            {'Create New Credential'}
+            {wallet === 'new' ? 'Create New Credential' : 'Update your Credential'}
           </div>
         </div>
       </div>
@@ -42,9 +67,10 @@ export default function Form(props) {
             <div className="col-4">
               <input
                 type="text"
-                ref={title}
+                ref={name}
                 className="form-control"
                 id="inputName"
+                defaultValue={paramsState ? paramsState.walletName : ''}
               />
             </div>
           </div>
@@ -58,19 +84,30 @@ export default function Form(props) {
                 className="form-control"
                 id="inputAddress"
                 ref={address}
+                defaultValue={paramsState ? paramsState.walletAddress : ''}
               />
             </div>
           </div>
           <div className="form-group row">
             <div className="col-sm-10">
+              { wallet === 'new' ? (
               <button
-                disabled={credentials === undefined}
+                disabled={clicked}
                 type="button"
                 className="btn btn-primary"
                 onClick={handleClick}
               >
                 Save
+              </button> ) : (
+              <button
+                disabled={clicked}
+                type="button"
+                className="btn btn-primary"
+                onClick={handleUpdate}
+              >
+                Update
               </button>
+              )}
             </div>
           </div>
         </form>

@@ -36,3 +36,8 @@ inspect {
   max-width: 50em;
   margin: auto;
 }
+
+.wallet-box a {
+  color: #2f2f2f;
+  text-decoration: none;
+}

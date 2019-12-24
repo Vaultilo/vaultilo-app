@@ -1,7 +1,7 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
-import { useFile } from 'react-blockstack';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Card from "react-bootstrap/Card";
+import { useFile } from "react-blockstack";
+import { Link } from "react-router-dom";
 
 export default function MainContent(props) {
   const { walletPath } = props.match.params;
@@ -30,18 +30,22 @@ export default function MainContent(props) {
               {credentials === null ? (
                 <div>0 Wallets</div>
               ) : (
-                JSON.parse(credentials).map((credential) => {
+                JSON.parse(credentials).map(credential => {
+                  const { walletName, walletAddress, id } = credential;
                   return (
-                    <Card
-                      style={{ width: '17rem' }}
-                      className="mr-2"
-                      key={credential.walletAddress}
-                    >
-                      <Card.Body>
-                        <Card.Title>{credential.walletName}</Card.Title>
-                        <Card.Text>{credential.walletAddress}</Card.Text>
-                      </Card.Body>
-                    </Card>
+                    <div className="wallet-box" key={walletAddress}>
+                      <Link to={{ pathname: `${walletPath}/${walletName}`, state: credential }}>
+                        <Card
+                          style={{ width: "17rem" }}
+                          className="mr-2"
+                        >
+                          <Card.Body>
+                            <Card.Title>{walletName}</Card.Title>
+                            <Card.Text>{walletAddress}</Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    </div>
                   );
                 })
               )}
@@ -49,7 +53,7 @@ export default function MainContent(props) {
           </div>
           <div className="row mt-3">
             <div className="col-2 py-1">
-              <Link to={`${walletPath}/new`}>
+              <Link to={{ pathname: `${walletPath}/new`, state: {} }}>
                 <span className="p-2 border">
                   Create New <i className="fa fa-plus"></i>
                 </span>
