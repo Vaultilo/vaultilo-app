@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
+import {Button, Card, Modal} from "react-bootstrap";
+import Form from './Forms/index.js';
 
 export default function MainContent(props) {
   const contentType = props.match.params.type;
+  const [modalShow, setModalShow] = useState(false);
   const {credentials, setCredentials} = props;
+  const handleModalClose = () => {
+    setModalShow(false);
+  }
   return (
     <>
       <div className="row mt-3">
@@ -15,7 +19,6 @@ export default function MainContent(props) {
       {
         <>
           <div className="row mt-3">
-            <div className="d-flex col-12">
               {credentials === null ? (
                 <div>0 Wallets</div>
               ) : (
@@ -23,33 +26,43 @@ export default function MainContent(props) {
                   const { walletName, walletAddress, id } = credential;
                   if( contentType === 'all' || contentType === credential.type)
                   return (
-                    <div className="wallet-box" key={id}>
-                      <Link to={{ pathname: 'crypto/update', state: credential }}>
-                        <Card
-                          style={{ width: "17rem" }}
-                          className="mr-2"
-                        >
+                    <div className="col-3 wallet-box mb-3" key={id}>
+                        <Card>
                           <Card.Body>
                             <Card.Title>{walletName}</Card.Title>
                             <Card.Text>{walletAddress}</Card.Text>
                           </Card.Body>
                         </Card>
-                      </Link>
                     </div>
                   );
                 })
               )}
             </div>
-          </div>
           <div className="row mt-3">
             <div className="col-4 col-md-4 py-1">
-              <Link to={{ pathname: '/crypto/new', state: {} }}>
-                <span className="p-2 border">
-                  Create New <i className="fa fa-plus"></i>
-                </span>
-              </Link>
+              <Button variant="primary" onClick={() => setModalShow(true)}>
+                Add
+              </Button>
             </div>
           </div>
+          <Modal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                Add Credential
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form credentials={credentials} type={contentType} setCredentials={setCredentials} onModalClose={handleModalClose} />
+            </Modal.Body>
+            {/* <Modal.Footer>
+              <Button onClick={() => setModalShow(false)}>Close</Button>
+            </Modal.Footer> */}
+          </Modal>
         </>
       }
     </>
