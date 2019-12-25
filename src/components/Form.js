@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 
 export default function Form(props) {
   const paramsState = props.location.state;
-  const { walletPath, wallet } = props.match.params;
-  const [credentials, setCredentials] = useFile(`${walletPath}.json`);
+  const { wallet } = props.match.params;
+  const [credentials, setCredentials] = useFile('crypto.json');
   const name = useRef(null);
   const address = useRef(null);
+  const walletType = useRef(null);
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     if (clicked) {
       setClicked(false);
-      props.history.push(`/${walletPath}`);
+      //props.history.push(`/${walletPath}`);
     }
   }, [credentials]);
 
@@ -23,6 +24,7 @@ export default function Form(props) {
         id: Date.now(),
         walletName: name.current.value,
         walletAddress: address.current.value,
+        type: walletType.current.value
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
       setClicked(true);
@@ -48,11 +50,6 @@ export default function Form(props) {
     <>
       <div className="row my-3">
         <div className="col-12 py-1">
-          <Link to={`/${walletPath}`}>
-            <span className="py-2">
-              <i className="fa fa-arrow-left"></i> Back
-            </span>
-          </Link>
           <div className="mt-2 font-weight-bold text-uppercase">
             {wallet === 'new' ? 'Create New Credential' : 'Update your Credential'}
           </div>
@@ -60,6 +57,20 @@ export default function Form(props) {
       </div>
       <div className="row">
         <form className="col-12">
+          <div className="form-group row">
+            <label htmlFor="walletType" className="col-sm-2 col-form-label">
+              Wallet type
+            </label>
+            <div className="col-4">
+              <input
+                type="text"
+                className="form-control"
+                id="walletType"
+                ref={walletType}
+                defaultValue={''}
+              />
+            </div>
+          </div>
           <div className="form-group row">
             <label htmlFor="inputName" className="col-sm-2 col-form-label">
               Wallet Name

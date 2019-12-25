@@ -1,29 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
-import { useFile } from "react-blockstack";
 import { Link } from "react-router-dom";
 
 export default function MainContent(props) {
-  const { walletPath } = props.match.params;
-  const [credentials, setCredentials] = useFile(`${walletPath}.json`);
-  const handleDelete = () => {
-    setCredentials(null);
-  };
+  const contentType = props.match.params.type;
+  const {credentials, setCredentials} = props;
   return (
     <>
       <div className="row mt-3">
         <div className="col-12 py-1">
-          <Link to="/">
-            <span className="py-2">
-              <i className="fa fa-arrow-left"></i> Back
-            </span>
-          </Link>
-          <div className="mt-3 font-weight-bold text-uppercase">{`${walletPath} Wallets`}</div>
+          <div className="mt-3 font-weight-bold text-uppercase">{'Crypto Wallets'}</div>
         </div>
       </div>
-      {credentials === undefined ? (
-        <div className="mt-3">Loading..</div>
-      ) : (
+      {
         <>
           <div className="row mt-3">
             <div className="d-flex col-12">
@@ -32,9 +21,10 @@ export default function MainContent(props) {
               ) : (
                 JSON.parse(credentials).map(credential => {
                   const { walletName, walletAddress, id } = credential;
+                  if( contentType === 'all' || contentType === credential.type)
                   return (
-                    <div className="wallet-box" key={walletAddress}>
-                      <Link to={{ pathname: `${walletPath}/${walletName}`, state: credential }}>
+                    <div className="wallet-box" key={id}>
+                      <Link to={{ pathname: 'crypto/update', state: credential }}>
                         <Card
                           style={{ width: "17rem" }}
                           className="mr-2"
@@ -52,21 +42,16 @@ export default function MainContent(props) {
             </div>
           </div>
           <div className="row mt-3">
-            <div className="col-2 py-1">
-              <Link to={{ pathname: `${walletPath}/new`, state: {} }}>
+            <div className="col-4 col-md-4 py-1">
+              <Link to={{ pathname: '/crypto/new', state: {} }}>
                 <span className="p-2 border">
                   Create New <i className="fa fa-plus"></i>
                 </span>
               </Link>
             </div>
-            <div className="col-2 py-1">
-              <button className="btn btn-link" onClick={handleDelete}>
-                Delete All
-              </button>
-            </div>
           </div>
         </>
-      )}
+      }
     </>
   );
 }
