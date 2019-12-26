@@ -4,6 +4,7 @@ export default function Ethereum(props) {
   const { credentials, setCredentials, type, onModalClose } = props;
   const name = useRef(null);
   const address = useRef(null);
+  const privateKey=useRef(null)
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export default function Ethereum(props) {
         type: type,
         walletName: name.current.value,
         walletAddress: address.current.value,
+        walletPrivateKey:privateKey.current.value
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
       setClicked(true);
@@ -52,6 +54,19 @@ export default function Ethereum(props) {
             className="form-control"
             id="inputAddress"
             ref={address}
+          />
+        </div>
+      </div>
+      <div className="form-group row">
+        <label htmlFor="inputPrivateKey" className="col-4 col-form-label">
+          Private Key
+        </label>
+        <div className="col-8">
+          <input
+            type="text"
+            className="form-control"
+            id="inputPrivateKey"
+            ref={privateKey}
           />
         </div>
       </div>

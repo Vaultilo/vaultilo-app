@@ -9,6 +9,6 @@ export default function App() {
     <>
       {signIn && <Landing />}
       {person && <Content person={person} />}
-    </>
+    </> 
   );
 }

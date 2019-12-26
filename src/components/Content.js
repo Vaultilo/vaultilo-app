@@ -19,6 +19,6 @@ export default function Content ({ person }) {
           <AppRouter credentials={credentials} setCredentials={setCredentials} />
         </div>
       </div>      
-    </main>
+    </main> 
   )
 }

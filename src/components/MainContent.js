@@ -9,7 +9,7 @@ export default function MainContent(props) {
   const handleModalClose = () => {
     setModalShow(false);
   }
-  return (
+  return ( 
     <>
       <div className="row mt-3">
         <div className="col-12 py-1">
@@ -45,7 +45,7 @@ export default function MainContent(props) {
               </Button>
             </div>
           </div>
-          <Modal
+          <Modal 
             show={modalShow}
             onHide={() => setModalShow(false)}
             size="md"

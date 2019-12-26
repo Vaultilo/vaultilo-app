@@ -1,17 +1,18 @@
 import React, { useRef, useEffect, useState } from "react";
 
-export default function Icon(props) {
+export default function OtherWallets(props) {
   const { credentials, setCredentials, type, onModalClose } = props;
   const name = useRef(null);
   const address = useRef(null);
   const privateKey=useRef(null);
+  const platform=useRef(null);
   const password=useRef(null);
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     if (clicked) {
       setClicked(false);
-      onModalClose(false);
+      onModalClose();
     }
   }, [credentials]);
 
@@ -20,8 +21,11 @@ export default function Icon(props) {
       const newCred = {
         id: Date.now(),
         type: type,
+        walletPlatform:platform.current.value,
         walletName: name.current.value,
-        walletAddress: address.current.value
+        walletAddress: address.current.value,
+        walletPrivateKey:privateKey.current.value,
+        walletPassword:password.current.value
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
       setClicked(true);
@@ -32,8 +36,21 @@ export default function Icon(props) {
   return (
     <>
       <div className="form-group row">
+        <label htmlFor="inputPlatform" className="col-4 col-form-label">
+           Wallet Platform
+        </label>
+        <div className="col-8">
+          <input
+            type="text"
+            ref={platform}
+            className="form-control"
+            id="inputPlatform"
+          />
+        </div>
+      </div>
+      <div className="form-group row">
         <label htmlFor="inputName" className="col-4 col-form-label">
-          Icon Wallet Name
+           Wallet Name
         </label>
         <div className="col-8">
           <input
@@ -72,7 +89,7 @@ export default function Icon(props) {
       </div>
       <div className="form-group row">
         <label htmlFor="inputPassword" className="col-4 col-form-label">
-          Password
+          Password 
         </label>
         <div className="col-8">
           <input
@@ -83,17 +100,7 @@ export default function Icon(props) {
           />
         </div>
       </div>
-      <div className="d-flex justify-content-start">
-      <button
-          type="button"
-          className="btn btn-secondary mr-2"
-          size="small"
-        >
-          Upload Keystore
-        </button>
-      </div>
       <div className="d-flex justify-content-end">
-        
         <button
           disabled={clicked}
           type="button"

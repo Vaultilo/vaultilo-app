@@ -16,7 +16,7 @@ export default function Sidebar(props) {
   return (
     <div className="sidenav">
       <Link className={`dropdown-btn ${activeNav === 'crypto' ? 'active': ''}`} to="/crypto/all" onClick={() => handleNavClick('crypto')}>
-        CryptoCurrencies
+        Crypto Wallets
       </Link>
       <div className="dropdown-container">
         {[...new Set(credentials.map(cred => cred.type))].map(type => {
@@ -25,7 +25,8 @@ export default function Sidebar(props) {
           )
         })}
       </div>
-      <Link className={`dropdown-btn ${activeNav === 'notes' ? 'active': ''}`} to="/notes" onClick={() => handleNavClick('Notes')}>notes</Link>
+      <Link className={`dropdown-btn ${activeNav === 'passwords' ? 'active': ''}`} to="/passwords" onClick={() => handleNavClick('LoginCredentials')}>Login Credentials</Link>
+      <Link className={`dropdown-btn ${activeNav === 'notes' ? 'active': ''}`} to="/notes" onClick={() => handleNavClick('Notes')}>Notes</Link>
     </div>
   );
 }

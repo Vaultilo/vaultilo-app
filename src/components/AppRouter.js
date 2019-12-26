@@ -7,6 +7,8 @@ export default function AppRouter(props) {
   return (
     <Switch>
       <Route path="/crypto/:type" render={(props) => <MainContent {...props} credentials={credentials} setCredentials={setCredentials} />} />
+      <Route path="/passwords" render={(props) => <MainContent {...props} credentials={credentials} setCredentials={setCredentials}/>}/>
+      <Route path="/notes" render={(props) => <MainContent {...props} credentials={credentials} setCredentials={setCredentials}/>}/>
     </Switch>
-  );
+  ); 
 }
