@@ -1,15 +1,12 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import MainContent from "./MainContent";
-import Dashboard from "./Dashboard";
-import Form from "./Form";
 
-export default function AppRouter() {
+export default function AppRouter(props) {
+  const { credentials, setCredentials } = props;
   return (
     <Switch>
-      <Route exact path="/" component={Dashboard} />
-      <Route exact path="/:walletPath" component={MainContent} />
-      <Route path="/:walletPath/:wallet" component={Form} />
+      <Route path="/crypto/:type" render={(props) => <MainContent {...props} credentials={credentials} setCredentials={setCredentials} />} />
     </Switch>
   );
 }
