@@ -3,34 +3,56 @@ import {Button, Card, Modal} from "react-bootstrap";
 import Form from './Forms/index.js';
 
 export default function MainContent(props) {
-  const contentType = props.match.params.type;
+  const {subType, type} = props.match.params;
   const [modalShow, setModalShow] = useState(false);
-  const {credentials, setCredentials} = props;
+
   const handleModalClose = () => {
     setModalShow(false);
+  }
+
+  const getItems = () => {
+    const credentials = props.credentials || '[]';
+    const passwords = props.passwords || '[]';
+    const notes = props.notes || '[]';
+
+    let items;
+    switch (type) {
+      case 'crypto':
+        items = JSON.parse(credentials).filter(credential => subType === 'all' || credential.subType === subType);
+        break;
+      case 'passwords':
+        items = JSON.parse(passwords);
+        break;
+      case 'notes':
+        items = JSON.parse(notes);
+        break;
+      case 'items':
+        items = [...JSON.parse(credentials), ...JSON.parse(passwords), ...JSON.parse(notes)];
+    }
+    return items;
   }
   return ( 
     <>
       <div className="row mt-3">
         <div className="col-12 py-1">
-          <div className="mt-3 font-weight-bold text-uppercase">{'Crypto Wallets'}</div>
+          <div className="mt-3 font-weight-bold text-uppercase">{'Items'}</div>
         </div>
       </div>
       {
         <>
           <div className="row mt-3">
-              {credentials === null ? (
-                <div>0 Wallets</div>
+              {getItems().length === 0 ? (
+                <div>0 Items</div>
               ) : (
-                JSON.parse(credentials).map(credential => {
-                  const { walletName, walletAddress, id } = credential;
-                  if( contentType === 'all' || contentType === credential.type)
+                getItems().map(credential => {
+                  const {walletAddress, walletName, type, id} = credential;
                   return (
                     <div className="col-3 wallet-box mb-3" key={id}>
                         <Card>
                           <Card.Body>
                             <Card.Title>{walletName}</Card.Title>
                             <Card.Text>{walletAddress}</Card.Text>
+                            <Card.Text>{type}</Card.Text>
                           </Card.Body>
                         </Card>
                     </div>
@@ -45,7 +67,7 @@ export default function MainContent(props) {
               </Button>
             </div>
           </div>
-          <Modal 
+          <Modal
             show={modalShow}
             onHide={() => setModalShow(false)}
             size="md"
@@ -57,11 +79,8 @@ export default function MainContent(props) {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form credentials={credentials} type={contentType} setCredentials={setCredentials} onModalClose={handleModalClose} />
+              <Form {...props} onModalClose={handleModalClose} type={subType} />
             </Modal.Body>
-            {/* <Modal.Footer>
-              <Button onClick={() => setModalShow(false)}>Close</Button>
-            </Modal.Footer> */}
           </Modal>
         </>
       }

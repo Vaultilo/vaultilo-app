@@ -3,12 +3,9 @@ import { Switch, Route } from "react-router-dom";
 import MainContent from "./MainContent";
 
 export default function AppRouter(props) {
-  const { credentials, setCredentials } = props;
   return (
     <Switch>
-      <Route path="/crypto/:type" render={(props) => <MainContent {...props} credentials={credentials} setCredentials={setCredentials} />} />
-      <Route path="/passwords" render={(props) => <MainContent {...props} credentials={credentials} setCredentials={setCredentials}/>}/>
-      <Route path="/notes" render={(props) => <MainContent {...props} credentials={credentials} setCredentials={setCredentials}/>}/>
+      <Route path="/:type/:subType" render={(routeProps) => <MainContent {...routeProps} {...props} />} />
     </Switch>
   ); 
 }
