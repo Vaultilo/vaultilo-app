@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Button, Card, Modal} from "react-bootstrap";
-import Form from './Forms/index.js';
+import FormOptions from './FormOptions.js';
 
 export default function MainContent(props) {
   const {subType, type} = props.match.params;
@@ -48,13 +48,13 @@ export default function MainContent(props) {
                   const {walletAddress, walletName, type, id} = credential;
                   return (
                     <div className="col-3 wallet-box mb-3" key={id}>
-                        <Card>
-                          <Card.Body>
-                            <Card.Title>{walletName}</Card.Title>
-                            <Card.Text>{walletAddress}</Card.Text>
-                            <Card.Text>{type}</Card.Text>
-                          </Card.Body>
-                        </Card>
+                      <Card>
+                        <Card.Body>
+                          <Card.Title>{walletName}</Card.Title>
+                          <Card.Text>{walletAddress}</Card.Text>
+                          <Card.Text>{type}</Card.Text>
+                        </Card.Body>
+                      </Card>
                     </div>
                   );
                 })
@@ -70,16 +70,16 @@ export default function MainContent(props) {
           <Modal
             show={modalShow}
             onHide={() => setModalShow(false)}
-            size="md"
+            size="lg"
             aria-labelledby="contained-modal-title-vcenter"
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-                Add Credential
+                { type === 'items' ? 'Choose A Type' : 'Add A Credential'}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form {...props} onModalClose={handleModalClose} type={subType} />
+              <FormOptions {...props} itemsList={getItems()} onModalClose={handleModalClose} type={type} />
             </Modal.Body>
           </Modal>
         </>

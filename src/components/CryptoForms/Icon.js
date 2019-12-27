@@ -19,9 +19,12 @@ export default function Icon(props) {
     if (name.current.value.length && address.current.value.length) {
       const newCred = {
         id: Date.now(),
-        type: type,
+        type: 'crypto',
+        subType: type,
         walletName: name.current.value,
-        walletAddress: address.current.value
+        walletAddress: address.current.value,
+        privateKey: privateKey.current.value,
+        password: password.current.value,
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
       setClicked(true);

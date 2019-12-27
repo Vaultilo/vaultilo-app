@@ -37,6 +37,10 @@ inspect {
   margin: auto;
 }
 
+.wallet-box .card{
+  cursor: pointer;
+}
+
 .wallet-box a {
   color: #2f2f2f;
   text-decoration: none;
