@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 
 export default function Icon(props) {
-  const { credentials, setCredentials, type, onModalClose } = props;
+  const { credentials, setCredentials, subType, onModalClose } = props;
   const name = useRef(null);
   const address = useRef(null);
   const privateKey=useRef(null);
@@ -20,7 +20,7 @@ export default function Icon(props) {
       const newCred = {
         id: Date.now(),
         type: 'crypto',
-        subType: type,
+        subType: subType,
         walletName: name.current.value,
         walletAddress: address.current.value,
         privateKey: privateKey.current.value,
@@ -96,7 +96,6 @@ export default function Icon(props) {
         </button>
       </div>
       <div className="d-flex justify-content-end">
-        
         <button
           disabled={clicked}
           type="button"

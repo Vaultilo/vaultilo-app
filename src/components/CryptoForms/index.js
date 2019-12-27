@@ -5,13 +5,13 @@ import Ethereum from './Ethereum.js';
 import OtherWallets from './OtherWallets.js'
 
 export default function Form(props) {
-  const {type} = props;
+  const {subType} = props;
   const options = [
     { value: "icon", label: "Icon" },
     { value: "ethereum", label: "Ethereum" },
     { value: "other"  , label:"Other Wallets"}
   ];
-  const defaultOption = options.find(option => option.value === type);
+  const defaultOption = options.find(option => option.value === subType);
   const [selectedOption, setSelectedOption] = useState(defaultOption || null);
   const handleSelectChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -20,14 +20,13 @@ export default function Form(props) {
     let formComponent;
     switch (selectedOption.value) {
       case 'icon':
-        formComponent = <Icon {...props} type={selectedOption.value} />;
+        formComponent = <Icon {...props} subType={selectedOption.value} />;
         break;
       case 'ethereum':
-        formComponent = <Ethereum {...props} type={selectedOption.value}/>;
+        formComponent = <Ethereum {...props} subType={selectedOption.value}/>;
         break;
       case 'other':
-        console.log("Other selected")
-        formComponent = <OtherWallets {...props} type ={selectedOption.value}/>;
+        formComponent = <OtherWallets {...props} subType ={selectedOption.value}/>;
         break;
       default:
         formComponent = null;

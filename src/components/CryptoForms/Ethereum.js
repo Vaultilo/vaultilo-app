@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 
 export default function Ethereum(props) {
-  const { credentials, setCredentials, type, onModalClose } = props;
+  const { credentials, setCredentials, subType, onModalClose } = props;
   const name = useRef(null);
   const address = useRef(null);
   const privateKey=useRef(null)
@@ -18,7 +18,8 @@ export default function Ethereum(props) {
     if (name.current.value.length && address.current.value.length) {
       const newCred = {
         id: Date.now(),
-        type: type,
+        type: 'crypto',
+        subType: subType,
         walletName: name.current.value,
         walletAddress: address.current.value,
         walletPrivateKey:privateKey.current.value
