@@ -5,15 +5,20 @@ import FormOptions from './FormOptions.js';
 export default function MainContent(props) {
   const {subType, type} = props.match.params;
   const [modalShow, setModalShow] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleModalClose = () => {
     setModalShow(false);
   }
 
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setModalShow(true);
+  }
   const renderCryptoItem = (credential) => {
     const {walletAddress, walletName, type, id} = credential;
     return (
-      <div className="col-3 wallet-box mb-3" key={id}>
+      <div className="col-3 wallet-box mb-3" key={id} onClick={() => handleItemClick(credential)}>
         <Card>
           <Card.Body>
             <Card.Title>{walletName}</Card.Title>
@@ -28,7 +33,7 @@ export default function MainContent(props) {
   const renderPasswordItem = (item) => {
     const {domainName, type, id} = item;
     return (
-      <div className="col-3 wallet-box mb-3" key={id}>
+      <div className="col-3 wallet-box mb-3" key={id} onClick={() => setSelectedItem(item)}>
         <Card>
           <Card.Body>
             <Card.Title>{domainName}</Card.Title>
@@ -42,7 +47,7 @@ export default function MainContent(props) {
   const renderNotesItem = (item) => {
     const {note, id, type} = item;
     return (
-      <div className="col-3 wallet-box mb-3" key={id}>
+      <div className="col-3 wallet-box mb-3" key={id} onClick={() => setSelectedItem(item)}>
         <Card>
           <Card.Body>
             <Card.Text>{note}</Card.Text>
@@ -95,7 +100,7 @@ export default function MainContent(props) {
         <>
           <div className="row mt-3">
               {getItems().length === 0 ? (
-                <div>0 Items</div>
+                <div className="px-2">0 Items</div>
               ) : getItems()}
             </div>
           <div className="row mt-3">
@@ -117,7 +122,7 @@ export default function MainContent(props) {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <FormOptions {...props} itemsList={getItems()} onModalClose={handleModalClose} type={type} />
+              <FormOptions {...props} itemsList={getItems()} onModalClose={handleModalClose} type={type} selectedItem={selectedItem} />
             </Modal.Body>
           </Modal>
         </>
