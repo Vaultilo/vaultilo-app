@@ -1,5 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
-import { handleInputChange } from "react-select/src/utils";
+import React, { useEffect, useState } from "react";
 
 export default function Icon(props) {
   const {

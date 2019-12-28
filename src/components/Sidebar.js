@@ -15,7 +15,7 @@ export default function Sidebar(props) {
   }
   return (
     <div className="sidenav">
-      <Link className={`dropdown-btn ${activeNav === 'items' ? 'active': ''}`} to="/items/all" onClick={() => handleNavClick('all')}>
+      <Link className={`dropdown-btn ${activeNav === 'items' ? 'active': ''}`} to="/items/all" onClick={() => handleNavClick('items')}>
         All Items
       </Link>
       <br />

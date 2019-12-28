@@ -11,10 +11,16 @@ export default function MainContent(props) {
     setModalShow(false);
   }
 
+  const handleAddFormClick = () => {
+    setSelectedItem(null);
+    setModalShow(true);
+  }
+
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setModalShow(true);
   }
+
   const renderCryptoItem = (credential) => {
     const {walletAddress, walletName, type, id} = credential;
     return (
@@ -105,7 +111,7 @@ export default function MainContent(props) {
             </div>
           <div className="row mt-3">
             <div className="col-4 col-md-4 py-1">
-              <Button variant="primary" onClick={() => setModalShow(true)}>
+              <Button variant="primary" onClick={handleAddFormClick}>
                 Add
               </Button>
             </div>
@@ -122,7 +128,7 @@ export default function MainContent(props) {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <FormOptions {...props} itemsList={getItems()} onModalClose={handleModalClose} type={type} selectedItem={selectedItem} />
+              <FormOptions {...props} itemsList={getItems()} onModalClose={handleModalClose} type={type} selectedItem={selectedItem} subType={subType} />
             </Modal.Body>
           </Modal>
         </>

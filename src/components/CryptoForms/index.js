@@ -5,7 +5,8 @@ import Ethereum from './Ethereum.js';
 import OtherWallets from './OtherWallets.js'
 
 export default function Form(props) {
-  const {subType} = props;
+  const {selectedItem} = props;
+  const subType = selectedItem ? selectedItem.subType : props.subType;
   const options = [
     { value: "icon", label: "Icon" },
     { value: "ethereum", label: "Ethereum" },

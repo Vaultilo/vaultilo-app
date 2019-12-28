@@ -11,8 +11,8 @@ const ITEM_TYPES = [
 ];
 
 export default function FormOptions(props) {
-  const { type } = props;
-  const [modalType, setModalType] = useState(type);
+  const { type, selectedItem } = props;
+  const [modalType, setModalType] = useState(selectedItem ? selectedItem.type : type);
 
   const renderFormOptions = () => {
     return ITEM_TYPES.map(type => {
@@ -47,20 +47,20 @@ export default function FormOptions(props) {
 
   return (
     <>
+      {modalType !== "items" && selectedItem === null ? (
+        <div className="row">
+          <button
+            className="btn btn-link"
+            onClick={() => setModalType("items")}
+          >
+            <i className="fa fa-arrow-left"></i> All Items
+          </button>
+        </div>
+      ) : null}
       {modalType === "items" ? (
         <div className="row">{renderFormOptions()}</div>
       ) : (
-        <>
-          <div className="row">
-            <button
-              className="btn btn-link"
-              onClick={() => setModalType("items")}
-            >
-              <i className="fa fa-arrow-left"></i> All Items
-            </button>
-          </div>
-          {renderForm()}
-        </>
+        renderForm()
       )}
     </>
   );
