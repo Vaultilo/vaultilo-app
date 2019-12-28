@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select"; 
 import Icon from './Icon.js';
 import Ethereum from './Ethereum.js';
