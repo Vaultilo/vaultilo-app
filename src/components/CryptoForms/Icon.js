@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FilePicker } from "react-file-picker";
 
 export default function Icon(props) {
   const {
@@ -8,7 +9,7 @@ export default function Icon(props) {
     onModalClose,
     selectedItem
   } = props;
-
+  
   const defaultValue = selectedItem
     ? {
         walletName: selectedItem.walletName,
@@ -24,11 +25,13 @@ export default function Icon(props) {
       };
 
   const [walletName, setWalletName] = useState(defaultValue.walletName);
-  const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
+  const [walletAddress, setWalletAddress] = useState(
+    defaultValue.walletAddress
+  );
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [password, setPassword] = useState(defaultValue.password);
   const [clicked, setClicked] = useState(false);
-
+  const [keyStore, setKeystore] = useState("");
 
   useEffect(() => {
     if (clicked) {
@@ -55,7 +58,8 @@ export default function Icon(props) {
         walletName,
         walletAddress,
         privateKey,
-        password
+        password,
+        keyStore
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
       setClicked(true);
@@ -76,6 +80,31 @@ export default function Icon(props) {
     }
   };
 
+  const handleDownload = () => {
+    const keyStore = selectedItem.keyStore;
+    var a = document.createElement("a");
+    var blob = new Blob([keyStore], { type: "application/json" });
+    a.href = window.URL.createObjectURL(blob);
+    a.download = "keystore.json";
+    a.click();
+  };
+
+  const handleUpload = file => {
+    const reader = new FileReader();
+    const afterFileRead = e => {
+      const text = e.target.result;
+      setKeystore(text);
+    };
+
+    reader.addEventListener(
+      "load",
+      function(e) {
+        afterFileRead(e);
+      }.bind(this)
+    );
+
+    reader.readAsText(file);
+  };
   return (
     <>
       <div className="form-group row">
@@ -135,9 +164,24 @@ export default function Icon(props) {
         </div>
       </div>
       <div className="d-flex justify-content-start">
-        <button type="button" className="btn btn-secondary mr-2" size="small">
-          Upload Keystore
-        </button>
+        {!selectedItem ? (
+          <FilePicker
+            onChange={FileObject => handleUpload(FileObject)}
+            onError={errMsg => console.log(errMsg)}
+          >
+            <button
+              type="button"
+              className="btn btn-secondary mr-2"
+              size="small"
+            >
+              Upload Keystore
+            </button>
+          </FilePicker>
+        ) : (
+          <button type="button" className="btn btn-secondary mr-2" size="small" onClick={handleDownload}>
+            Download
+          </button>
+        )}
       </div>
       <div className="d-flex justify-content-end">
         {selectedItem ? (
