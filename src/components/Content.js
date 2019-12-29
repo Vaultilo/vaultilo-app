@@ -13,7 +13,7 @@ export default function Content ({ person }) {
   return credentials === undefined || passwords === undefined || notes === undefined ? (<div>Loading..</div>):(
     <main className="container-fluid">
       <div className="row vh-100">
-        <div className="col-12 col-md-3 col-xl-2 h-100 border px-0">
+        <div className="col-12 col-md-3 col-xl-2 border px-0">
           <SideBar credentials={credentials} />
         </div>
         <div className="col-12 col-md-9 col-xl-10 border border-left-0">
