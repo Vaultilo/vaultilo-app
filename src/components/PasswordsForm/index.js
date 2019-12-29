@@ -1,9 +1,21 @@
 import React, { useRef, useEffect, useState } from "react";
 
 export default function PasswordsForm(props) {
-  const { passwords, setPasswords, onModalClose } = props;
-  const domainName = useRef(null);
-  const password = useRef(null);
+  const { passwords, setPasswords, onModalClose, selectedItem } = props;
+
+  const defaultValue = selectedItem
+    ? {
+        domainName: selectedItem.domainName,
+        password: selectedItem.password
+      }
+    : {
+        domainName: "",
+        password: ""
+      };
+
+  const [domainName, setDomainName] = useState(defaultValue.domainName);
+  const [password, setPassword] = useState(defaultValue.password);
+
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
@@ -13,18 +25,35 @@ export default function PasswordsForm(props) {
     }
   }, [passwords]);
 
+  const validateForm = () => {
+    return domainName.length && password.length;
+  };
+
   const handleClick = () => {
-    if (domainName.current.value.length && password.current.value.length) {
+    if (validateForm()) {
       const newCred = {
         id: Date.now(),
-        type: 'passwords',
-        subType: '',
-        domainName: domainName.current.value,
-        password: password.current.value,
+        type: "passwords",
+        subType: "",
+        domainName,
+        password
       };
       const oldCred = passwords ? JSON.parse(passwords) : [];
       setClicked(true);
       setPasswords(JSON.stringify([...oldCred, newCred]));
+    }
+  };
+
+  const handleUpdate = () => {
+    if (validateForm()) {
+      const updatedPasswords = JSON.parse(passwords).map(item => {
+        if (item.id === selectedItem.id) {
+          return { ...item, domainName, password };
+        }
+        return item;
+      });
+      setClicked(true);
+      setPasswords(JSON.stringify(updatedPasswords));
     }
   };
 
@@ -37,9 +66,10 @@ export default function PasswordsForm(props) {
         <div className="col-8">
           <input
             type="text"
-            ref={domainName}
             className="form-control"
             id="domain"
+            value={domainName}
+            onChange={evt => setDomainName(evt.target.value)}
           />
         </div>
       </div>
@@ -52,19 +82,31 @@ export default function PasswordsForm(props) {
             type="password"
             className="form-control"
             id="inputPassword"
-            ref={password}
+            value={password}
+            onChange={evt => setPassword(evt.target.value)}
           />
         </div>
       </div>
       <div className="d-flex justify-content-end">
-        <button
-          disabled={clicked}
-          type="button"
-          className="btn btn-primary mr-2"
-          onClick={handleClick}
-        >
-          Save
-        </button>
+        {selectedItem ? (
+          <button
+            disabled={clicked}
+            type="button"
+            className="btn btn-primary mr-2"
+            onClick={handleUpdate}
+          >
+            Update
+          </button>
+        ) : (
+          <button
+            disabled={clicked}
+            type="button"
+            className="btn btn-primary mr-2"
+            onClick={handleClick}
+          >
+            Save
+          </button>
+        )}
         <button
           type="button"
           className="btn btn-primary"

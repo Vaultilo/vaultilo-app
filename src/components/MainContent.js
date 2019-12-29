@@ -39,7 +39,7 @@ export default function MainContent(props) {
   const renderPasswordItem = (item) => {
     const {domainName, type, id} = item;
     return (
-      <div className="col-3 wallet-box mb-3" key={id} onClick={() => setSelectedItem(item)}>
+      <div className="col-3 wallet-box mb-3" key={id} onClick={() => handleItemClick(item)}>
         <Card>
           <Card.Body>
             <Card.Title>{domainName}</Card.Title>
@@ -51,12 +51,12 @@ export default function MainContent(props) {
   }
 
   const renderNotesItem = (item) => {
-    const {note, id, type} = item;
+    const {noteInput, id, type} = item;
     return (
-      <div className="col-3 wallet-box mb-3" key={id} onClick={() => setSelectedItem(item)}>
+      <div className="col-3 wallet-box mb-3" key={id} onClick={() => handleItemClick(item)}>
         <Card>
           <Card.Body>
-            <Card.Text>{note}</Card.Text>
+            <Card.Text>{noteInput}</Card.Text>
             <Card.Text>{type}</Card.Text>
           </Card.Body>
         </Card>
@@ -99,7 +99,7 @@ export default function MainContent(props) {
     <>
       <div className="row mt-3">
         <div className="col-12 py-1">
-          <div className="mt-3 font-weight-bold text-uppercase">{'Items'}</div>
+          <div className="mt-3 font-weight-bold text-uppercase">{`${type}`}</div>
         </div>
       </div>
       {
