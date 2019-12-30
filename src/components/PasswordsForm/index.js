@@ -6,15 +6,21 @@ export default function PasswordsForm(props) {
   const defaultValue = selectedItem
     ? {
         domainName: selectedItem.domainName,
-        password: selectedItem.password
+        password: selectedItem.password,
+        domainAddress:selectedItem.domainAddress,
+        domainUsername:selectedItem.domainUsername
       }
     : {
         domainName: "",
-        password: ""
+        password: "",
+        domainAddress:"",
+        domainUsername:""
       };
 
   const [domainName, setDomainName] = useState(defaultValue.domainName);
   const [password, setPassword] = useState(defaultValue.password);
+  const [domainAddress,setDomainAddress]=useState(defaultValue.domainAddress);
+  const [domainUsername,setDomainUsername]=useState(defaultValue.domainUsername);
 
   const [clicked, setClicked] = useState(false);
 
@@ -26,7 +32,7 @@ export default function PasswordsForm(props) {
   }, [passwords]);
 
   const validateForm = () => {
-    return domainName.length && password.length;
+    return domainName.length && password.length && domainAddress.length && domainUsername.length;
   };
 
   const handleClick = () => {
@@ -36,7 +42,9 @@ export default function PasswordsForm(props) {
         type: "passwords",
         subType: "",
         domainName,
-        password
+        password,
+        domainAddress,
+        domainUsername
       };
       const oldCred = passwords ? JSON.parse(passwords) : [];
       setClicked(true);
@@ -48,7 +56,7 @@ export default function PasswordsForm(props) {
     if (validateForm()) {
       const updatedPasswords = JSON.parse(passwords).map(item => {
         if (item.id === selectedItem.id) {
-          return { ...item, domainName, password };
+          return { ...item, domainName, password,domainAddress,domainUsername };
         }
         return item;
       });
@@ -70,6 +78,34 @@ export default function PasswordsForm(props) {
             id="domain"
             value={domainName}
             onChange={evt => setDomainName(evt.target.value)}
+          />
+        </div>
+      </div>
+      <div className="form-group row">
+        <label htmlFor="inputDomainAddress" className="col-4 col-form-label">
+          Domain Address
+        </label>
+        <div className="col-8">
+          <input
+            type="text"
+            className="form-control"
+            id="inputDomainAddress"
+            value={domainAddress}
+            onChange={evt => setDomainAddress(evt.target.value)}
+          />
+        </div>
+      </div>
+      <div className="form-group row">
+        <label htmlFor="inputDomainUsername" className="col-4 col-form-label">
+         Username
+        </label>
+        <div className="col-8">
+          <input
+            type="text"
+            className="form-control"
+            id="inputDomainUsername"
+            value={domainUsername}
+            onChange={evt => setDomainUsername(evt.target.value)}
           />
         </div>
       </div>
