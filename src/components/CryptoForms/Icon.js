@@ -174,12 +174,12 @@ export default function Icon(props) {
               className="btn btn-secondary mr-2"
               size="small"
             >
-              Upload Keystore
+              Upload Keystore File
             </button>
           </FilePicker>
         ) : (
           <button type="button" className="btn btn-secondary mr-2" size="small" onClick={handleDownload}>
-            Download
+            Download Keystore File
           </button>
         )}
       </div>

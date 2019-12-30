@@ -1,6 +1,6 @@
 import React from 'react';
 import TopBar from './TopBar.js';
-import AppRouter from './AppRouter.js';
+import AppRouter from './AppRouter.js'; 
 import SideBar from './Sidebar.js';
 import { useFile } from "react-blockstack";
 
