@@ -15,6 +15,7 @@
     "react-blockstack-button": "^0.1.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.8.6",
+    "react-file-picker": "0.0.6",
     "react-router-dom": "^5.0.0",
     "react-select": "^3.0.8"
   },
@@ -41,7 +42,7 @@
   },
   "devDependencies": {
     "bootstrap": "^4.3.1",
-    "react-test-renderer": "^16.8.6",
-    "react-scripts": "^3.1.1"
+    "react-scripts": "^3.3.0",
+    "react-test-renderer": "^16.8.6"
   }
 }

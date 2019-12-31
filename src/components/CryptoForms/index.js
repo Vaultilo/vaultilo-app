@@ -1,15 +1,18 @@
-import React, { useRef, useEffect, useState } from "react";
-import Select from "react-select";
+import React, { useState } from "react";
+import Select from "react-select"; 
 import Icon from './Icon.js';
 import Ethereum from './Ethereum.js';
+import OtherWallets from './OtherWallets.js'
 
 export default function Form(props) {
-  const {type} = props;
+  const {selectedItem} = props;
+  const subType = selectedItem ? selectedItem.subType : props.subType;
   const options = [
     { value: "icon", label: "Icon" },
-    { value: "ethereum", label: "Ethereum" }
+    { value: "ethereum", label: "Ethereum" },
+    { value: "other"  , label:"Other Wallets"}
   ];
-  const defaultOption = options.find(option => option.value === type);
+  const defaultOption = options.find(option => option.value === subType);
   const [selectedOption, setSelectedOption] = useState(defaultOption || null);
   const handleSelectChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -18,10 +21,13 @@ export default function Form(props) {
     let formComponent;
     switch (selectedOption.value) {
       case 'icon':
-        formComponent = <Icon {...props} type={selectedOption.value} />;
+        formComponent = <Icon {...props} subType={selectedOption.value} />;
         break;
       case 'ethereum':
-        formComponent = <Ethereum {...props} type={selectedOption.value}/>;
+        formComponent = <Ethereum {...props} subType={selectedOption.value}/>;
+        break;
+      case 'other':
+        formComponent = <OtherWallets {...props} subType ={selectedOption.value}/>;
         break;
       default:
         formComponent = null;

@@ -1,12 +1,16 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import MainContent from "./MainContent";
 
 export default function AppRouter(props) {
-  const { credentials, setCredentials } = props;
   return (
     <Switch>
-      <Route path="/crypto/:type" render={(props) => <MainContent {...props} credentials={credentials} setCredentials={setCredentials} />} />
+      <Route
+        exact={true}
+        path="/"
+        render={() => <Redirect to="/items/all" />}
+      />
+      <Route path="/:type/:subType" render={(routeProps) => <MainContent {...routeProps} {...props} />} />
     </Switch>
-  );
+  ); 
 }
