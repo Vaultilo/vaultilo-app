@@ -3,8 +3,6 @@ import { FilePicker } from "react-file-picker";
 import IconService from 'icon-sdk-js';
 import toaster from 'toasted-notes';
 import 'toasted-notes/src/styles.css'
-import {Button,Card} from 'react-bulma-components'
-
 export default function Icon(props) {
   const {
     credentials,
@@ -52,10 +50,26 @@ export default function Icon(props) {
       showToast("Invalid Wallet Address",1922)
 
     }
+    
     if (!privateBool){
       console.log("Invalid Private Key")
       showToast("Invalid Private Key",2372)
 
+    }
+    if (keyStore!==''){
+      const wallet=IconService.IconWallet.loadKeystore(keyStore,password)
+      const getAddress=wallet.getAddress()
+      const getPrivate=wallet.getPrivateKey()
+      console.log('getAddress',getAddress)
+      console.log("privae",getPrivate)
+      if (getAddress!==walletAddress){
+        showToast("Adress dont match with the keystore",2400)  
+      } 
+      if (getPrivate!==privateKey){
+        showToast("Private key dont match with the keystore",2400)
+
+      }
+      
     }
 
 
@@ -104,7 +118,8 @@ export default function Icon(props) {
   };
 
   const handleUpdate = () => {
-    if (validateForm()) {
+    const validation=validateForm()
+    if (validation) {
       const updatedCredentials = JSON.parse(credentials).map(item => {
         if (item.id === selectedItem.id) {
           return { ...item, walletName, walletAddress, privateKey, password };
