@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FilePicker } from "react-file-picker";
 import IconService from 'icon-sdk-js';
+import toaster from 'toasted-notes';
+import 'toasted-notes/src/styles.css'
+import {Button,Card} from 'react-bulma-components'
+
 export default function Icon(props) {
   const {
     credentials,
@@ -41,20 +45,21 @@ export default function Icon(props) {
   }, [credentials]);
 
   const validateForm = () => {
-    const addBool=IconService.IconValidator.isEoaAddress(walletAddress)
-    const privBool=IconService.IconValidator.isPrivateKey(privateKey)
-    console.log(addBool,privBool)
-    if (!addBool){
+    const addressBool=IconService.IconValidator.isEoaAddress(walletAddress)
+    const privateBool=IconService.IconValidator.isPrivateKey(privateKey)
+    if (!addressBool){
       console.log("Invalid Wallet Address")
+      showToast("Invalid Wallet Address",1922)
 
     }
-    if (!privBool){
+    if (!privateBool){
       console.log("Invalid Private Key")
+      showToast("Invalid Private Key",2372)
 
     }
 
 
-    if (addBool && privBool){
+    if (addressBool && privateBool){
       return (
         walletName.length &&
         walletAddress.length &&
@@ -62,13 +67,22 @@ export default function Icon(props) {
         privateKey.length
       );
     }
-    return (
-      walletName.length &&
-      walletAddress.length &&
-      password.length &&
-      privateKey.length
-      );
+    return (false)
+      ;
   };
+
+  const showToast = (text,time) => {
+    const CustomNotification = ({ title }) => {
+      
+    return <button className="btn btn-primary mr-2">{title}</button>
+    }
+    
+    toaster.notify(() => <CustomNotification title={text} />,
+                          {position:'top',duration:time}
+            )
+
+
+  }
 
   const handleClick = () => {
     const validation=validateForm()
