@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FilePicker } from "react-file-picker";
-
+import IconService from 'icon-sdk-js';
 export default function Icon(props) {
   const {
     credentials,
@@ -41,16 +41,38 @@ export default function Icon(props) {
   }, [credentials]);
 
   const validateForm = () => {
+    const addBool=IconService.IconValidator.isEoaAddress(walletAddress)
+    const privBool=IconService.IconValidator.isPrivateKey(privateKey)
+    console.log(addBool,privBool)
+    if (!addBool){
+      console.log("Invalid Wallet Address")
+
+    }
+    if (!privBool){
+      console.log("Invalid Private Key")
+
+    }
+
+
+    if (addBool && privBool){
+      return (
+        walletName.length &&
+        walletAddress.length &&
+        password.length &&
+        privateKey.length
+      );
+    }
     return (
       walletName.length &&
       walletAddress.length &&
       password.length &&
       privateKey.length
-    );
+      );
   };
 
   const handleClick = () => {
-    if (validateForm()) {
+    const validation=validateForm()
+    if (validation) {
       const newCred = {
         id: Date.now(),
         type: "crypto",
@@ -105,6 +127,7 @@ export default function Icon(props) {
 
     reader.readAsText(file);
   };
+  
   return (
     <>
       <div className="form-group row">
