@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FilePicker } from "react-file-picker";
-import IconService from 'icon-sdk-js';
-import toaster from 'toasted-notes';
-import 'toasted-notes/src/styles.css'
+import IconService from "icon-sdk-js";
+import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
 export default function Icon(props) {
   const {
     credentials,
@@ -11,7 +11,7 @@ export default function Icon(props) {
     onModalClose,
     selectedItem
   } = props;
-  
+
   const defaultValue = selectedItem
     ? {
         walletName: selectedItem.walletName,
@@ -33,7 +33,8 @@ export default function Icon(props) {
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [password, setPassword] = useState(defaultValue.password);
   const [clicked, setClicked] = useState(false);
-  const [keyStore, setKeystore] = useState("");
+  const [keyStore, setKeystore] = useState('');
+  const [keyStoreName, setKeystoreName] = useState('');
 
   useEffect(() => {
     if (clicked) {
@@ -43,37 +44,29 @@ export default function Icon(props) {
   }, [credentials]);
 
   const validateForm = () => {
-    const addressBool=IconService.IconValidator.isEoaAddress(walletAddress)
-    const privateBool=IconService.IconValidator.isPrivateKey(privateKey)
-    if (!addressBool){
-      console.log("Invalid Wallet Address")
-      showToast("Invalid Wallet Address",1922)
+    const addressBool = IconService.IconValidator.isEoaAddress(walletAddress);
+    const privateBool = IconService.IconValidator.isPrivateKey(privateKey);
 
+    if (!addressBool) {
+      showToast("Invalid Wallet Address", 1922);
     }
-    
-    if (!privateBool){
-      console.log("Invalid Private Key")
-      showToast("Invalid Private Key",2372)
-
+    if (!privateBool) {
+      showToast("Invalid Private Key", 2372);
     }
-    if (keyStore!==''){
-      const wallet=IconService.IconWallet.loadKeystore(keyStore,password)
-      const getAddress=wallet.getAddress()
-      const getPrivate=wallet.getPrivateKey()
-      console.log('getAddress',getAddress)
-      console.log("privae",getPrivate)
-      if (getAddress!==walletAddress){
-        showToast("Adress dont match with the keystore",2400)  
-      } 
-      if (getPrivate!==privateKey){
-        showToast("Private key dont match with the keystore",2400)
+    if (keyStore !== "") {
+      const wallet = IconService.IconWallet.loadKeystore(keyStore, password);
+      const getAddress = wallet.getAddress();
+      const getPrivate = wallet.getPrivateKey();
 
+      if (getAddress !== walletAddress) {
+        showToast("Adress dont match with the keystore", 2400);
       }
-      
+      if (getPrivate !== privateKey) {
+        showToast("Private key dont match with the keystore", 2400);
+      }
     }
 
-
-    if (addressBool && privateBool){
+    if (addressBool && privateBool) {
       return (
         walletName.length &&
         walletAddress.length &&
@@ -81,25 +74,18 @@ export default function Icon(props) {
         privateKey.length
       );
     }
-    return (false)
-      ;
+    return false;
   };
 
-  const showToast = (text,time) => {
-    const CustomNotification = ({ title }) => {
-      
-    return <button className="btn btn-primary mr-2">{title}</button>
-    }
-    
-    toaster.notify(() => <CustomNotification title={text} />,
-                          {position:'top',duration:time}
-            )
-
-
-  }
+  const showToast = (text, time) => {
+    toaster.notify(() => <span className="btn btn-primary mr-2">{text}</span>, {
+      position: "top",
+      duration: time
+    });
+  };
 
   const handleClick = () => {
-    const validation=validateForm()
+    const validation = validateForm();
     if (validation) {
       const newCred = {
         id: Date.now(),
@@ -109,7 +95,8 @@ export default function Icon(props) {
         walletAddress,
         privateKey,
         password,
-        keyStore
+        keyStore,
+        keyStoreName
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
       setClicked(true);
@@ -118,11 +105,11 @@ export default function Icon(props) {
   };
 
   const handleUpdate = () => {
-    const validation=validateForm()
+    const validation = validateForm();
     if (validation) {
       const updatedCredentials = JSON.parse(credentials).map(item => {
         if (item.id === selectedItem.id) {
-          return { ...item, walletName, walletAddress, privateKey, password };
+          return { ...item, walletName, walletAddress, privateKey, password, keyStore, keyStoreName };
         }
         return item;
       });
@@ -132,11 +119,11 @@ export default function Icon(props) {
   };
 
   const handleDownload = () => {
-    const keyStore = selectedItem.keyStore;
+    const {keyStore, keyStoreName} = selectedItem;
     var a = document.createElement("a");
-    var blob = new Blob([keyStore], { type: "application/json" });
+    var blob = new Blob([keyStore]);
     a.href = window.URL.createObjectURL(blob);
-    a.download = "keystore.json";
+    a.download = keyStoreName;
     a.click();
   };
 
@@ -145,6 +132,7 @@ export default function Icon(props) {
     const afterFileRead = e => {
       const text = e.target.result;
       setKeystore(text);
+      setKeystoreName(file.name);
     };
 
     reader.addEventListener(
@@ -156,7 +144,7 @@ export default function Icon(props) {
 
     reader.readAsText(file);
   };
-  
+
   return (
     <>
       <div className="form-group row">
@@ -230,7 +218,12 @@ export default function Icon(props) {
             </button>
           </FilePicker>
         ) : (
-          <button type="button" className="btn btn-secondary mr-2" size="small" onClick={handleDownload}>
+          <button
+            type="button"
+            className="btn btn-secondary mr-2"
+            size="small"
+            onClick={handleDownload}
+          >
             Download Keystore File
           </button>
         )}
