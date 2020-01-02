@@ -35,6 +35,8 @@ export default function Icon(props) {
   const [clicked, setClicked] = useState(false);
   const [keyStore, setKeystore] = useState('');
   const [keyStoreName, setKeystoreName] = useState('');
+  const [fileUploaded, setFileUploaded] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
     if (clicked) {
@@ -132,6 +134,7 @@ export default function Icon(props) {
     const afterFileRead = e => {
       const text = e.target.result;
       setKeystore(text);
+      setFileUploaded(true);
       setKeystoreName(file.name);
     };
 
@@ -195,12 +198,13 @@ export default function Icon(props) {
         </label>
         <div className="col-8">
           <input
-            type="password"
+            type={passwordVisible ? 'text' : 'password'}
             className="form-control"
             id="inputPassword"
             value={password}
             onChange={evt => setPassword(evt.target.value)}
           />
+          <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
         </div>
       </div>
       <div className="d-flex justify-content-start">
@@ -214,7 +218,7 @@ export default function Icon(props) {
               className="btn btn-secondary mr-2"
               size="small"
             >
-              Upload Keystore File
+              {!fileUploaded ? 'Upload Keystore File' : 'Uploaded'}
             </button>
           </FilePicker>
         ) : (

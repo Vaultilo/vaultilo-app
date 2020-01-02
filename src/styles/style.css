@@ -45,3 +45,10 @@ inspect {
   color: #2f2f2f;
   text-decoration: none;
 }
+
+.password-visibility-btn {
+  position: absolute;
+  top: 6px;
+  right: 25px;
+  cursor: pointer;
+}
