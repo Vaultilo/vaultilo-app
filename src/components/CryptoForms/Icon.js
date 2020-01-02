@@ -3,6 +3,8 @@ import { FilePicker } from "react-file-picker";
 import IconService from "icon-sdk-js";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
+
+
 export default function Icon(props) {
   const {
     credentials,
@@ -27,9 +29,7 @@ export default function Icon(props) {
       };
 
   const [walletName, setWalletName] = useState(defaultValue.walletName);
-  const [walletAddress, setWalletAddress] = useState(
-    defaultValue.walletAddress
-  );
+  const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [password, setPassword] = useState(defaultValue.password);
   const [clicked, setClicked] = useState(false);
@@ -38,6 +38,7 @@ export default function Icon(props) {
   const [fileUploaded, setFileUploaded] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible,setPrivateVisible]=useState(false)
+
   useEffect(() => {
     if (clicked) {
       setClicked(false);
