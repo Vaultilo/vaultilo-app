@@ -37,7 +37,7 @@ export default function Icon(props) {
   const [keyStoreName, setKeystoreName] = useState('');
   const [fileUploaded, setFileUploaded] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-
+  const [privateVisible,setPrivateVisible]=useState(false)
   useEffect(() => {
     if (clicked) {
       setClicked(false);
@@ -184,12 +184,13 @@ export default function Icon(props) {
         </label>
         <div className="col-8">
           <input
-            type="password"
+            type={privateVisible ? 'text':'password'}
             className="form-control"
             id="inputPrivateKey"
             value={privateKey}
             onChange={evt => setPrivateKey(evt.target.value)}
           />
+        <span className="password-visibility-btn" onClick={() => setPrivateVisible(!privateVisible)}>{ privateVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>  
         </div>
       </div>
       <div className="form-group row">
