@@ -24,6 +24,8 @@ export default function OtherWallets(props) {
   const [privateKey, setPrivateKey]=useState(defaultValue.privateKey);
   const [platform, setPlatform]=useState(defaultValue.platform);
   const [password, setPassword]=useState(defaultValue.password);
+  const [passwordVisible,setPasswordVisible]=useState(false)
+  const [privateVisible,setPrivateVisible]=useState(false)
 
   const [clicked, setClicked] = useState(false);
 
@@ -125,12 +127,13 @@ export default function OtherWallets(props) {
         </label>
         <div className="col-8">
           <input
-            type="password"
+            type={privateVisible ? 'text' : 'password'}
             className="form-control"
             id="inputPrivateKey"
             value={privateKey}
             onChange={evt => setPrivateKey(evt.target.value)}
           />
+        <span className="password-visibility-btn" onClick={() => setPrivateVisible(!privateVisible)}>{ privateVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
         </div>
       </div>
       <div className="form-group row">
@@ -139,12 +142,13 @@ export default function OtherWallets(props) {
         </label>
         <div className="col-8">
           <input
-            type="password"
+            type={passwordVisible ? 'text' : 'password'}
             className="form-control"
             id="inputPassword"
             value={password}
             onChange={evt => setPassword(evt.target.value)}
           />
+        <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
         </div>
       </div>
       <div className="d-flex justify-content-end">

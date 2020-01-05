@@ -21,6 +21,7 @@ export default function PasswordsForm(props) {
   const [password, setPassword] = useState(defaultValue.password);
   const [domainAddress,setDomainAddress]=useState(defaultValue.domainAddress);
   const [domainUsername,setDomainUsername]=useState(defaultValue.domainUsername);
+  const [passwordVisible,setPasswordVisible]=useState(false)
 
   const [clicked, setClicked] = useState(false);
 
@@ -115,12 +116,13 @@ export default function PasswordsForm(props) {
         </label>
         <div className="col-8">
           <input
-            type="password"
+            type={passwordVisible ? 'text':'password'}
             className="form-control"
             id="inputPassword"
             value={password}
             onChange={evt => setPassword(evt.target.value)}
           />
+        <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
         </div>
       </div>
       <div className="d-flex justify-content-end">

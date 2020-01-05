@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FilePicker } from "react-file-picker";
+import IconService from "icon-sdk-js";
+import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
+
 
 export default function Icon(props) {
   const {
@@ -9,7 +13,7 @@ export default function Icon(props) {
     onModalClose,
     selectedItem
   } = props;
-  
+
   const defaultValue = selectedItem
     ? {
         walletName: selectedItem.walletName,
@@ -25,13 +29,15 @@ export default function Icon(props) {
       };
 
   const [walletName, setWalletName] = useState(defaultValue.walletName);
-  const [walletAddress, setWalletAddress] = useState(
-    defaultValue.walletAddress
-  );
+  const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [password, setPassword] = useState(defaultValue.password);
   const [clicked, setClicked] = useState(false);
-  const [keyStore, setKeystore] = useState("");
+  const [keyStore, setKeystore] = useState('');
+  const [keyStoreName, setKeystoreName] = useState('');
+  const [fileUploaded, setFileUploaded] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [privateVisible,setPrivateVisible]=useState(false)
 
   useEffect(() => {
     if (clicked) {
@@ -41,16 +47,49 @@ export default function Icon(props) {
   }, [credentials]);
 
   const validateForm = () => {
-    return (
-      walletName.length &&
-      walletAddress.length &&
-      password.length &&
-      privateKey.length
-    );
+    const addressBool = IconService.IconValidator.isEoaAddress(walletAddress);
+    const privateBool = IconService.IconValidator.isPrivateKey(privateKey);
+
+    if (!addressBool) {
+      showToast("Invalid Wallet Address", 1922);
+    }
+    if (!privateBool) {
+      showToast("Invalid Private Key", 2372);
+    }
+    if (keyStore !== "") {
+      const wallet = IconService.IconWallet.loadKeystore(keyStore, password);
+      const getAddress = wallet.getAddress();
+      const getPrivate = wallet.getPrivateKey();
+
+      if (getAddress !== walletAddress) {
+        showToast("Adress dont match with the keystore", 2400);
+      }
+      if (getPrivate !== privateKey) {
+        showToast("Private key dont match with the keystore", 2400);
+      }
+    }
+
+    if (addressBool && privateBool) {
+      return (
+        walletName.length &&
+        walletAddress.length &&
+        password.length &&
+        privateKey.length
+      );
+    }
+    return false;
+  };
+
+  const showToast = (text, time) => {
+    toaster.notify(() => <span className="btn btn-primary mr-2">{text}</span>, {
+      position: "top",
+      duration: time
+    });
   };
 
   const handleClick = () => {
-    if (validateForm()) {
+    const validation = validateForm();
+    if (validation) {
       const newCred = {
         id: Date.now(),
         type: "crypto",
@@ -59,7 +98,8 @@ export default function Icon(props) {
         walletAddress,
         privateKey,
         password,
-        keyStore
+        keyStore,
+        keyStoreName
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
       setClicked(true);
@@ -68,10 +108,11 @@ export default function Icon(props) {
   };
 
   const handleUpdate = () => {
-    if (validateForm()) {
+    const validation = validateForm();
+    if (validation) {
       const updatedCredentials = JSON.parse(credentials).map(item => {
         if (item.id === selectedItem.id) {
-          return { ...item, walletName, walletAddress, privateKey, password };
+          return { ...item, walletName, walletAddress, privateKey, password, keyStore, keyStoreName };
         }
         return item;
       });
@@ -81,11 +122,11 @@ export default function Icon(props) {
   };
 
   const handleDownload = () => {
-    const keyStore = selectedItem.keyStore;
+    const {keyStore, keyStoreName} = selectedItem;
     var a = document.createElement("a");
-    var blob = new Blob([keyStore], { type: "application/json" });
+    var blob = new Blob([keyStore]);
     a.href = window.URL.createObjectURL(blob);
-    a.download = "keystore.json";
+    a.download = keyStoreName;
     a.click();
   };
 
@@ -94,6 +135,8 @@ export default function Icon(props) {
     const afterFileRead = e => {
       const text = e.target.result;
       setKeystore(text);
+      setFileUploaded(true);
+      setKeystoreName(file.name);
     };
 
     reader.addEventListener(
@@ -105,6 +148,7 @@ export default function Icon(props) {
 
     reader.readAsText(file);
   };
+
   return (
     <>
       <div className="form-group row">
@@ -141,12 +185,13 @@ export default function Icon(props) {
         </label>
         <div className="col-8">
           <input
-            type="password"
+            type={privateVisible ? 'text':'password'}
             className="form-control"
             id="inputPrivateKey"
             value={privateKey}
             onChange={evt => setPrivateKey(evt.target.value)}
           />
+        <span className="password-visibility-btn" onClick={() => setPrivateVisible(!privateVisible)}>{ privateVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>  
         </div>
       </div>
       <div className="form-group row">
@@ -155,12 +200,13 @@ export default function Icon(props) {
         </label>
         <div className="col-8">
           <input
-            type="password"
+            type={passwordVisible ? 'text' : 'password'}
             className="form-control"
             id="inputPassword"
             value={password}
             onChange={evt => setPassword(evt.target.value)}
           />
+          <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
         </div>
       </div>
       <div className="d-flex justify-content-start">
@@ -174,11 +220,16 @@ export default function Icon(props) {
               className="btn btn-secondary mr-2"
               size="small"
             >
-              Upload Keystore File
+              {!fileUploaded ? 'Upload Keystore File' : 'Uploaded'}
             </button>
           </FilePicker>
         ) : (
-          <button type="button" className="btn btn-secondary mr-2" size="small" onClick={handleDownload}>
+          <button
+            type="button"
+            className="btn btn-secondary mr-2"
+            size="small"
+            onClick={handleDownload}
+          >
             Download Keystore File
           </button>
         )}
