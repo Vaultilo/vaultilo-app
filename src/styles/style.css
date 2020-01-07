@@ -28,10 +28,6 @@ inspect {
 
 /* Scaffolding */
 
-#App {
-  min-height: 100vh;
-}
-
 .panel-landing {
   max-width: 50em;
   margin: auto;
@@ -51,4 +47,17 @@ inspect {
   top: 6px;
   right: 25px;
   cursor: pointer;
+}
+
+.side-content {
+  width: 300px;
+  height: 1086px;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #93EDC7 0%, #1CD8D2 100%);
+  border-radius: 0px 50px 50px 0px;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
 }
