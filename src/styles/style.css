@@ -61,3 +61,27 @@ inspect {
 .main-content {
   flex: 1;
 }
+
+.custom-modal {
+  max-width: 544px;
+}
+
+.modal-title {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.modal-header {
+  border-bottom: none;
+  padding: 30px 30px 2px 30px;
+}
+
+.modal-header .close {
+  color: #FF5862;
+  font-size: 30px;
+  line-height: 20px;
+  font-weight: normal;
+}

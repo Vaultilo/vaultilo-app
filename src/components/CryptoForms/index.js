@@ -3,6 +3,7 @@ import Select from "react-select";
 import Icon from './Icon.js';
 import Ethereum from './Ethereum.js';
 import OtherWallets from './OtherWallets.js'
+import './index.css';
 
 export default function Form(props) {
   const {selectedItem} = props;
@@ -34,14 +35,23 @@ export default function Form(props) {
     }
     return formComponent;
   }
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      borderRadius: "100px"
+    })
+  };
+
   return (
-    <form>
+    <form className="form-container">
       <div className="form-group row">
-        <label htmlFor="walletType" className="col-sm-4 col-form-label">
+        <label htmlFor="walletType" className="col-12 custom-label">
           Wallet Type
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <Select
+            styles={customStyles}
+            className="custom-select-input"
             value={selectedOption}
             options={options}
             isSearchable={true}
