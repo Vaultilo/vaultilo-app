@@ -7,7 +7,7 @@ import './index.css';
 
 export default function Icon(props) {
   const {
-    credentials,
+    credentials, 
     setCredentials,
     subType,
     onModalClose,

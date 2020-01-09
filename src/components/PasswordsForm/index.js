@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import '../CryptoForms/index.css'
 
 export default function PasswordsForm(props) {
   const { passwords, setPasswords, onModalClose, selectedItem } = props;
@@ -69,13 +70,13 @@ export default function PasswordsForm(props) {
   return (
     <>
       <div className="form-group row">
-        <label htmlFor="domain" className="col-4 col-form-label">
+        <label htmlFor="domain" className="col-12 custom-label">
           Domain Name
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="domain"
             value={domainName}
             onChange={evt => setDomainName(evt.target.value)}
@@ -83,13 +84,13 @@ export default function PasswordsForm(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputDomainAddress" className="col-4 col-form-label">
+        <label htmlFor="inputDomainAddress" className="col-12 custom-label">
           Domain Address
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputDomainAddress"
             value={domainAddress}
             onChange={evt => setDomainAddress(evt.target.value)}
@@ -97,13 +98,13 @@ export default function PasswordsForm(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputDomainUsername" className="col-4 col-form-label">
+        <label htmlFor="inputDomainUsername" className="col-12 custom-label">
          Username
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputDomainUsername"
             value={domainUsername}
             onChange={evt => setDomainUsername(evt.target.value)}
@@ -111,13 +112,13 @@ export default function PasswordsForm(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputPassword" className="col-4 col-form-label">
+        <label htmlFor="inputPassword" className="col-12 custom-label">
           Password
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type={passwordVisible ? 'text':'password'}
-            className="form-control"
+            className="custom-input form-control"
             id="inputPassword"
             value={password}
             onChange={evt => setPassword(evt.target.value)}

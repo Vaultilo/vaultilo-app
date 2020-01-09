@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import '../CryptoForms/index.css'
 
 export default function NotesForm(props) {
   const { notes, setNotes, onModalClose, selectedItem } = props;
@@ -53,12 +54,12 @@ export default function NotesForm(props) {
   return (
     <>
       <div className="form-group row">
-        <label htmlFor="noteTitleInput" className="col-4 col-form-label">
+        <label htmlFor="noteTitleInput" className="col-12 custom-label">
           Title
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <textarea
-            className="form-control"
+            className="custom-input form-control"
             id="noteTitleInput"
             value={noteTitle}
             onChange={evt => setNoteTitle(evt.target.value)}
@@ -66,12 +67,12 @@ export default function NotesForm(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="noteInput" className="col-4 col-form-label">
+        <label htmlFor="noteInput" className="col-12 custom-label">
           Note
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <textarea
-            className="form-control"
+            className="custom-input form-control"
             id="noteInput"
             value={noteInput}
             onChange={evt => setNoteInput(evt.target.value)}
