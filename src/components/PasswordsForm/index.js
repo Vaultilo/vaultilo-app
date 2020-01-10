@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import PasswordStrength from './PasswordStrength';
 import '../CryptoForms/index.css'
 
 export default function PasswordsForm(props) {
@@ -124,6 +125,9 @@ export default function PasswordsForm(props) {
             onChange={evt => setPassword(evt.target.value)}
           />
         <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
+        <span>
+          <PasswordStrength password={password}/>
+        </span>
         </div>
       </div>
       <div className="d-flex justify-content-end">

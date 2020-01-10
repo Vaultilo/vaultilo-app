@@ -7,7 +7,7 @@ import NotesForm from "./NotesForm/index.js";
 const ITEM_TYPES = [
   { label: "Crypto Wallets", value: "crypto" },
   { label: "Passwords", value: "passwords" },
-  { label: "Notes", value: "notes" }
+  { label: "Notes", value: "notes" } 
 ];
 
 export default function FormOptions(props) {

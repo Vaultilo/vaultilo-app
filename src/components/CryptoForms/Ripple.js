@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from "react";
 import * as bip39 from 'bip39';
 import WAValidator from 'wallet-address-validator';
-import toaster from "toasted-notes";
-import "toasted-notes/src/styles.css";
-import './index.css';
+import toaster from 'toasted-notes'
 
-export default function Ethereum(props) {
+export default function Ripple(props) {
   const { credentials, setCredentials, subType, onModalClose, selectedItem } = props;
 
   const defaultValue = selectedItem
   ? {
       walletName: selectedItem.walletName,
       walletAddress: selectedItem.walletAddress,
-      privateKey: selectedItem.privateKey,
       seedWords:selectedItem.seedWords
     }
   : {
       walletName: "",
       walletAddress: "",
-      privateKey: "",
       seedWords:""
     };
   
   const [walletName, setWalletName] = useState(defaultValue.walletName);
   const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
-  const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [seedWords,setSeedWords]=useState(defaultValue.seedWords)
   const [clicked, setClicked] = useState(false);
 
@@ -43,23 +38,22 @@ export default function Ethereum(props) {
   };
 
   const validateForm = () => {
-    const addValid=WAValidator.validate(walletAddress,"ETH")
+    const addValid=WAValidator.validate(walletAddress,"XRP")
     const seedValid=bip39.validateMnemonic(seedWords)
     console.log("Address ",addValid)
 
     if (!addValid){
-      showToast('Ethereum wallet address invalid',2000)
+      showToast('Ripple wallet address invalid',2000)
     }
 
     if (!seedValid){
       showToast('Invalid Seed Words',2000)
     }
 
-    if (seedValid && addValid){ 
-      return (
-          walletName.length &&
-          walletAddress.length &&
-          privateKey.length
+    if (addValid && seedValid){
+    return (
+      walletName.length &&
+      walletAddress.length
     );
     }
   };
@@ -72,7 +66,6 @@ export default function Ethereum(props) {
         subType: subType,
         walletName,
         walletAddress,
-        privateKey,
         seedWords
       };
       const oldCred = credentials ? JSON.parse(credentials) : [];
@@ -85,7 +78,7 @@ export default function Ethereum(props) {
     if (validateForm()) {
       const updatedCredentials = JSON.parse(credentials).map(item => {
         if (item.id === selectedItem.id) {
-          return { ...item, walletName, walletAddress, privateKey,seedWords };
+          return { ...item, walletName, walletAddress,seedWords };
         }
         return item;
       });
@@ -97,13 +90,13 @@ export default function Ethereum(props) {
   return (
     <>
       <div className="form-group row">
-        <label htmlFor="inputName" className="col-12 custom-label">
-          Ethereum Wallet Name
-        </label> 
-        <div className="col-12">
+        <label htmlFor="inputName" className="col-4 col-form-label">
+         Ripple Wallet Name
+        </label>
+        <div className="col-8">
           <input
             type="text"
-            className="custom-input form-control"
+            className="form-control"
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
@@ -111,41 +104,28 @@ export default function Ethereum(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputAddress" className="col-12 custom-label">
-          Wallet Address
+        <label htmlFor="inputAddress" className="col-4 col-form-label">
+         Wallet Address
         </label>
-        <div className="col-12">
+        <div className="col-8">
           <input
             type="text"
-            className="custom-input form-control"
+            className="form-control"
             id="inputAddress"
             value={walletAddress}
             onChange={evt => setWalletAddress(evt.target.value)}
           />
         </div>
       </div>
+      
       <div className="form-group row">
-        <label htmlFor="inputPrivateKey" className="col-12 custom-label">
-          Private Key
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputPrivateKey"
-            value={privateKey}
-            onChange={evt => setPrivateKey(evt.target.value)}
-          />
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputSeedWords" className="col-12 custom-label">
+        <label htmlFor="inputSeedWords" className="col-4 col-form-label">
           Seed Words
         </label>
-        <div className="col-12">
+        <div className="col-8">
           <input
             type="text"
-            className="custom-input form-control"
+            className="form-control"
             id="inputSeedWords"
             value={seedWords}
             onChange={evt => setSeedWords(evt.target.value)}
