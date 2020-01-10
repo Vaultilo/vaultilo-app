@@ -2,7 +2,7 @@ import React from 'react';
 import TopBar from './TopBar.js';
 import AppRouter from './AppRouter.js'; 
 import SideBar from './Sidebar.js';
-import { useFile } from "react-blockstack";
+import { useFile } from "react-blockstack"; 
 
 export default function Content ({ person }) {
   const [credentials, setCredentials] = useFile('crypto.json');

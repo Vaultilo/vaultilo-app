@@ -3,6 +3,7 @@ import { FilePicker } from "react-file-picker";
 import IconService from "icon-sdk-js";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
+import PasswordStrength from '../PasswordsForm/PasswordStrength'
 import './index.css';
 
 export default function Icon(props) {
@@ -207,6 +208,9 @@ export default function Icon(props) {
             onChange={evt => setPassword(evt.target.value)}
           />
           <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
+          <span>
+          <PasswordStrength password={password}/>
+        </span>
         </div>
       </div>
       <div className="d-flex justify-content-start">
