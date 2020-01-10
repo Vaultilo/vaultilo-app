@@ -3,11 +3,11 @@ import { FilePicker } from "react-file-picker";
 import IconService from "icon-sdk-js";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
-
+import './index.css';
 
 export default function Icon(props) {
   const {
-    credentials,
+    credentials, 
     setCredentials,
     subType,
     onModalClose,
@@ -152,13 +152,13 @@ export default function Icon(props) {
   return (
     <>
       <div className="form-group row">
-        <label htmlFor="inputName" className="col-4 col-form-label">
-          Icon Wallet Name
+        <label htmlFor="inputName" className="col-12 custom-label">
+          Wallet Name
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
@@ -166,13 +166,13 @@ export default function Icon(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputAddress" className="col-4 col-form-label">
+        <label htmlFor="inputAddress" className="col-12 custom-label">
           Wallet Address
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputAddress"
             value={walletAddress}
             onChange={evt => setWalletAddress(evt.target.value)}
@@ -180,13 +180,13 @@ export default function Icon(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputPrivateKey" className="col-4 col-form-label">
+        <label htmlFor="inputPrivateKey" className="col-12 custom-label">
           Private Key
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type={privateVisible ? 'text':'password'}
-            className="form-control"
+            className="custom-input form-control"
             id="inputPrivateKey"
             value={privateKey}
             onChange={evt => setPrivateKey(evt.target.value)}
@@ -195,13 +195,13 @@ export default function Icon(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputPassword" className="col-4 col-form-label">
+        <label htmlFor="inputPassword" className="col-12 custom-label">
           Password
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type={passwordVisible ? 'text' : 'password'}
-            className="form-control"
+            className="custom-input form-control"
             id="inputPassword"
             value={password}
             onChange={evt => setPassword(evt.target.value)}

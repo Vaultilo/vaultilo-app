@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
+import './index.css';
 
 export default function Ethereum(props) {
   const { credentials, setCredentials, subType, onModalClose, selectedItem } = props;
@@ -71,13 +74,13 @@ export default function Ethereum(props) {
   return (
     <>
       <div className="form-group row">
-        <label htmlFor="inputName" className="col-4 col-form-label">
+        <label htmlFor="inputName" className="col-12 custom-label">
           Ethereum Wallet Name
-        </label>
-        <div className="col-8">
+        </label> 
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
@@ -85,13 +88,13 @@ export default function Ethereum(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputAddress" className="col-4 col-form-label">
+        <label htmlFor="inputAddress" className="col-12 custom-label">
           Wallet Address
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputAddress"
             value={walletAddress}
             onChange={evt => setWalletAddress(evt.target.value)}
@@ -99,13 +102,13 @@ export default function Ethereum(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputPrivateKey" className="col-4 col-form-label">
+        <label htmlFor="inputPrivateKey" className="col-12 custom-label">
           Private Key
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputPrivateKey"
             value={privateKey}
             onChange={evt => setPrivateKey(evt.target.value)}
@@ -113,13 +116,13 @@ export default function Ethereum(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputSeedWords" className="col-4 col-form-label">
+        <label htmlFor="inputSeedWords" className="col-12 custom-label">
           Seed Words
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputSeedWords"
             value={seedWords}
             onChange={evt => setSeedWords(evt.target.value)}

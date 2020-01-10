@@ -141,9 +141,9 @@ export default function MainContent(props) {
         </div>
       </div>
       <Modal
+        dialogClassName="custom-modal"
         show={modalShow}
         onHide={() => setModalShow(false)}
-        size="lg"
         aria-labelledby="contained-modal-title-vcenter"
       >
         <Modal.Header closeButton>

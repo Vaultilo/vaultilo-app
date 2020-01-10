@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import '../CryptoForms/index.css'
 
 export default function OtherWallets(props) {
   const { credentials, setCredentials, subType, onModalClose, selectedItem } = props;
@@ -80,13 +81,13 @@ export default function OtherWallets(props) {
   return (
     <>
       <div className="form-group row">
-        <label htmlFor="inputPlatform" className="col-4 col-form-label">
+        <label htmlFor="inputPlatform" className="col-12 custom-label">
            Wallet Platform
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputPlatform"
             value={platform}
             onChange={evt => setPlatform(evt.target.value)}
@@ -94,13 +95,13 @@ export default function OtherWallets(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputName" className="col-4 col-form-label">
+        <label htmlFor="inputName" className="col-12 custom-label">
            Wallet Name
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
@@ -108,13 +109,13 @@ export default function OtherWallets(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputAddress" className="col-4 col-form-label">
+        <label htmlFor="inputAddress" className="col-12 custom-label">
           Wallet Address
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type="text"
-            className="form-control"
+            className="custom-input form-control"
             id="inputAddress"
             value={walletAddress}
             onChange={evt => setWalletAddress(evt.target.value)}
@@ -122,13 +123,13 @@ export default function OtherWallets(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputPrivateKey" className="col-4 col-form-label">
+        <label htmlFor="inputPrivateKey" className="col-12 custom-label">
           Private Key
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type={privateVisible ? 'text' : 'password'}
-            className="form-control"
+            className="custom-input form-control"
             id="inputPrivateKey"
             value={privateKey}
             onChange={evt => setPrivateKey(evt.target.value)}
@@ -137,13 +138,13 @@ export default function OtherWallets(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputPassword" className="col-4 col-form-label">
+        <label htmlFor="inputPassword" className="col-12 custom-label">
           Password 
         </label>
-        <div className="col-8">
+        <div className="col-12">
           <input
             type={passwordVisible ? 'text' : 'password'}
-            className="form-control"
+            className="custom-input form-control"
             id="inputPassword"
             value={password}
             onChange={evt => setPassword(evt.target.value)}

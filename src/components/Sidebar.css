@@ -1,23 +1,43 @@
 .sidenav {
-  height: 100%;
-  background-color: #111;
-  overflow-x: hidden;
-  padding-top: 20px
+  padding-left: 18px;
+}
+
+.dropdown-btn:first-child {
+  margin-top: 150px;
+}
+
+.nav-item {
+  position: relative;
+  padding: 14px 0 14px 18px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #FFFFFF;
+}
+
+.nav-title {
+  margin-left: 34px;
+}
+
+.sidenav a.active .nav-item {
+  background: white;
+  color: #1CD8D2;
+  border-radius: 30px 0 0 30px;
 }
 
 .sidenav a, .dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
   display: block;
   border: none;
   background: none;
-  width: 100%;
-  text-align: left;
   cursor: pointer;
   outline: none;
   text-transform: capitalize;
+}
+
+.dropdown-btn {
+  margin-bottom: 14px;
 }
 
 .sidenav a:hover, .dropdown-btn:hover {
@@ -27,19 +47,35 @@
 }
 
 .dropdown-container {
-  background-color: #262626;
-  padding-left: 8px;
+  padding-left: 46px;
 }
 
-.sidenav>.active {
-  color: #fff;
+.dropdown-container a {
+  color: #1CD8D2;
 }
 
-.dropdown-container .active {
-  color: #fff;
+.dropdown-container a:first-child {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.dropdown-container a:last-child {
+  margin-top: 18px;
 }
 
 .fa-caret-down {
   float: right;
   padding-right: 8px;
+}
+
+.curve-down {
+  right: 0;
+  bottom: -30px;
+  position: absolute;
+}
+
+.curve-up {
+  position: absolute;
+  right: 0;
+  top: -30px;
 }
