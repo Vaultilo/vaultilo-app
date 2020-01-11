@@ -29,7 +29,7 @@ class PasswordStrength extends Component {
       return (
         <div className="password-strength-meter">
          <br />
-         <progress className={`password-strength-meter-progress strength-${this.PasswordLabel(pwStrength)}`}
+         <progress className={`col-12 password-strength-meter-progress strength-${this.PasswordLabel(pwStrength)}`}
           value={pwStrength.score}
           max="4"
         />
