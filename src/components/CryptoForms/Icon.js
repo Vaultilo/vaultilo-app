@@ -150,7 +150,7 @@ export default function Icon(props) {
     reader.readAsText(file);
   };
 
-  return (
+  return ( 
     <>
       <div className="form-group row">
         <label htmlFor="inputName" className="col-12 custom-label">
