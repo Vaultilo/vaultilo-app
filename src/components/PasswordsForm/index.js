@@ -12,7 +12,7 @@ export default function PasswordsForm(props) {
         domainAddress:selectedItem.domainAddress,
         domainUsername:selectedItem.domainUsername
       }
-    : {
+    : { 
         domainName: "",
         password: "",
         domainAddress:"",

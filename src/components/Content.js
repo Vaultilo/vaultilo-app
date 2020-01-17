@@ -3,6 +3,7 @@ import TopBar from './TopBar.js';
 import AppRouter from './AppRouter.js'; 
 import SideBar from './Sidebar.js';
 import { useFile } from "react-blockstack"; 
+import ExtensionRouter from "./ExtensionRouter"
 
 export default function Content ({ person }) {
   const [credentials, setCredentials] = useFile('crypto.json');
@@ -10,7 +11,17 @@ export default function Content ({ person }) {
   const [notes, setNotes] = useFile('notes.json');
   const avatarUrl = person.avatarUrl() || 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
   const name = person.name() || 'User';
+  const extensionView=(window.location.pathname==="/extension/view")
   return credentials === undefined || passwords === undefined || notes === undefined ? (<div>Loading..</div>):(
+    extensionView ? <ExtensionRouter
+            credentials={credentials}
+            setCredentials={setCredentials}
+            passwords={passwords}
+            setPasswords={setPasswords}
+            notes={notes}
+            setNotes={setNotes}
+    /> :
+
     <main>
       <div className="d-flex">
         <div className="side-content">
