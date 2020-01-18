@@ -14,24 +14,6 @@ export default function FormOptions(props) {
   const { type, selectedItem } = props;
   const [modalType, setModalType] = useState(selectedItem ? selectedItem.type : type);
 
-  const renderFormOptions = () => {
-    return ITEM_TYPES.map(type => {
-      return (
-        <div
-          className="col-4 wallet-box mb-3"
-          key={`item__${type.value}`}
-          onClick={() => setModalType(type.value)}
-        >
-          <Card>
-            <Card.Body>
-              <Card.Text>{type.label}</Card.Text>
-            </Card.Body>
-          </Card>
-        </div>
-      );
-    });
-  };
-
   const renderForm = () => {
     if (modalType === "crypto") {
       return <CrypoForms {...props} />;
@@ -47,21 +29,7 @@ export default function FormOptions(props) {
 
   return (
     <>
-      {modalType !== "items" && selectedItem === null ? (
-        <div className="row">
-          <button
-            className="btn btn-link"
-            onClick={() => setModalType("items")}
-          >
-            <i className="fa fa-arrow-left"></i> All Items
-          </button>
-        </div>
-      ) : null}
-      {modalType === "items" ? (
-        <div className="row">{renderFormOptions()}</div>
-      ) : (
-        renderForm()
-      )}
+      {renderForm()}
     </>
   );
 }

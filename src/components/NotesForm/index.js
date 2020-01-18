@@ -52,7 +52,7 @@ export default function NotesForm(props) {
   };
 
   return (
-    <>
+    <div className="form-container">
       <div className="form-group row">
         <label htmlFor="noteTitleInput" className="col-12 custom-label">
           Title
@@ -107,6 +107,6 @@ export default function NotesForm(props) {
           Cancel
         </button>
       </div>
-    </>
+    </div>
   );
 }

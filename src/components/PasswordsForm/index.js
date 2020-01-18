@@ -69,7 +69,7 @@ export default function PasswordsForm(props) {
   };
 
   return (
-    <>
+    <div className="form-container">
       <div className="form-group row">
         <label htmlFor="domain" className="col-12 custom-label">
           Domain Name
@@ -158,6 +158,6 @@ export default function PasswordsForm(props) {
           Cancel
         </button>
       </div>
-    </>
+    </div>
   );
 }

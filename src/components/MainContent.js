@@ -6,12 +6,14 @@ export default function MainContent(props) {
   const { subType, type } = props.match.params;
   const [modalShow, setModalShow] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [formType, setFormType] = useState(type);
 
   const handleModalClose = () => {
     setModalShow(false);
   };
 
-  const handleAddFormClick = () => {
+  const handleAddFormClick = (type) => {
+    setFormType(type);
     setSelectedItem(null);
     setModalShow(true);
   };
@@ -29,6 +31,22 @@ export default function MainContent(props) {
     </div>
   );
 
+  const getFormHeader = () => {
+    const formAction = selectedItem ? 'Edit' : 'Add';
+    let formText;
+    switch (formType) {
+      case 'crypto':
+        formText = 'Wallet';
+        break;
+      case 'notes':
+        formText = 'Note';
+        break;
+      case 'passwords':
+        formText = 'Password';
+      break;
+    }
+    return `${formAction} ${formText}`;
+  }
   const renderCryptoItem = credentials => {
     const items = JSON.parse(credentials).filter(
       credential => subType === "all" || credential.subType === subType
@@ -37,6 +55,17 @@ export default function MainContent(props) {
       <>
         {getItemsHeader("crypto")}
         <div className="row mt-3">
+          <>
+          {
+            <div className="col-3 mb-3">
+              <Card onClick={() => handleAddFormClick('crypto')}>
+                <Card.Body>
+                  <Card.Title>{'+'}</Card.Title>
+                  <Card.Text>{'Add New'}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          }
           {items.map(credential => {
             const { walletAddress, walletName, type, id } = credential;
             return (
@@ -51,6 +80,7 @@ export default function MainContent(props) {
               </div>
             );
           })}
+          </>
         </div>
       </>
     );
@@ -62,6 +92,17 @@ export default function MainContent(props) {
       <>
         {getItemsHeader("passwords")}
         <div className="row mt-3">
+          <>
+          {
+            <div className="col-3 mb-3">
+              <Card onClick={() => handleAddFormClick('passwords')}>
+                <Card.Body>
+                  <Card.Title>{'+'}</Card.Title>
+                  <Card.Text>{'Add New'}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          }
           {items.map(item => {
             const { domainName, type, id } = item;
             return (
@@ -75,6 +116,7 @@ export default function MainContent(props) {
               </div>
             );
           })}
+          </>
         </div>
       </>
     );
@@ -86,6 +128,17 @@ export default function MainContent(props) {
       <>
         {getItemsHeader("notes")}
         <div className="row mt-3">
+          <>
+          {
+            <div className="col-3 mb-3">
+              <Card onClick={() => handleAddFormClick('notes')}>
+                <Card.Body>
+                  <Card.Title>{'+'}</Card.Title>
+                  <Card.Text>{'Add New'}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          }
           {items.map(item => {
             const { noteInput, id, type } = item;
             return (
@@ -99,6 +152,7 @@ export default function MainContent(props) {
               </div>
             );
           })}
+          </>
         </div>
       </>
     );
@@ -133,13 +187,6 @@ export default function MainContent(props) {
       ) : (
         getItems()
       )}
-      <div className="row mt-3">
-        <div className="col-4 col-md-4 py-1">
-          <Button variant="primary" onClick={handleAddFormClick}>
-            Add
-          </Button>
-        </div>
-      </div>
       <Modal
         dialogClassName="custom-modal"
         show={modalShow}
@@ -148,7 +195,7 @@ export default function MainContent(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {type === "items" ? "Choose A Type" : "Add A Credential"}
+            {getFormHeader()}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -156,7 +203,7 @@ export default function MainContent(props) {
             {...props}
             itemsList={getItems()}
             onModalClose={handleModalClose}
-            type={type}
+            type={formType}
             selectedItem={selectedItem}
             subType={subType}
           />
