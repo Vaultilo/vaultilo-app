@@ -70,12 +70,12 @@
 
 .curve-down {
   right: 0;
-  bottom: -30px;
+  bottom: -16px;
   position: absolute;
 }
 
 .curve-up {
   position: absolute;
   right: 0;
-  top: -30px;
+  top: -18px;
 }

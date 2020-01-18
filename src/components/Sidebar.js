@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-import passwordsDown from "./svg/passwords-down.svg";
-import passwordsUp from "./svg/passwords-up.svg";
-import itemsDown from "./svg/items-down.svg";
-import itemsUp from "./svg/items-up.svg";
-import cryptoDown from "./svg/crypto-down.svg";
-import cryptoUp from "./svg/crypto-up.svg";
-import notesDown from "./svg/notes-down.svg";
-import notesUp from "./svg/notes-up.svg";
+import up from "./svg/up.svg";
+import down from "./svg/down.svg";
 
 export default function Sidebar(props) {
   const credentials =
@@ -32,14 +26,14 @@ export default function Sidebar(props) {
         <div className="nav-item">
           {activeNav === "items" ? (
             <div className="curve-up">
-              <img src={itemsUp} />
+              <img src={up} />
             </div>
           ) : null}
           <i className="fa fa-lock" />
           <span className="nav-title">All Items</span>
           {activeNav === "items" ? (
             <div className="curve-down">
-              <img src={itemsDown} />
+              <img src={down} />
             </div>
           ) : null}
         </div>
@@ -52,14 +46,14 @@ export default function Sidebar(props) {
         <div className="nav-item">
           {activeNav === "passwords" ? (
             <div className="curve-up">
-              <img src={passwordsUp} />
+              <img src={up} />
             </div>
           ) : null}
           <i className="fa fa-lock" />
           <span className="nav-title">Password</span>
           {activeNav === "passwords" ? (
             <div className="curve-down">
-              <img src={passwordsDown} />
+              <img src={down} />
             </div>
           ) : null}
         </div>
@@ -72,7 +66,7 @@ export default function Sidebar(props) {
         <div className="nav-item">
           {activeNav === "crypto" ? (
             <div className="curve-up">
-              <img src={cryptoUp} />
+              <img src={up} />
             </div>
           ) : null}
           <i className="fa fa-lock" />
@@ -99,7 +93,7 @@ export default function Sidebar(props) {
           </div>
           {activeNav === "crypto" ? (
             <div className="curve-down">
-              <img src={cryptoDown} />
+              <img src={down} />
             </div>
           ) : null}
         </div>
@@ -112,14 +106,14 @@ export default function Sidebar(props) {
         <div className="nav-item">
           {activeNav === "notes" ? (
             <div className="curve-up">
-              <img src={notesUp} />
+              <img src={up} />
             </div>
           ) : null}
           <i className="fa fa-lock" />
           <span className="nav-title">Note</span>
           {activeNav === "notes" ? (
             <div className="curve-down">
-              <img src={notesDown} />
+              <img src={down} />
             </div>
           ) : null}
         </div>
