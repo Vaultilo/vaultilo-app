@@ -5,33 +5,27 @@ import up from "./svg/up.svg";
 import down from "./svg/down.svg";
 
 export default function Sidebar(props) {
+  const { subType: subNav, type } = props.match.params;
   const credentials =
     props.credentials === null ? [] : JSON.parse(props.credentials);
-  const [activeNav, setActiveNav] = useState("items");
-  const [activeSubNav, setActiveSubNav] = useState("");
-  const handleNavClick = path => {
-    setActiveNav(path);
-    setActiveSubNav("");
-  };
-  const handleSubNavClick = path => {
-    setActiveSubNav(path);
-  };
+
   return (
     <div className="sidenav">
       <Link
-        className={`dropdown-btn ${activeNav === "items" ? "active" : ""}`}
+        className={`dropdown-btn ${type === "items" ? "active" : ""}`}
         to="/items/all"
-        onClick={() => handleNavClick("items")}
       >
         <div className="nav-item">
-          {activeNav === "items" ? (
+          {type === "items" ? (
             <div className="curve-up">
               <img src={up} />
             </div>
           ) : null}
-          <i className="fa fa-lock" />
-          <span className="nav-title">All Items</span>
-          {activeNav === "items" ? (
+          <div className="nav-title-block">            
+            <i className="fa fa-lock" />
+            <span className="nav-title">All Items</span>
+          </div>
+          {type === "items" ? (
             <div className="curve-down">
               <img src={down} />
             </div>
@@ -39,19 +33,20 @@ export default function Sidebar(props) {
         </div>
       </Link>
       <Link
-        className={`dropdown-btn ${activeNav === "passwords" ? "active" : ""}`}
+        className={`dropdown-btn ${type === "passwords" ? "active" : ""}`}
         to="/passwords/all"
-        onClick={() => handleNavClick("passwords")}
       >
         <div className="nav-item">
-          {activeNav === "passwords" ? (
+          {type === "passwords" ? (
             <div className="curve-up">
               <img src={up} />
             </div>
           ) : null}
-          <i className="fa fa-lock" />
-          <span className="nav-title">Password</span>
-          {activeNav === "passwords" ? (
+          <div className="nav-title-block">
+            <i className="fa fa-lock" />
+            <span className="nav-title">Password</span>
+          </div>
+          {type === "passwords" ? (
             <div className="curve-down">
               <img src={down} />
             </div>
@@ -59,21 +54,22 @@ export default function Sidebar(props) {
         </div>
       </Link>
       <Link
-        className={`dropdown-btn ${activeNav === "crypto" ? "active" : ""}`}
+        className={`dropdown-btn ${type === "crypto" ? "active" : ""}`}
         to="/crypto/all"
-        onClick={() => handleNavClick("crypto")}
       >
         <div className="nav-item">
-          {activeNav === "crypto" ? (
+          {type === "crypto" ? (
             <div className="curve-up">
               <img src={up} />
             </div>
           ) : null}
-          <i className="fa fa-lock" />
-          <span className="nav-title">Crypto Wallets</span>
+          <div className="nav-title-block">
+            <i className="fa fa-lock" />
+            <span className="nav-title">Crypto Wallets</span>
+          </div>
           <div
             className={`dropdown-container ${
-              activeNav === "crypto" ? "d-block" : "d-none"
+              type === "crypto" ? "d-block" : "d-none"
             }`}
           >
             {[...new Set(credentials.map(cred => cred.subType))].map(
@@ -81,9 +77,8 @@ export default function Sidebar(props) {
                 return (
                   <Link
                     key={`crypto-${subType}`}
-                    className={`${activeSubNav === subType ? "active" : ""}`}
+                    className={`${subNav === subType ? "active" : ""}`}
                     to={`/crypto/${subType}`}
-                    onClick={() => handleSubNavClick(subType)}
                   >
                     {subType}
                   </Link>
@@ -91,7 +86,7 @@ export default function Sidebar(props) {
               }
             )}
           </div>
-          {activeNav === "crypto" ? (
+          {type === "crypto" ? (
             <div className="curve-down">
               <img src={down} />
             </div>
@@ -99,19 +94,20 @@ export default function Sidebar(props) {
         </div>
       </Link>
       <Link
-        className={`dropdown-btn ${activeNav === "notes" ? "active" : ""}`}
+        className={`dropdown-btn ${type === "notes" ? "active" : ""}`}
         to="/notes/all"
-        onClick={() => handleNavClick("notes")}
       >
         <div className="nav-item">
-          {activeNav === "notes" ? (
+          {type === "notes" ? (
             <div className="curve-up">
               <img src={up} />
             </div>
           ) : null}
-          <i className="fa fa-lock" />
-          <span className="nav-title">Note</span>
-          {activeNav === "notes" ? (
+          <div className="nav-title-block">
+            <i className="fa fa-lock" />
+            <span className="nav-title">Note</span>
+          </div>
+          {type === "notes" ? (
             <div className="curve-down">
               <img src={down} />
             </div>

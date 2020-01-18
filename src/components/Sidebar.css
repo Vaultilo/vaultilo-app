@@ -8,7 +8,7 @@
 
 .nav-item {
   position: relative;
-  padding: 14px 0 14px 18px;
+  padding: 14px 0 14px 0;
   font-family: Rubik;
   font-style: normal;
   font-weight: 500;
@@ -18,7 +18,7 @@
 }
 
 .nav-title {
-  margin-left: 34px;
+  margin-left: 30px;
 }
 
 .sidenav a.active .nav-item {
@@ -46,21 +46,25 @@
   outline: none;
 }
 
-.dropdown-container {
-  padding-left: 46px;
+.nav-title-block {
+  padding: 6px 0 6px 18px;
+}
+
+.nav-title-block i {
+  font-size: 19px;
+  width: 20px;
 }
 
 .dropdown-container a {
   color: #1CD8D2;
+  font-size: 16px;
+  line-height: 19px;
+  padding: 6px 0;
+  padding-left: 70px;
 }
 
-.dropdown-container a:first-child {
-  margin-top: 18px;
-  margin-bottom: 18px;
-}
-
-.dropdown-container a:last-child {
-  margin-top: 18px;
+.dropdown-container .active {
+  background: linear-gradient(89.49deg, #D2FBEA 0.03%, rgba(210, 251, 234, 0) 99.94%);
 }
 
 .fa-caret-down {
