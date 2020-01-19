@@ -54,10 +54,11 @@ export default function NotesForm(props) {
     <div className="form-container">
       <div className="form-group row">
         <label htmlFor="noteTitleInput" className="col-12 custom-label">
-          Title
+          Name
         </label>
         <div className="col-12">
-          <textarea
+          <input
+            type="text"
             className="custom-input form-control"
             id="noteTitleInput"
             value={noteTitle}
@@ -71,8 +72,9 @@ export default function NotesForm(props) {
         </label>
         <div className="col-12">
           <textarea
-            className="custom-input form-control"
+            className="custom-textarea form-control"
             id="noteInput"
+            rows="3"
             value={noteInput}
             onChange={evt => setNoteInput(evt.target.value)}
           />
