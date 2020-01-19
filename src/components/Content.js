@@ -10,6 +10,7 @@ export default function Content ( props ) {
   const [credentials, setCredentials] = useFile('crypto.json');
   const [passwords, setPasswords] = useFile('passwords.json');
   const [notes, setNotes] = useFile('notes.json');
+
   const avatarUrl = person.avatarUrl() || 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
   const name = person.name() || 'User';
   return credentials === undefined || passwords === undefined || notes === undefined ? (<div>Loading..</div>):(

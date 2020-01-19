@@ -73,7 +73,6 @@ export default function Sidebar(props) {
           >
             {[...new Set(credentials.map(cred => cred.subType))].map(
               subType => {
-                console.log(subType);
                 return (
                   <Link
                     key={`crypto-${subType}`}

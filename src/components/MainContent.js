@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Button, Card, Modal, Carousel } from "react-bootstrap";
+import { Card, Modal } from "react-bootstrap";
 
 import FormOptions from "./FormOptions.js";
-import ItemsRow from './ItemsRow';
+import ItemsRow from "./ItemsRow";
+import CryptoCard from "./Cards/CryptoCard";
+import NotesCard from "./Cards/NotesCard.js";
+import PasswordsCard from "./Cards/PasswordsCard.js";
 
+const CryptoTypes = ["icon", "ethereum", "bitcoin", "ripple", "other"];
 export default function MainContent(props) {
   const { subType, type } = props.match.params;
   const [modalShow, setModalShow] = useState(false);
@@ -13,7 +17,7 @@ export default function MainContent(props) {
     setModalShow(false);
   };
 
-  const handleAddFormClick = (type) => {
+  const handleAddFormClick = type => {
     setFormType(type);
     setSelectedItem(null);
     setModalShow(true);
@@ -33,56 +37,97 @@ export default function MainContent(props) {
   );
 
   const getFormHeader = () => {
-    const formAction = selectedItem ? 'Edit' : 'Add';
+    const formAction = selectedItem ? "Edit" : "Add";
     let formText;
     switch (formType) {
-      case 'crypto':
-        formText = 'Wallet';
+      case "crypto":
+        formText = "Wallet";
         break;
-      case 'notes':
-        formText = 'Note';
+      case "notes":
+        formText = "Note";
         break;
-      case 'passwords':
-        formText = 'Password';
-      break;
+      case "passwords":
+        formText = "Password";
+        break;
     }
     return `${formAction} ${formText}`;
-  }
+  };
+
   const renderCryptoItem = credentials => {
     const items = JSON.parse(credentials).filter(
       credential => subType === "all" || credential.subType === subType
     );
+    if (type === "items") {
+      return (
+        <>
+          {getItemsHeader("crypto")}
+          <div className="row mt-3">
+            <div className="col-3 mb-3">
+              <Card onClick={() => handleAddFormClick("crypto")}>
+                <Card.Body>
+                  <Card.Title>{"+"}</Card.Title>
+                  <Card.Text>{"Add New"}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col-9">
+              <ItemsRow items={items} cardType={"crypto"} />
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    if (type === "crypto" && subType === "all") {
+      return (
+        <>
+          {CryptoTypes.map(cryptoType => {
+            const cryptoTypeItems = items.filter(
+              item => item.subType === cryptoType
+            );
+            return (
+              <>
+                {getItemsHeader(cryptoType)}
+                <div className="row mt-3">
+                  <div className="col-3 mb-3">
+                    <Card onClick={() => handleAddFormClick("crypto")}>
+                      <Card.Body>
+                        <Card.Title>{"+"}</Card.Title>
+                        <Card.Text>{"Add New"}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                  <div className="col-9">
+                    <ItemsRow items={cryptoTypeItems} cardType={"crypto"} />
+                  </div>
+                </div>
+              </>
+            );
+          })}
+        </>
+      );
+    }
     return (
       <>
         {getItemsHeader("crypto")}
         <div className="row mt-3">
           {
             <div className="col-3 mb-3">
-              <Card onClick={() => handleAddFormClick('crypto')}>
+              <Card onClick={() => handleAddFormClick("crypto")}>
                 <Card.Body>
-                  <Card.Title>{'+'}</Card.Title>
-                  <Card.Text>{'Add New'}</Card.Text>
+                  <Card.Title>{"+"}</Card.Title>
+                  <Card.Text>{"Add New"}</Card.Text>
                 </Card.Body>
               </Card>
             </div>
           }
-          <div className="col-9">
-            <ItemsRow items={items} type={type} />
-          </div>
-          {/* {items.map(credential => {
-            const { walletAddress, walletName, type, id } = credential;
+          {items.map(credential => {
             return (
-              <div className="col-3 wallet-box mb-3" key={id}>
-                <Card onClick={() => handleItemClick(credential)}>
-                  <Card.Body>
-                    <Card.Title>{walletName}</Card.Title>
-                    <Card.Text>{walletAddress}</Card.Text>
-                    <Card.Text>{type}</Card.Text>
-                  </Card.Body>
-                </Card>
+              <div className="col-3 mb-3" key={credential.id}>
+                <CryptoCard credential={credential} />
               </div>
             );
-          })} */}
+          })}
         </div>
       </>
     );
@@ -90,34 +135,49 @@ export default function MainContent(props) {
 
   const renderPasswordItem = passwords => {
     const items = JSON.parse(passwords);
+    if (type === "items") {
+      return (
+        <>
+          {getItemsHeader("passwords")}
+          <div className="row mt-3">
+            <div className="col-3 mb-3">
+              <Card onClick={() => handleAddFormClick("passwords")}>
+                <Card.Body>
+                  <Card.Title>{"+"}</Card.Title>
+                  <Card.Text>{"Add New"}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col-9">
+              <ItemsRow items={items} cardType={"passwords"} />
+            </div>
+          </div>
+        </>
+      );
+    }
     return (
       <>
         {getItemsHeader("passwords")}
         <div className="row mt-3">
           <>
-          {
-            <div className="col-3 mb-3">
-              <Card onClick={() => handleAddFormClick('passwords')}>
-                <Card.Body>
-                  <Card.Title>{'+'}</Card.Title>
-                  <Card.Text>{'Add New'}</Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
-          }
-          {items.map(item => {
-            const { domainName, type, id } = item;
-            return (
-              <div className="col-3 wallet-box mb-3" key={id}>
-                <Card onClick={() => handleItemClick(item)}>
+            {
+              <div className="col-3 mb-3">
+                <Card onClick={() => handleAddFormClick("passwords")}>
                   <Card.Body>
-                    <Card.Title>{domainName}</Card.Title>
-                    <Card.Text>{type}</Card.Text>
+                    <Card.Title>{"+"}</Card.Title>
+                    <Card.Text>{"Add New"}</Card.Text>
                   </Card.Body>
                 </Card>
               </div>
-            );
-          })}
+            }
+            {items.map(item => {
+              const { id } = item;
+              return (
+                <div className="col-3 mb-3" key={id}>
+                  <PasswordsCard credential={item} />
+                </div>
+              );
+            })}
           </>
         </div>
       </>
@@ -126,34 +186,49 @@ export default function MainContent(props) {
 
   const renderNotesItem = notes => {
     const items = JSON.parse(notes);
+    if (type === "items") {
+      return (
+        <>
+          {getItemsHeader("notes")}
+          <div className="row mt-3">
+            <div className="col-3 mb-3">
+              <Card onClick={() => handleAddFormClick("notes")}>
+                <Card.Body>
+                  <Card.Title>{"+"}</Card.Title>
+                  <Card.Text>{"Add New"}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col-9">
+              <ItemsRow items={items} cardType={"notes"} />
+            </div>
+          </div>
+        </>
+      );
+    }
     return (
       <>
         {getItemsHeader("notes")}
         <div className="row mt-3">
           <>
-          {
-            <div className="col-3 mb-3">
-              <Card onClick={() => handleAddFormClick('notes')}>
-                <Card.Body>
-                  <Card.Title>{'+'}</Card.Title>
-                  <Card.Text>{'Add New'}</Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
-          }
-          {items.map(item => {
-            const { noteInput, id, type } = item;
-            return (
-              <div className="col-3 wallet-box mb-3" key={id}>
-                <Card onClick={() => handleItemClick(item)}>
+            {
+              <div className="col-3 mb-3">
+                <Card onClick={() => handleAddFormClick("notes")}>
                   <Card.Body>
-                    <Card.Text>{noteInput}</Card.Text>
-                    <Card.Text>{type}</Card.Text>
+                    <Card.Title>{"+"}</Card.Title>
+                    <Card.Text>{"Add New"}</Card.Text>
                   </Card.Body>
                 </Card>
               </div>
-            );
-          })}
+            }
+            {items.map(item => {
+              const { id } = item;
+              return (
+                <div className="col-3 mb-3" key={id}>
+                  <NotesCard credential={item} />
+                </div>
+              );
+            })}
           </>
         </div>
       </>
@@ -174,7 +249,11 @@ export default function MainContent(props) {
     if (type === "notes") {
       return renderNotesItem(notes);
     }
-    return [renderCryptoItem(credentials), renderPasswordItem(passwords), renderNotesItem(notes)];
+    return [
+      renderCryptoItem(credentials),
+      renderPasswordItem(passwords),
+      renderNotesItem(notes)
+    ];
   };
 
   return (

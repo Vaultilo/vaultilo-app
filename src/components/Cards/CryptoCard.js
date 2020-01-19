@@ -1,17 +1,17 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import './index.css';
 
 export default function CryptoCard({credential}) {
-  const { walletName, walletAddress, type} = credential;
+  const { walletName, subType } = credential;
+  const imgSrc = subType === 'ethereum' ? '/images/ethereum.png' : '/images/icon-logo.png';
   return (
-    <div className="col-4 wallet-box mb-3">
-    <Card>
-      <Card.Body>
-        <Card.Title>{walletName}</Card.Title>
-        <Card.Text>{walletAddress}</Card.Text>
-        <Card.Text>{type}</Card.Text>
-      </Card.Body>
-    </Card>
+    <div className="wallet-box">
+      <div className="top-img">
+        <img src={imgSrc} /> 
+      </div>
+      <div className="title">
+        {walletName}
+      </div>
     </div>
   )
 }

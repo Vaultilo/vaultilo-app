@@ -32,7 +32,7 @@ inspect {
   max-width: 50em;
   margin: auto;
 }
-
+/* 
 .wallet-box .card{
   cursor: pointer;
 }
@@ -40,7 +40,7 @@ inspect {
 .wallet-box a {
   color: #2f2f2f;
   text-decoration: none;
-}
+} */
 
 .password-visibility-btn {
   position: absolute;
@@ -85,4 +85,57 @@ inspect {
   font-size: 30px;
   line-height: 20px;
   font-weight: normal;
+}
+
+@media screen and (max-width: 1200px) {
+  .main-content {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .main-content {
+    padding: 0 30px;
+  }
+}
+.carousel-control-prev {
+  width: 30px;
+  height: 30px;
+  opacity: 1;
+  left: -15px;
+  top: 45px;
+}
+
+.carousel-control-next {
+  width: 30px;
+  height: 30px;
+  opacity: 1;
+  right: -15px;
+  top: 45px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 30px;
+  opacity: 1;
+  width: 30px;
+  /* outline: black; */
+  /* background-size: 100%, 100%; */
+  border-radius: 50%;
+  /* border: 1px solid black; */
+  background-image: none;
+  background-color: #1ad8d2;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 18px;
+  color: white;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 18px;
+  color: white;
 }

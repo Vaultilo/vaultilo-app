@@ -65,7 +65,7 @@ export default function Ethereum(props) {
   };
 
   const handleClick = () => {
-    if (validateForm()) {
+    if (true) {
       const newCred = {
         id: Date.now(),
         type: 'crypto',

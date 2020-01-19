@@ -23,7 +23,6 @@ export default function NotesForm(props) {
   }, [notes]);
 
   const handleClick = () => {
-    setNotes(null);
     if (noteInput.length) {
       const newCred = {
         id: Date.now(),
