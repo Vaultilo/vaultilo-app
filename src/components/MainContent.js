@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Modal } from "react-bootstrap";
 
 import FormOptions from "./FormOptions.js";
-import ItemsRow from "./ItemsRow";
+import ItemsRow from "./CarouselRow";
 import CryptoCard from "./Cards/CryptoCard";
 import NotesCard from "./Cards/NotesCard.js";
 import PasswordsCard from "./Cards/PasswordsCard.js";

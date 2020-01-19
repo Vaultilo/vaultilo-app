@@ -4,7 +4,7 @@ import CryptoCard from "./Cards/CryptoCard";
 import NotesCard from "./Cards/NotesCard";
 import PasswordsCard from "./Cards/PasswordsCard";
 
-export default function ItemsRow(props) {
+export default function CarouselRow(props) {
   const { items, cardType } = props;
 
   const getItemCard = (credential) => {
@@ -30,7 +30,7 @@ export default function ItemsRow(props) {
   
   return (
     <>
-      <Carousel controls={true} indicators={false}>
+      <Carousel controls={items.length > 3} indicators={false} interval={null}>
         {itemRows.map((row, idx) => (
           <Carousel.Item key={`row-${cardType}-${idx}`}>
             <div className="row">

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../CryptoForms/index.css'
 
 export default function NotesForm(props) {

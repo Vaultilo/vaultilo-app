@@ -45,7 +45,6 @@ export default function Ethereum(props) {
   const validateForm = () => {
     const addValid=WAValidator.validate(walletAddress,"ETH")
     const seedValid=bip39.validateMnemonic(seedWords)
-    console.log("Address ",addValid)
 
     if (!addValid){
       showToast('Ethereum wallet address invalid',2000)
@@ -65,7 +64,7 @@ export default function Ethereum(props) {
   };
 
   const handleClick = () => {
-    if (true) {
+    if (validateForm()) {
       const newCred = {
         id: Date.now(),
         type: 'crypto',
