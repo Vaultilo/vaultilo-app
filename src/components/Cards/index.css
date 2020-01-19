@@ -4,6 +4,7 @@
   border-radius: 4px;
   padding: 22px 16px;
   height: 120px;
+  border:1px solid #f3f0f0;
 }
 .wallet-box .top-img {
   margin-bottom: 14px;
@@ -34,4 +35,21 @@
   line-height: 34px;
   text-transform: capitalize;
   padding: 0 14px;
+}
+
+.new-card {
+  height: 120px;
+  background: rgba(196, 196, 196, 0.2);
+  border-radius: 4px;
+  text-align: center;
+  color: #2B9B98;
+  cursor: pointer;
+}
+
+.new-card .new-card-icon {
+  font-size: 48px;
+}
+
+.new-card .title {
+  font-size: 20px;
 }

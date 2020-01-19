@@ -10,7 +10,6 @@ import './index.css';
 export default function Form(props) {
   const {selectedItem} = props;
   const subType = selectedItem ? selectedItem.subType : props.subType;
-  console.log("Cryptoform ST",subType)
   const options = [
     { value: "bitcoin", label: "Bitcoin" },
     { value: "icon", label: "Icon" },

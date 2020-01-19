@@ -6,6 +6,7 @@ import ItemsRow from "./CarouselRow";
 import CryptoCard from "./Cards/CryptoCard";
 import NotesCard from "./Cards/NotesCard.js";
 import PasswordsCard from "./Cards/PasswordsCard.js";
+import AddNewCard from "./Cards/AddNewCard.js";
 
 const CryptoTypes = ["icon", "ethereum", "bitcoin", "ripple", "other"];
 export default function MainContent(props) {
@@ -40,14 +41,14 @@ export default function MainContent(props) {
     const formAction = selectedItem ? "Edit" : "Add";
     let formText;
     switch (formType) {
-      case "crypto":
-        formText = "Wallet";
-        break;
       case "notes":
         formText = "Note";
         break;
       case "passwords":
         formText = "Password";
+        break;
+      default:
+        formText = "Wallet"
         break;
     }
     return `${formAction} ${formText}`;
@@ -63,12 +64,7 @@ export default function MainContent(props) {
           {getItemsHeader("crypto")}
           <div className="row mt-3">
             <div className="col-3 mb-3">
-              <Card onClick={() => handleAddFormClick("crypto")}>
-                <Card.Body>
-                  <Card.Title>{"+"}</Card.Title>
-                  <Card.Text>{"Add New"}</Card.Text>
-                </Card.Body>
-              </Card>
+              <AddNewCard onClick={handleAddFormClick} formType={"crypto"} />
             </div>
             <div className="col-9">
               <ItemsRow items={items} cardType={"crypto"} />
@@ -90,12 +86,7 @@ export default function MainContent(props) {
                 {getItemsHeader(cryptoType)}
                 <div className="row mt-3">
                   <div className="col-3 mb-3">
-                    <Card onClick={() => handleAddFormClick("crypto")}>
-                      <Card.Body>
-                        <Card.Title>{"+"}</Card.Title>
-                        <Card.Text>{"Add New"}</Card.Text>
-                      </Card.Body>
-                    </Card>
+                    <AddNewCard onClick={handleAddFormClick} formType={cryptoType} />
                   </div>
                   <div className="col-9">
                     <ItemsRow items={cryptoTypeItems} cardType={"crypto"} />
@@ -113,12 +104,7 @@ export default function MainContent(props) {
         <div className="row mt-3">
           {
             <div className="col-3 mb-3">
-              <Card onClick={() => handleAddFormClick("crypto")}>
-                <Card.Body>
-                  <Card.Title>{"+"}</Card.Title>
-                  <Card.Text>{"Add New"}</Card.Text>
-                </Card.Body>
-              </Card>
+              <AddNewCard onClick={handleAddFormClick} formType={subType} />
             </div>
           }
           {items.map(credential => {
@@ -141,12 +127,7 @@ export default function MainContent(props) {
           {getItemsHeader("passwords")}
           <div className="row mt-3">
             <div className="col-3 mb-3">
-              <Card onClick={() => handleAddFormClick("passwords")}>
-                <Card.Body>
-                  <Card.Title>{"+"}</Card.Title>
-                  <Card.Text>{"Add New"}</Card.Text>
-                </Card.Body>
-              </Card>
+              <AddNewCard onClick={handleAddFormClick} formType={"passwords"} />
             </div>
             <div className="col-9">
               <ItemsRow items={items} cardType={"passwords"} />
@@ -162,12 +143,7 @@ export default function MainContent(props) {
           <>
             {
               <div className="col-3 mb-3">
-                <Card onClick={() => handleAddFormClick("passwords")}>
-                  <Card.Body>
-                    <Card.Title>{"+"}</Card.Title>
-                    <Card.Text>{"Add New"}</Card.Text>
-                  </Card.Body>
-                </Card>
+                  <AddNewCard onClick={handleAddFormClick} formType={"passwords"} />
               </div>
             }
             {items.map(item => {
@@ -192,12 +168,7 @@ export default function MainContent(props) {
           {getItemsHeader("notes")}
           <div className="row mt-3">
             <div className="col-3 mb-3">
-              <Card onClick={() => handleAddFormClick("notes")}>
-                <Card.Body>
-                  <Card.Title>{"+"}</Card.Title>
-                  <Card.Text>{"Add New"}</Card.Text>
-                </Card.Body>
-              </Card>
+              <AddNewCard onClick={handleAddFormClick} formType={"notes"} />
             </div>
             <div className="col-9">
               <ItemsRow items={items} cardType={"notes"} />
@@ -213,12 +184,7 @@ export default function MainContent(props) {
           <>
             {
               <div className="col-3 mb-3">
-                <Card onClick={() => handleAddFormClick("notes")}>
-                  <Card.Body>
-                    <Card.Title>{"+"}</Card.Title>
-                    <Card.Text>{"Add New"}</Card.Text>
-                  </Card.Body>
-                </Card>
+                <AddNewCard onClick={handleAddFormClick} formType={"notes"} />
               </div>
             }
             {items.map(item => {
@@ -284,9 +250,9 @@ export default function MainContent(props) {
             {...props}
             itemsList={getItems()}
             onModalClose={handleModalClose}
-            type={formType}
+            type={type}
             selectedItem={selectedItem}
-            subType={subType}
+            formType={formType}
           />
         </Modal.Body>
       </Modal>
