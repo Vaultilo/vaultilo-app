@@ -1,4 +1,5 @@
 .wallet-box {
+  position: relative;
   background: #FFFFFF;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.14);
   border-radius: 4px;
@@ -14,12 +15,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .notes-box {
+  position: relative;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.14);
   border-radius: 4px;
   height: 120px;
   background-color: white;
+  border:1px solid #f3f0f0;
 }
 .note-img {
   text-align: center;
@@ -27,7 +29,7 @@
   padding: 22px 0;
   background-color: #2b9b97;
 }
-.notes-box i {
+.notes-box .icon-note, .notes-box .icon-password {
   font-size: 38px;
 }
 .notes-box .title {
@@ -52,4 +54,35 @@
 
 .new-card .title {
   font-size: 20px;
+}
+
+.action-btn {
+  position: absolute;
+  cursor: pointer;
+  visibility: visible;
+  color: #CACACA;
+}
+
+.wallet-box .action-btn:hover {
+  color: #2b9b97;
+}
+
+.notes-box .action-btn:hover {
+  color: white;
+}
+
+.action-btn.delete-btn {
+  right: 10px;
+  font-size: 20px;
+  top: 6px;
+}
+
+.action-btn.view-btn {
+  right: 36px;
+  font-size: 14px;
+  top: 11px;
+}
+
+.wallet-box:hover .action-btn, .notes-box:hover .action-btn {
+  visibility: visible;
 }

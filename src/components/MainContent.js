@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Modal } from "react-bootstrap";
 
 import FormOptions from "./FormOptions.js";
-import ItemsRow from "./CarouselRow";
+import CarouselRow from "./CarouselRow";
 import CryptoCard from "./Cards/CryptoCard";
 import NotesCard from "./Cards/NotesCard.js";
 import PasswordsCard from "./Cards/PasswordsCard.js";
@@ -67,7 +67,7 @@ export default function MainContent(props) {
               <AddNewCard onClick={handleAddFormClick} formType={"crypto"} />
             </div>
             <div className="col-9">
-              <ItemsRow items={items} cardType={"crypto"} />
+              <CarouselRow items={items} cardType={"crypto"} onClick={handleItemClick} />
             </div>
           </div>
         </>
@@ -89,7 +89,7 @@ export default function MainContent(props) {
                     <AddNewCard onClick={handleAddFormClick} formType={cryptoType} />
                   </div>
                   <div className="col-9">
-                    <ItemsRow items={cryptoTypeItems} cardType={"crypto"} />
+                    <CarouselRow items={cryptoTypeItems} cardType={"crypto"} onClick={handleItemClick} />
                   </div>
                 </div>
               </>
@@ -110,7 +110,7 @@ export default function MainContent(props) {
           {items.map(credential => {
             return (
               <div className="col-3 mb-3" key={credential.id}>
-                <CryptoCard credential={credential} />
+                <CryptoCard credential={credential} onClick={handleItemClick} />
               </div>
             );
           })}
@@ -130,7 +130,7 @@ export default function MainContent(props) {
               <AddNewCard onClick={handleAddFormClick} formType={"passwords"} />
             </div>
             <div className="col-9">
-              <ItemsRow items={items} cardType={"passwords"} />
+              <CarouselRow items={items} cardType={"passwords"} onClick={handleItemClick} />
             </div>
           </div>
         </>
@@ -150,7 +150,7 @@ export default function MainContent(props) {
               const { id } = item;
               return (
                 <div className="col-3 mb-3" key={id}>
-                  <PasswordsCard credential={item} />
+                  <PasswordsCard credential={item} onClick={handleItemClick} />
                 </div>
               );
             })}
@@ -171,7 +171,7 @@ export default function MainContent(props) {
               <AddNewCard onClick={handleAddFormClick} formType={"notes"} />
             </div>
             <div className="col-9">
-              <ItemsRow items={items} cardType={"notes"} />
+              <CarouselRow items={items} cardType={"notes"} onClick={handleItemClick} />
             </div>
           </div>
         </>
@@ -191,7 +191,7 @@ export default function MainContent(props) {
               const { id } = item;
               return (
                 <div className="col-3 mb-3" key={id}>
-                  <NotesCard credential={item} />
+                  <NotesCard credential={item} onClick={handleItemClick} />
                 </div>
               );
             })}

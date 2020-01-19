@@ -5,7 +5,8 @@ import PasswordsForm from "./PasswordsForm/index.js";
 import NotesForm from "./NotesForm/index.js";
 
 export default function FormOptions(props) {
-  const { type, formType} = props;
+  const { type, selectedItem} = props;
+  const formType = selectedItem ? selectedItem.type : props.formType;
   const renderForm = () => {
     if (formType === "crypto" || type === "crypto") {
       return <CrypoForms subType={formType} {...props} />;
