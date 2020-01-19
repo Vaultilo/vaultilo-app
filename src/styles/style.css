@@ -60,6 +60,7 @@ inspect {
 
 .main-content {
   flex: 1;
+  padding: 0 60px;
 }
 
 .custom-modal {

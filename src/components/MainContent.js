@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Button, Card, Modal } from "react-bootstrap";
+import { Button, Card, Modal, Carousel } from "react-bootstrap";
+
 import FormOptions from "./FormOptions.js";
+import ItemsRow from './ItemsRow';
 
 export default function MainContent(props) {
   const { subType, type } = props.match.params;
   const [modalShow, setModalShow] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [formType, setFormType] = useState(type);
-
   const handleModalClose = () => {
     setModalShow(false);
   };
@@ -55,7 +56,6 @@ export default function MainContent(props) {
       <>
         {getItemsHeader("crypto")}
         <div className="row mt-3">
-          <>
           {
             <div className="col-3 mb-3">
               <Card onClick={() => handleAddFormClick('crypto')}>
@@ -66,7 +66,10 @@ export default function MainContent(props) {
               </Card>
             </div>
           }
-          {items.map(credential => {
+          <div className="col-9">
+            <ItemsRow items={items} type={type} />
+          </div>
+          {/* {items.map(credential => {
             const { walletAddress, walletName, type, id } = credential;
             return (
               <div className="col-3 wallet-box mb-3" key={id}>
@@ -79,8 +82,7 @@ export default function MainContent(props) {
                 </Card>
               </div>
             );
-          })}
-          </>
+          })} */}
         </div>
       </>
     );
