@@ -1,17 +1,25 @@
 import React, { useState } from "react";
-import { Button, Card, Modal } from "react-bootstrap";
-import FormOptions from "./FormOptions.js";
+import { Card, Modal } from "react-bootstrap";
 
+import FormOptions from "./FormOptions.js";
+import CarouselRow from "./CarouselRow";
+import CryptoCard from "./Cards/CryptoCard";
+import NotesCard from "./Cards/NotesCard.js";
+import PasswordsCard from "./Cards/PasswordsCard.js";
+import AddNewCard from "./Cards/AddNewCard.js";
+
+const CryptoTypes = ["icon", "ethereum", "bitcoin", "ripple", "other"];
 export default function MainContent(props) {
   const { subType, type } = props.match.params;
   const [modalShow, setModalShow] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-
+  const [formType, setFormType] = useState(type);
   const handleModalClose = () => {
     setModalShow(false);
   };
 
-  const handleAddFormClick = () => {
+  const handleAddFormClick = type => {
+    setFormType(type);
     setSelectedItem(null);
     setModalShow(true);
   };
@@ -29,25 +37,80 @@ export default function MainContent(props) {
     </div>
   );
 
+  const getFormHeader = () => {
+    const formAction = selectedItem ? "Edit" : "Add";
+    let formText;
+    switch (formType) {
+      case "notes":
+        formText = "Note";
+        break;
+      case "passwords":
+        formText = "Password";
+        break;
+      default:
+        formText = "Wallet"
+        break;
+    }
+    return `${formAction} ${formText}`;
+  };
+
   const renderCryptoItem = credentials => {
     const items = JSON.parse(credentials).filter(
       credential => subType === "all" || credential.subType === subType
     );
+    if (type === "items") {
+      return (
+        <>
+          {getItemsHeader("crypto")}
+          <div className="row mt-3">
+            <div className="col-3 mb-3">
+              <AddNewCard onClick={handleAddFormClick} formType={"crypto"} />
+            </div>
+            <div className="col-9">
+              <CarouselRow items={items} cardType={"crypto"} onClick={handleItemClick} />
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    if (type === "crypto" && subType === "all") {
+      return (
+        <>
+          {CryptoTypes.map(cryptoType => {
+            const cryptoTypeItems = items.filter(
+              item => item.subType === cryptoType
+            );
+            return (
+              <>
+                {getItemsHeader(cryptoType)}
+                <div className="row mt-3">
+                  <div className="col-3 mb-3">
+                    <AddNewCard onClick={handleAddFormClick} formType={cryptoType} />
+                  </div>
+                  <div className="col-9">
+                    <CarouselRow items={cryptoTypeItems} cardType={"crypto"} onClick={handleItemClick} />
+                  </div>
+                </div>
+              </>
+            );
+          })}
+        </>
+      );
+    }
     return (
       <>
         {getItemsHeader("crypto")}
         <div className="row mt-3">
+          {
+            <div className="col-3 mb-3">
+              <AddNewCard onClick={handleAddFormClick} formType={subType} />
+            </div>
+          }
           {items.map(credential => {
-            const { walletAddress, walletName, type, id } = credential;
             return (
-              <div className="col-3 wallet-box mb-3" key={id}>
-                <Card onClick={() => handleItemClick(credential)}>
-                  <Card.Body>
-                    <Card.Title>{walletName}</Card.Title>
-                    <Card.Text>{walletAddress}</Card.Text>
-                    <Card.Text>{type}</Card.Text>
-                  </Card.Body>
-                </Card>
+              <div className="col-3 mb-3" key={credential.id}>
+                <CryptoCard credential={credential} onClick={handleItemClick} />
               </div>
             );
           })}
@@ -58,23 +121,40 @@ export default function MainContent(props) {
 
   const renderPasswordItem = passwords => {
     const items = JSON.parse(passwords);
+    if (type === "items") {
+      return (
+        <>
+          {getItemsHeader("passwords")}
+          <div className="row mt-3">
+            <div className="col-3 mb-3">
+              <AddNewCard onClick={handleAddFormClick} formType={"passwords"} />
+            </div>
+            <div className="col-9">
+              <CarouselRow items={items} cardType={"passwords"} onClick={handleItemClick} />
+            </div>
+          </div>
+        </>
+      );
+    }
     return (
       <>
         {getItemsHeader("passwords")}
         <div className="row mt-3">
-          {items.map(item => {
-            const { domainName, type, id } = item;
-            return (
-              <div className="col-3 wallet-box mb-3" key={id}>
-                <Card onClick={() => handleItemClick(item)}>
-                  <Card.Body>
-                    <Card.Title>{domainName}</Card.Title>
-                    <Card.Text>{type}</Card.Text>
-                  </Card.Body>
-                </Card>
+          <>
+            {
+              <div className="col-3 mb-3">
+                  <AddNewCard onClick={handleAddFormClick} formType={"passwords"} />
               </div>
-            );
-          })}
+            }
+            {items.map(item => {
+              const { id } = item;
+              return (
+                <div className="col-3 mb-3" key={id}>
+                  <PasswordsCard credential={item} onClick={handleItemClick} />
+                </div>
+              );
+            })}
+          </>
         </div>
       </>
     );
@@ -82,23 +162,40 @@ export default function MainContent(props) {
 
   const renderNotesItem = notes => {
     const items = JSON.parse(notes);
+    if (type === "items") {
+      return (
+        <>
+          {getItemsHeader("notes")}
+          <div className="row mt-3">
+            <div className="col-3 mb-3">
+              <AddNewCard onClick={handleAddFormClick} formType={"notes"} />
+            </div>
+            <div className="col-9">
+              <CarouselRow items={items} cardType={"notes"} onClick={handleItemClick} />
+            </div>
+          </div>
+        </>
+      );
+    }
     return (
       <>
         {getItemsHeader("notes")}
         <div className="row mt-3">
-          {items.map(item => {
-            const { noteInput, id, type } = item;
-            return (
-              <div className="col-3 wallet-box mb-3" key={id}>
-                <Card onClick={() => handleItemClick(item)}>
-                  <Card.Body>
-                    <Card.Text>{noteInput}</Card.Text>
-                    <Card.Text>{type}</Card.Text>
-                  </Card.Body>
-                </Card>
+          <>
+            {
+              <div className="col-3 mb-3">
+                <AddNewCard onClick={handleAddFormClick} formType={"notes"} />
               </div>
-            );
-          })}
+            }
+            {items.map(item => {
+              const { id } = item;
+              return (
+                <div className="col-3 mb-3" key={id}>
+                  <NotesCard credential={item} onClick={handleItemClick} />
+                </div>
+              );
+            })}
+          </>
         </div>
       </>
     );
@@ -118,7 +215,11 @@ export default function MainContent(props) {
     if (type === "notes") {
       return renderNotesItem(notes);
     }
-    return [renderCryptoItem(credentials), renderPasswordItem(passwords), renderNotesItem(notes)];
+    return [
+      renderCryptoItem(credentials),
+      renderPasswordItem(passwords),
+      renderNotesItem(notes)
+    ];
   };
 
   return (
@@ -133,13 +234,6 @@ export default function MainContent(props) {
       ) : (
         getItems()
       )}
-      <div className="row mt-3">
-        <div className="col-4 col-md-4 py-1">
-          <Button variant="primary" onClick={handleAddFormClick}>
-            Add
-          </Button>
-        </div>
-      </div>
       <Modal
         dialogClassName="custom-modal"
         show={modalShow}
@@ -148,7 +242,7 @@ export default function MainContent(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {type === "items" ? "Choose A Type" : "Add A Credential"}
+            {getFormHeader()}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -158,7 +252,7 @@ export default function MainContent(props) {
             onModalClose={handleModalClose}
             type={type}
             selectedItem={selectedItem}
-            subType={subType}
+            formType={formType}
           />
         </Modal.Body>
       </Modal>

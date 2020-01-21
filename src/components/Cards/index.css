@@ -1,0 +1,88 @@
+.wallet-box {
+  position: relative;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.14);
+  border-radius: 4px;
+  padding: 22px 16px;
+  height: 120px;
+  border:1px solid #f3f0f0;
+}
+.wallet-box .top-img {
+  margin-bottom: 14px;
+}
+.wallet-box .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.notes-box {
+  position: relative;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.14);
+  border-radius: 4px;
+  height: 120px;
+  background-color: white;
+  border:1px solid #f3f0f0;
+}
+.note-img {
+  text-align: center;
+  color: white;
+  padding: 22px 0;
+  background-color: #2b9b97;
+}
+.notes-box .icon-note, .notes-box .icon-password {
+  font-size: 38px;
+}
+.notes-box .title {
+  font-size: 14px;
+  line-height: 34px;
+  text-transform: capitalize;
+  padding: 0 14px;
+}
+
+.new-card {
+  height: 120px;
+  background: rgba(196, 196, 196, 0.2);
+  border-radius: 4px;
+  text-align: center;
+  color: #2B9B98;
+  cursor: pointer;
+}
+
+.new-card .new-card-icon {
+  font-size: 48px;
+}
+
+.new-card .title {
+  font-size: 20px;
+}
+
+.action-btn {
+  position: absolute;
+  cursor: pointer;
+  visibility: visible;
+  color: #CACACA;
+}
+
+.wallet-box .action-btn:hover {
+  color: #2b9b97;
+}
+
+.notes-box .action-btn:hover {
+  color: white;
+}
+
+.action-btn.delete-btn {
+  right: 10px;
+  font-size: 20px;
+  top: 6px;
+}
+
+.action-btn.view-btn {
+  right: 36px;
+  font-size: 14px;
+  top: 11px;
+}
+
+.wallet-box:hover .action-btn, .notes-box:hover .action-btn {
+  visibility: visible;
+}
