@@ -4,7 +4,7 @@ import '../CryptoForms/index.css'
 
 export default function PasswordsForm(props) {
   const { passwords, setPasswords, onModalClose, selectedItem } = props;
-
+  const passwordString = JSON.stringify(passwords);
   const defaultValue = selectedItem
     ? {
         domainName: selectedItem.domainName,
@@ -32,7 +32,7 @@ export default function PasswordsForm(props) {
       setClicked(false);
       onModalClose(false);
     }
-  }, [passwords]);
+  }, [passwordString]);
 
   const validateForm = () => {
     return domainName.length && password.length && domainAddress.length && domainUsername.length;
@@ -49,15 +49,14 @@ export default function PasswordsForm(props) {
         domainAddress,
         domainUsername
       };
-      const oldCred = passwords ? JSON.parse(passwords) : [];
       setClicked(true);
-      setPasswords(JSON.stringify([...oldCred, newCred]));
+      setPasswords(JSON.stringify([...passwords, newCred]));
     }
   };
 
   const handleUpdate = () => {
     if (validateForm()) {
-      const updatedPasswords = JSON.parse(passwords).map(item => {
+      const updatedPasswords = passwords.map(item => {
         if (item.id === selectedItem.id) {
           return { ...item, domainName, password,domainAddress,domainUsername };
         }
@@ -69,7 +68,7 @@ export default function PasswordsForm(props) {
   };
 
   return (
-    <>
+    <div className="form-container">
       <div className="form-group row">
         <label htmlFor="domain" className="col-12 custom-label">
           Domain Name
@@ -152,12 +151,12 @@ export default function PasswordsForm(props) {
         )}
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-danger"
           onClick={onModalClose}
         >
           Cancel
         </button>
       </div>
-    </>
+    </div>
   );
 }

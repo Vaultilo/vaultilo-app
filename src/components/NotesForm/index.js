@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../CryptoForms/index.css'
 
 export default function NotesForm(props) {
   const { notes, setNotes, onModalClose, selectedItem } = props;
+  const notesString = JSON.stringify(notes);
   const defaultValue = selectedItem ? {
         noteInput: selectedItem.noteInput,
         noteTitle: selectedItem.noteTitle
@@ -20,10 +21,9 @@ export default function NotesForm(props) {
       setClicked(false);
       onModalClose(false);
     }
-  }, [notes]);
+  }, [notesString]);
 
   const handleClick = () => {
-    setNotes(null);
     if (noteInput.length) {
       const newCred = {
         id: Date.now(),
@@ -32,15 +32,14 @@ export default function NotesForm(props) {
         noteInput,
         noteTitle
       };
-      const oldCred = notes ? JSON.parse(notes) : [];
       setClicked(true);
-      setNotes(JSON.stringify([...oldCred, newCred]));
+      setNotes(JSON.stringify([...notes, newCred]));
     }
   };
 
   const handleUpdate = () => {
     if (noteInput.length && noteTitle.length) {
-      const updatedNotes = JSON.parse(notes).map(item => {
+      const updatedNotes = notes.map(item => {
         if (item.id === selectedItem.id) {
           return { ...item, noteInput,noteTitle };
         }
@@ -52,13 +51,14 @@ export default function NotesForm(props) {
   };
 
   return (
-    <>
+    <div className="form-container">
       <div className="form-group row">
         <label htmlFor="noteTitleInput" className="col-12 custom-label">
-          Title
+          Name
         </label>
         <div className="col-12">
-          <textarea
+          <input
+            type="text"
             className="custom-input form-control"
             id="noteTitleInput"
             value={noteTitle}
@@ -72,8 +72,9 @@ export default function NotesForm(props) {
         </label>
         <div className="col-12">
           <textarea
-            className="custom-input form-control"
+            className="custom-textarea form-control"
             id="noteInput"
+            rows="3"
             value={noteInput}
             onChange={evt => setNoteInput(evt.target.value)}
           />
@@ -101,12 +102,12 @@ export default function NotesForm(props) {
         )}
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-danger"
           onClick={onModalClose}
         >
           Cancel
         </button>
       </div>
-    </>
+    </div>
   );
 }

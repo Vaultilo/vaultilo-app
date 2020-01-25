@@ -1,17 +1,18 @@
-.form-container {
-  padding: 15px;
+.custom-input {
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+  border-radius: 100px !important;
 }
 
-.custom-input{
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 100px !important;
+.custom-input.form-control {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .custom-input.invalid {
   border: 1px solid #FF5862;
 }
 
-.custom-input.invalid:focus{
+.custom-input.invalid:focus {
   border-color:#FF5862;
   box-shadow: 0px 0px 10px #eaa8ac;
 }
@@ -24,4 +25,17 @@
   font-size: 14px;
   line-height: 17px;
   color: #6F6F6F;
+}
+
+.custom-textarea {
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.validation-text {
+  font-size: 11px;
+  position: absolute;
+  right: 20px;
+  color: #FF5862;
 }

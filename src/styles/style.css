@@ -12,7 +12,7 @@
   --brand-accent: #00D4FF;
 }
 
-html,body{background-color:#F4F4FC;}
+html,body{background-color:#fdfcff;}
 
 inspect {
   border: thin solid red;
@@ -33,15 +33,6 @@ inspect {
   margin: auto;
 }
 
-.wallet-box .card{
-  cursor: pointer;
-}
-
-.wallet-box a {
-  color: #2f2f2f;
-  text-decoration: none;
-}
-
 .password-visibility-btn {
   position: absolute;
   top: 6px;
@@ -51,7 +42,6 @@ inspect {
 
 .side-content {
   width: 300px;
-  height: 1086px;
   overflow-x: hidden;
   background: linear-gradient(180deg, #93EDC7 0%, #1CD8D2 100%);
   border-radius: 0px 50px 50px 0px;
@@ -60,10 +50,25 @@ inspect {
 
 .main-content {
   flex: 1;
+  padding: 0 60px;
+  overflow: auto;
+  margin-bottom: 20px;
 }
 
 .custom-modal {
-  max-width: 544px;
+  max-width: 570px;
+}
+
+.transparent-modal {
+  opacity: 0;
+}
+
+.custom-modal .modal-header {
+  padding: 20px 30px 0 30px;
+}
+
+.custom-modal .modal-body {
+  padding: 20px 30px;
 }
 
 .modal-title {
@@ -83,10 +88,114 @@ inspect {
   color: #FF5862;
   font-size: 30px;
   line-height: 20px;
+  opacity: 1;
   font-weight: normal;
 }
 
 .extension-container {
   height: 650px;
    width: 410px;
+  padding: 3px 0;  
+}
+
+@media screen and (max-width: 1200px) {
+  .main-content {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .main-content {
+    padding: 0 30px;
+  }
+}
+.carousel-control-prev {
+  width: 30px;
+  height: 30px;
+  opacity: 1;
+  left: -15px;
+  top: 45px;
+}
+
+.carousel-control-next {
+  width: 30px;
+  height: 30px;
+  opacity: 1;
+  right: -15px;
+  top: 45px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 30px;
+  opacity: 1;
+  width: 30px;
+  /* outline: black; */
+  /* background-size: 100%, 100%; */
+  border-radius: 50%;
+  /* border: 1px solid black; */
+  background-image: none;
+  background-color: #1ad8d2;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 18px;
+  color: white;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 18px;
+  color: white;
+}
+
+.modal-body .btn {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.modal-body .btn-primary {
+  background-color: #1CD8D2;
+  border-color: #1CD8D2;
+}
+
+.modal-body .btn-primary:hover {
+  background-color: #109894;
+  border-color: #109894;
+}
+
+.modal-body .btn-danger {
+  background-color: #FF5862;
+  border-color: #FF5862;
+}
+
+.modal-body .btn-danger:hover {
+  background-color: #AF262E;
+  border-color: #AF262E;
+}
+
+.page-header {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
+  margin-top: 42px;
+  margin-bottom: 20px;
+}
+
+.item-header {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #6F6F6F;
+}
+
+.item-header .header-text {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #E5E5E5;
 }

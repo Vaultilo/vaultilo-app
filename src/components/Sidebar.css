@@ -2,13 +2,24 @@
   padding-left: 18px;
 }
 
+.logo-container {
+  width: 200px;
+  height: 40px;
+  margin: 64px 0px 64px 18px;
+}
+
+.logo-container img {
+  height: 100%;
+  width: 100%;
+}
+
 .dropdown-btn:first-child {
   margin-top: 150px;
 }
 
 .nav-item {
   position: relative;
-  padding: 14px 0 14px 18px;
+  padding: 10px 0;
   font-family: Rubik;
   font-style: normal;
   font-weight: 500;
@@ -18,13 +29,17 @@
 }
 
 .nav-title {
-  margin-left: 34px;
+  margin-left: 30px;
 }
 
 .sidenav a.active .nav-item {
-  background: white;
+  background:#fdfcff;
   color: #1CD8D2;
   border-radius: 30px 0 0 30px;
+}
+
+.sidenav a.active .nav-item.sub-navs {
+  border-radius: 20px 0 0 20px;
 }
 
 .sidenav a, .dropdown-btn {
@@ -40,27 +55,35 @@
   margin-bottom: 14px;
 }
 
-.sidenav a:hover, .dropdown-btn:hover {
+.sidenav a:hover {
   color: #f1f1f1;
   text-decoration: none;
   outline: none;
 }
 
-.dropdown-container {
-  padding-left: 46px;
+.nav-title-block {
+  padding: 6px 0 6px 18px;
+}
+
+.nav-title-block i {
+  font-size: 19px;
+  width: 20px;
 }
 
 .dropdown-container a {
   color: #1CD8D2;
+  font-size: 16px;
+  line-height: 19px;
+  padding: 6px 0;
+  padding-left: 70px;
 }
 
-.dropdown-container a:first-child {
-  margin-top: 18px;
-  margin-bottom: 18px;
+.dropdown-container a:hover {
+  color: #1CD8D2;
 }
 
-.dropdown-container a:last-child {
-  margin-top: 18px;
+.dropdown-container .active {
+  background: linear-gradient(89.49deg, #D2FBEA 0.03%, rgba(210, 251, 234, 0) 99.94%);
 }
 
 .fa-caret-down {
@@ -70,12 +93,12 @@
 
 .curve-down {
   right: 0;
-  bottom: -30px;
+  bottom: -16px;
   position: absolute;
 }
 
 .curve-up {
   position: absolute;
   right: 0;
-  top: -30px;
+  top: -18px;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import MainContent from "./MainContent"; 
+import Content from "./Content"; 
 
 export default function AppRouter(props) {
   return (
@@ -10,7 +10,7 @@ export default function AppRouter(props) {
         path="/"
         render={() => <Redirect to="/items/all" />} 
       />
-      <Route path="/:type/:subType" render={(routeProps) => <MainContent {...routeProps} {...props} />} />
+      <Route path="/:type/:subType" render={(routeProps) => <Content {...routeProps} {...props} />} />
     </Switch>
   ); 
 }
