@@ -1,10 +1,10 @@
 import React from "react";
 import { Switch, Route} from "react-router-dom";
-import Extension from './ExtensionRoute/Extension'
-import ExtPwShow from './ExtensionRoute/ExtPwShow'
-import ExtNoteShow from './ExtensionRoute/ExtNoteShow'
-import ExtCryptoShow from './ExtensionRoute/ExtCryptoShow'
-import NoteShow from "./ExtensionRoute/NoteShow";
+import Extension from './Extension/Extension'
+import ExtPwShow from './Extension/ExtPwShow'
+import ExtNoteShow from './Extension/ExtNoteShow'
+import ExtCryptoShow from './Extension/ExtCryptoShow'
+import NoteShow from "./Extension/NoteShow";
 
 export default function ExtensionRouter(props) {
   return (
