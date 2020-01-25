@@ -3,6 +3,7 @@ import '../CryptoForms/index.css'
 
 export default function NotesForm(props) {
   const { notes, setNotes, onModalClose, selectedItem } = props;
+  const notesString = JSON.stringify(notes);
   const defaultValue = selectedItem ? {
         noteInput: selectedItem.noteInput,
         noteTitle: selectedItem.noteTitle
@@ -20,7 +21,7 @@ export default function NotesForm(props) {
       setClicked(false);
       onModalClose(false);
     }
-  }, [notes]);
+  }, [notesString]);
 
   const handleClick = () => {
     if (noteInput.length) {
@@ -31,15 +32,14 @@ export default function NotesForm(props) {
         noteInput,
         noteTitle
       };
-      const oldCred = notes ? JSON.parse(notes) : [];
       setClicked(true);
-      setNotes(JSON.stringify([...oldCred, newCred]));
+      setNotes(JSON.stringify([...notes, newCred]));
     }
   };
 
   const handleUpdate = () => {
     if (noteInput.length && noteTitle.length) {
-      const updatedNotes = JSON.parse(notes).map(item => {
+      const updatedNotes = notes.map(item => {
         if (item.id === selectedItem.id) {
           return { ...item, noteInput,noteTitle };
         }
@@ -102,7 +102,7 @@ export default function NotesForm(props) {
         )}
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-danger"
           onClick={onModalClose}
         >
           Cancel

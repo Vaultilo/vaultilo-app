@@ -4,7 +4,7 @@ import '../CryptoForms/index.css'
 
 export default function OtherWallets(props) {
   const { credentials, setCredentials, subType, onModalClose, selectedItem } = props;
-
+  const credentialsString = JSON.stringify(credentials);
   const defaultValue = selectedItem
   ? {
       walletName: selectedItem.walletName,
@@ -36,7 +36,7 @@ export default function OtherWallets(props) {
       setClicked(false);
       onModalClose();
     }
-  }, [credentials]);
+  }, [credentialsString]);
 
   const validateForm = () => {
     return (
@@ -58,19 +58,19 @@ export default function OtherWallets(props) {
         walletName,
         walletAddress,
         privateKey,
-        password
+        password,
+        timeStamp: Date.now()
       };
-      const oldCred = credentials ? JSON.parse(credentials) : [];
       setClicked(true);
-      setCredentials(JSON.stringify([...oldCred, newCred]));
+      setCredentials(JSON.stringify([...credentials, newCred]));
     }
   };
 
   const handleUpdate = () => {
     if (validateForm()) {
-      const updatedCredentials = JSON.parse(credentials).map(item => {
+      const updatedCredentials = credentials.map(item => {
         if (item.id === selectedItem.id) {
-          return { ...item, walletName, walletAddress, privateKey, password, platform };
+          return { ...item, walletName, walletAddress, privateKey, password, platform, timeStamp: Date.now() };
         }
         return item;
       });
@@ -178,7 +178,7 @@ export default function OtherWallets(props) {
         )}
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-danger"
           onClick={onModalClose}
         >
           Cancel

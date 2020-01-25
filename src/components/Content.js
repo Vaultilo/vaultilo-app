@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TopBar from './TopBar.js';
-import AppRouter from './AppRouter.js'; 
 import MainContent from './MainContent.js';
 import SideBar from './Sidebar.js';
 import { useFile } from "react-blockstack"; 
@@ -10,24 +9,31 @@ export default function Content ( props ) {
   const [credentials, setCredentials] = useFile('crypto.json');
   const [passwords, setPasswords] = useFile('passwords.json');
   const [notes, setNotes] = useFile('notes.json');
+  
+  const [searchText, setSearchText] = useState('');
 
   const avatarUrl = person.avatarUrl() || 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
+
+  const credentialsArray = credentials ? JSON.parse(credentials) : [];
+  const notesArray = notes ? JSON.parse(notes) : [];
+  const passwordsArray = passwords ? JSON.parse(passwords) : [];
   const name = person.name() || 'User';
   return credentials === undefined || passwords === undefined || notes === undefined ? (<div>Loading..</div>):(
     <main>
-      <div className="d-flex">
+      <div className="d-flex vh-100">
         <div className="side-content">
-          <SideBar credentials={credentials} {...props} />
+          <SideBar credentials={credentialsArray} {...props} />
         </div>
         <div className="main-content">
-          <TopBar avatarUrl={avatarUrl} name={name} />
+          <TopBar avatarUrl={avatarUrl} name={name} searchText={searchText} setSearchText={(text) => setSearchText(text)} />
           <MainContent 
-            credentials={credentials}
+            credentials={credentialsArray}
             setCredentials={setCredentials}
-            passwords={passwords}
+            passwords={passwordsArray}
             setPasswords={setPasswords}
-            notes={notes}
+            notes={notesArray}
             setNotes={setNotes}
+            searchText={searchText}
             {...props}
           />
         </div>

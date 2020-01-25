@@ -1,12 +1,12 @@
 import React from "react";
 import './index.css';
 
-export default function PasswordsCard({credential, onClick}) {
+export default function PasswordsCard({credential, onClick, onDeleteClick}) {
   const { domainName } = credential;
   return (
     <div className="notes-box">
-      <div className="action-btn view-btn" onClick={() => onClick(credential)} ><i className="icon-eye"/></div>
-      <div className="action-btn delete-btn"><i className="icon-delete"/></div>
+      <div className="action-btn view-btn" onClick={() => onClick(credential)}><i className="icon-eye"/></div>
+      <div className="action-btn delete-btn" onClick={() => onDeleteClick(credential)}><i className="icon-delete"/></div>
       <div className="note-img">
         <i className="icon-password" />
       </div>

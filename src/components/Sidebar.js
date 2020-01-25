@@ -3,13 +3,15 @@ import "./Sidebar.css";
 import { Link } from "react-router-dom";
 import up from "./images/up.svg";
 import down from "./images/down.svg";
+import {CryptoTypes} from '../helper/constants';
 
 export default function Sidebar(props) {
   const { subType: subNav, type } = props.match.params;
-  const credentials =
-    props.credentials === null ? [] : JSON.parse(props.credentials);
   return (
     <div className="sidenav">
+      <div className="logo-container">
+        <img src="/images/logo.png" />
+      </div>
       <Link
         className={`dropdown-btn ${type === "items" ? "active" : ""}`}
         to="/items/all"
@@ -71,7 +73,7 @@ export default function Sidebar(props) {
               type === "crypto" ? "d-block" : "d-none"
             }`}
           >
-            {[...new Set(credentials.map(cred => cred.subType))].map(
+            {CryptoTypes.map(
               subType => {
                 return (
                   <Link
