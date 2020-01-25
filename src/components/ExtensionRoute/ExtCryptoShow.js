@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import "../Sidebar.css";
-import {Link } from 'react-router-dom';
+import {Link ,withRouter} from 'react-router-dom';
+import cryptoDetailView from "./cryptoDetailView";
 
-export default function ExtCryptoShow(props) {
+
+
+
+ function ExtCryptoShow(props) {
   const credentials=
     props.credentials ===null ? [] : JSON.parse(props.credentials);
   const subType=props.match.params.subType
-  
   const items = credentials.filter(
     credential =>  credential.subType === subType
   ); 
@@ -22,7 +25,12 @@ export default function ExtCryptoShow(props) {
   const imageUrl= imageUrls.filter(image=> image.label==subType)
   console.log("imageUrl",imageUrl[0].value)
   
-    
+   const handleView = (items) => {
+      console.log(items)
+      // const {history}=props
+      // history.push("/items/all")
+    return <cryptoDetailView items={items}/>
+  }
 
 
   return (
@@ -42,7 +50,7 @@ export default function ExtCryptoShow(props) {
                    <img class="ui tiny image" src={imageUrl[0].value} />
                    
                     <div class="content">
-                    <span><i class="fa fa-edit"></i></span>
+                    <span onClick={()=>{handleView(items)}}><i class="fa fa-edit"></i></span>
                      <a class='header'>{walletName}</a>
             <a class='description'>{`${walletAddress.slice(0,8)}......${walletAddress.slice(-8)}`}</a>
                         
@@ -61,3 +69,5 @@ export default function ExtCryptoShow(props) {
   );
 }
 
+
+export default withRouter(ExtCryptoShow);

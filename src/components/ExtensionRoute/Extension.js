@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "../Sidebar.css";
-import {Link,Redirect } from 'react-router-dom';
-//import {}
+import "./extension.css";
+import {Link} from 'react-router-dom';
+import logo from "../ExtensionRoute/Icons/logo.png";
+import OpenVaultilo from '../ExtensionRoute/Icons/OpenVaultilo.png'
+
 
 export default function Extension(props) {
   const credentials =
@@ -17,58 +19,76 @@ export default function Extension(props) {
    
   };
   return (
-    <div className="side-content" style={{borderRadius:"0px",height:"650px",width:"410px"}} >
+    <div className="extension-container" style={{borderRadius:"0px",height:"600px",width:"410px"}} >
+
+        <div className="logo-bar"><img  src={logo}/></div>
       <Link
         className={`dropdown-btn ${activeNav === "passwords" ? "active" : ""}`}
         to='/extension/passwords'
         onClick={() => handleNavClick("passwords")}
       >
-        <div className="nav-item">
+        <div className="password">
           <i className="fa fa-lock" />
           <span className="nav-title">Passwords</span>
+            <span className="nav-right-angle"><i className="fa fa-angle-right"></i></span>
+
         </div>
       </Link>
+
       <Link
         className={`dropdown-btn ${activeNav === "crypto" ? "active" : ""}`}
         onClick={() => handleNavClick("crypto")}
 
       >
-        <div className="nav-item">
+        <div className="password" style={{top:"140px"}}>
           <i className="fa fa-lock" />
           <span className="nav-title">Crypto Wallets</span>
+            <span className="nav-right-angle"><i className="fa fa-angle-right"></i></span>
+
           <div
             className={`dropdown-container ${
               activeNav === "crypto" ? "d-block" : "d-none"
             }`}
           >
-            {[...new Set(credentials.map(cred => cred.subType))].map(
-              subType => {
-                return (
-                  <Link
-                    key={`crypto-${subType}`}
-                    className={`${activeSubNav === subType ? "active" : ""}`}
-                    to={`/extension/crypto/${subType}`}
-                    onClick={() => handleSubNavClick(subType)}
-                  >
-                   <div style={{color:"#FFFFFF"}}>{subType}</div>
-                  </Link>
-                );
-              }
-            )}
+
           </div>
         </div>
+
       </Link>
       <Link
         className={`dropdown-btn ${activeNav === "notes" ? "active" : ""}`}
         to="/extension/notes"
         onClick={() => handleNavClick("notes")}
       >
-        <div className="nav-item">
+        <div className="password" style={{top:"210px"}}>
           <i className="fa fa-lock" />
           <span className="nav-title">Note</span>
+
+            <span className="nav-right-angle"><i className="fa fa-angle-right"></i></span>
+
         </div>
       </Link>
-    </div>
+        <Link
+            className={`dropdown-btn ${activeNav === "notes" ? "active" : ""}`}
+            to="/extension/notes"
+            onClick={() => handleNavClick("NFT")}
+        >
+            <div className="password" style={{top:"280px"}}>
+                <i className="fa fa-lock" />
+                <span className="nav-title">NFT</span>
+
+                <span className="nav-right-angle"><i className="fa fa-angle-right"></i></span>
+
+            </div>
+        </Link>
+        <div className="open-vaultilo">
+            <img src={OpenVaultilo}/>
+
+        </div>
+
+        </div>
+
+
   );
 }
 

@@ -1,0 +1,127 @@
+.sidenav {
+    padding-left: 18px;
+}
+
+
+.logo-bar{
+    position: absolute;
+    left: 13px;
+    top: 17px;
+}
+.dropdown-btn:first-child {
+    margin-top: 150px;
+
+}
+.password{
+    position: absolute;
+    width: 290.33px;
+    height: 19.99px;
+    left: 15px;
+    top: 70px;
+    padding: 14px 0 14px 18px;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+
+}
+.open-vaultilo{
+    position: absolute;
+    top:450px;
+
+}
+.nav-back{
+    height:120px;
+    width:120px;
+    color:#CACACA;
+
+
+
+}
+
+.nav-eitem {
+    position: relative;
+    padding: 14px 0 14px 18px;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.nav-title {
+    margin-left: 34px;
+
+}
+.nav-right-angle{
+    position: absolute;
+    left: 92.45%;
+    right: 0%;
+    top: 35.01%;
+    bottom: 4.59%;
+
+    /*margin-left:150px;*/
+
+}
+
+.sidenav a.active .nav-item {
+    background: white;
+    color: #1CD8D2;
+    border-radius: 30px 0 0 30px;
+}
+
+.sidenav a, .dropdown-btn {
+    display: block;
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    text-transform: capitalize;
+}
+
+.dropdown-btn {
+    margin-bottom: 14px;
+}
+
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+    text-decoration: none;
+    outline: none;
+}
+
+.dropdown-container {
+    padding-left: 46px;
+}
+
+.dropdown-container a {
+    color: #1CD8D2;
+}
+
+.dropdown-container a:first-child {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.dropdown-container a:last-child {
+    margin-top: 18px;
+}
+
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+.curve-down {
+    right: 0;
+    bottom: -30px;
+    position: absolute;
+}
+
+.curve-up {
+    position: absolute;
+    right: 0;
+    top: -30px;
+}

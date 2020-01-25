@@ -1,6 +1,6 @@
 {
-  "name": "REBL One",
-  "description": "A starter app using React with Blockstack",
+  "name": "Vaultilo",
+  "description": "Store your private credentials",
   "icons": [
     {
     "src": "favicon.ico",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {Card} from "react";
 import "../Sidebar.css";
 import {Link } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ export default function ExNoteShow(props) {
     props.notes === null ? [] : JSON.parse(props.notes);
   console.log(notes)
   return (
+
       <div classname="ui segment">
           <Link to="/extension/view">
               <button>

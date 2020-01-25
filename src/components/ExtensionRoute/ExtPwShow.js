@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Sidebar.css";
+import "./extension.css";
 import { Link } from 'react-router-dom';
 
 export default function ExPwShow(props) {
@@ -7,11 +7,19 @@ export default function ExPwShow(props) {
     props.passwords === null ? [] : JSON.parse(props.passwords);
   console.log(passwords)
   return (
+      <div className="container">
       <div classname="ui segment">
-          <Link to="/extension/view"><button>
-              <i className="fa fa-arrow-left"></i>Back
-              </button>
-              </Link>
+          <div className="row">
+                <div > <Link to="/extension/view">
+                    <span className="nav-back"><i className="fa fa-angle-left"></i></span>
+
+                    <span>Vaultilo</span>
+                </Link></div>
+
+
+          </div>
+
+
     <div className="ui list">
         {passwords.map(passwords =>{
             const {domainName,password,domainAddress,domainUsername}=passwords
@@ -31,6 +39,7 @@ export default function ExPwShow(props) {
         
     </div>
     </div>
+      </div>
   );
 }
 
