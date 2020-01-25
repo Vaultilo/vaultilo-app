@@ -5,22 +5,22 @@ import NotesCard from "./Cards/NotesCard";
 import PasswordsCard from "./Cards/PasswordsCard";
 
 export default function CarouselRow(props) {
-  const { items, cardType, onClick } = props;
+  const { items, cardType, onClick, onDeleteClick } = props;
 
   const getItemCard = (credential) => {
     if (cardType === 'crypto') {
       return (
-        <CryptoCard credential={credential} onClick={onClick}/>
+        <CryptoCard credential={credential} onClick={onClick} onDeleteClick={onDeleteClick} />
       )
     }
     if (cardType === 'notes') {
       return (
-        <NotesCard credential={credential} onClick={onClick}/>
+        <NotesCard credential={credential} onClick={onClick} onDeleteClick={onDeleteClick} />
       )
     }
     if (cardType === 'passwords') {
       return (
-        <PasswordsCard credential={credential} onClick={onClick}/>
+        <PasswordsCard credential={credential} onClick={onClick} onDeleteClick={onDeleteClick} />
       )
     }
   }
@@ -30,7 +30,7 @@ export default function CarouselRow(props) {
   
   return (
     <>
-      <Carousel controls={items.length > 3} indicators={false} interval={null}>
+      <Carousel controls={items.length > 3} indicators={false} interval={null} wrap={false}>
         {itemRows.map((row, idx) => (
           <Carousel.Item key={`row-${cardType}-${idx}`}>
             <div className="row">

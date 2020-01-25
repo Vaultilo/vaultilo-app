@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FilePicker } from "react-file-picker";
+import { Modal } from "react-bootstrap";
 import IconService from "icon-sdk-js";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
@@ -12,9 +13,10 @@ export default function Icon(props) {
     setCredentials,
     subType,
     onModalClose,
-    selectedItem
+    selectedItem,
+    setModalTransparent
   } = props;
-
+  const credentialsString = JSON.stringify(credentials);
   const defaultValue = selectedItem
     ? {
         walletName: selectedItem.walletName,
@@ -38,48 +40,63 @@ export default function Icon(props) {
   const [keyStoreName, setKeystoreName] = useState('');
   const [fileUploaded, setFileUploaded] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [privateVisible,setPrivateVisible]=useState(false)
+  const [privateVisible,setPrivateVisible] = useState(false);
+  const [emptyWalletName, setEmptyWalletName] = useState(null);
+  const [confirmationModalShow, setConfirmationModalShow] = useState(false);
+  const [invalidFields, setInvalidFields] = useState([]);
 
   useEffect(() => {
     if (clicked) {
       setClicked(false);
       onModalClose(false);
+      setConfirmationModalShow(false);
     }
-  }, [credentials]);
+  }, [credentialsString]);
 
-  const validateForm = () => {
-    const addressBool = IconService.IconValidator.isEoaAddress(walletAddress);
-    const privateBool = IconService.IconValidator.isPrivateKey(privateKey);
+  // const validateForm = () => {
+  //   const addressBool = IconService.IconValidator.isEoaAddress(walletAddress);
+  //   const privateBool = IconService.IconValidator.isPrivateKey(privateKey);
 
-    if (!addressBool) {
-      showToast("Invalid Wallet Address", 1922);
-    }
-    if (!privateBool) {
-      showToast("Invalid Private Key", 2372);
-    }
-    if (keyStore !== "") {
-      const wallet = IconService.IconWallet.loadKeystore(keyStore, password);
-      const getAddress = wallet.getAddress();
-      const getPrivate = wallet.getPrivateKey();
+  //   if (!addressBool) {
+  //     showToast("Invalid Wallet Address", 1922);
+  //   }
+  //   if (!privateBool) {
+  //     showToast("Invalid Private Key", 2372);
+  //   }
+  //   if (keyStore !== "") {
+  //     const wallet = IconService.IconWallet.loadKeystore(keyStore, password);
+  //     const getAddress = wallet.getAddress();
+  //     const getPrivate = wallet.getPrivateKey();
 
-      if (getAddress !== walletAddress) {
-        showToast("Adress dont match with the keystore", 2400);
-      }
-      if (getPrivate !== privateKey) {
-        showToast("Private key dont match with the keystore", 2400);
-      }
-    }
+  //     if (getAddress !== walletAddress) {
+  //       showToast("Adress dont match with the keystore", 2400);
+  //     }
+  //     if (getPrivate !== privateKey) {
+  //       showToast("Private key dont match with the keystore", 2400);
+  //     }
+  //   }
 
-    if (addressBool && privateBool) {
-      return (
-        walletName.length &&
-        walletAddress.length &&
-        password.length &&
-        privateKey.length
-      );
+  //   if (addressBool && privateBool) {
+  //     return (
+  //       walletName.length &&
+  //       walletAddress.length &&
+  //       password.length &&
+  //       privateKey.length
+  //     );
+  //   }
+  //   return false;
+  // };
+
+  const getInvalidFields = () => {
+    const invalidFields = [];
+    if (!IconService.IconValidator.isEoaAddress(walletAddress)) {
+      invalidFields.push("Wallet Address");
     }
-    return false;
-  };
+    if (!IconService.IconValidator.isPrivateKey(privateKey)) {
+      invalidFields.push("Private Key");
+    }
+    return invalidFields;
+  }
 
   const showToast = (text, time) => {
     toaster.notify(() => <span className="btn btn-primary mr-2">{text}</span>, {
@@ -88,39 +105,72 @@ export default function Icon(props) {
     });
   };
 
-  const handleClick = () => {
-    const validation = validateForm();
-    if (validation) {
-      const newCred = {
-        id: Date.now(),
-        type: "crypto",
-        subType,
-        walletName,
-        walletAddress,
-        privateKey,
-        password,
-        keyStore,
-        keyStoreName
-      };
-      const oldCred = credentials ? JSON.parse(credentials) : [];
-      setClicked(true);
-      setCredentials(JSON.stringify([...oldCred, newCred]));
+  const submitCreateForm = () => {
+    const newCred = {
+      id: Date.now(),
+      type: "crypto",
+      subType,
+      walletName,
+      walletAddress,
+      privateKey,
+      password,
+      keyStore,
+      keyStoreName,
+      timeStamp: Date.now()
+    };
+    setClicked(true);
+    setCredentials(JSON.stringify([...credentials, newCred]));
+  }
+
+  const submitUpdateForm = () => {
+    const updatedCredentials = credentials.map(item => {
+      if (item.id === selectedItem.id) {
+        return { ...item, walletName, walletAddress, privateKey, password, keyStore, keyStoreName, timeStamp: Date.now() };
+      }
+      return item;
+    });
+    setClicked(true);
+    setCredentials(JSON.stringify(updatedCredentials));
+  }
+
+  const handleSubmit = () => {
+    if (!walletName.length) {
+      setEmptyWalletName(true);
+    }
+    else if (getInvalidFields().length) {
+      setInvalidFields(getInvalidFields());
+      setConfirmationModalShow(true);
+      setModalTransparent(true);
+    } else {
+      submitCreateForm();
     }
   };
 
   const handleUpdate = () => {
-    const validation = validateForm();
-    if (validation) {
-      const updatedCredentials = JSON.parse(credentials).map(item => {
-        if (item.id === selectedItem.id) {
-          return { ...item, walletName, walletAddress, privateKey, password, keyStore, keyStoreName };
-        }
-        return item;
-      });
-      setClicked(true);
-      setCredentials(JSON.stringify(updatedCredentials));
+    if (!walletName.length) {
+      setEmptyWalletName(true);
+    }
+    else if (getInvalidFields().length) {
+      setInvalidFields(getInvalidFields());
+      setConfirmationModalShow(true);
+      setModalTransparent(true);
+    } else {
+      submitUpdateForm();
     }
   };
+
+  const handleBackClick = () => {
+    setConfirmationModalShow(false);
+    setModalTransparent(false);
+  }
+
+  const handleConfirmClick = () => {
+    if (selectedItem) {
+      submitUpdateForm();
+    } else {
+      submitCreateForm();
+    }
+  }
 
   const handleDownload = () => {
     const {keyStore, keyStoreName} = selectedItem;
@@ -158,12 +208,14 @@ export default function Icon(props) {
         </label>
         <div className="col-12">
           <input
+            autoComplete={'off'}
             type="text"
-            className="custom-input form-control"
+            className={`custom-input form-control ${emptyWalletName ? 'invalid' : ''}`}
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
           />
+          { emptyWalletName ? <span className="validation-text">Required</span> : null }
         </div>
       </div>
       <div className="form-group row">
@@ -173,6 +225,7 @@ export default function Icon(props) {
         <div className="col-12">
           <input
             type="text"
+            autoComplete={'off'}
             className="custom-input form-control"
             id="inputAddress"
             value={walletAddress}
@@ -253,19 +306,39 @@ export default function Icon(props) {
             disabled={clicked}
             type="button"
             className="btn btn-primary mr-2"
-            onClick={handleClick}
+            onClick={handleSubmit}
           >
             Save
           </button>
         )}
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-danger"
           onClick={onModalClose}
         >
           Cancel
         </button>
       </div>
+      <Modal
+        dialogClassName="custom-modal"
+        show={confirmationModalShow}
+        onHide={() => setConfirmationModalShow(false)}
+        aria-labelledby="contained-modal-title-vcenter"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            <div>{`The following fields are invalid: ${invalidFields.join(', ')}.`}</div>
+            <br />
+            <div>Do you still want to continue ?</div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="confirmation-body d-flex justify-content-end">
+            <button className="btn btn-danger mr-2" onClick={handleConfirmClick} disabled={clicked}>Confirm</button>
+            <button className="btn btn-primary" onClick={handleBackClick}>Back</button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

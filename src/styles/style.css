@@ -32,15 +32,6 @@ inspect {
   max-width: 50em;
   margin: auto;
 }
-/* 
-.wallet-box .card{
-  cursor: pointer;
-}
-
-.wallet-box a {
-  color: #2f2f2f;
-  text-decoration: none;
-} */
 
 .password-visibility-btn {
   position: absolute;
@@ -51,7 +42,6 @@ inspect {
 
 .side-content {
   width: 300px;
-  height: 1086px;
   overflow-x: hidden;
   background: linear-gradient(180deg, #93EDC7 0%, #1CD8D2 100%);
   border-radius: 0px 50px 50px 0px;
@@ -61,10 +51,24 @@ inspect {
 .main-content {
   flex: 1;
   padding: 0 60px;
+  overflow: auto;
+  margin-bottom: 20px;
 }
 
 .custom-modal {
-  max-width: 544px;
+  max-width: 570px;
+}
+
+.transparent-modal {
+  opacity: 0;
+}
+
+.custom-modal .modal-header {
+  padding: 20px 30px 0 30px;
+}
+
+.custom-modal .modal-body {
+  padding: 20px 30px;
 }
 
 .modal-title {
@@ -84,7 +88,9 @@ inspect {
   color: #FF5862;
   font-size: 30px;
   line-height: 20px;
+  opacity: 1;
   font-weight: normal;
+  padding: 3px 0;  
 }
 
 @media screen and (max-width: 1200px) {
@@ -138,4 +144,53 @@ inspect {
   content: '<';
   font-size: 18px;
   color: white;
+}
+
+.modal-body .btn {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.modal-body .btn-primary {
+  background-color: #1CD8D2;
+  border-color: #1CD8D2;
+}
+
+.modal-body .btn-primary:hover {
+  background-color: #109894;
+  border-color: #109894;
+}
+
+.modal-body .btn-danger {
+  background-color: #FF5862;
+  border-color: #FF5862;
+}
+
+.modal-body .btn-danger:hover {
+  background-color: #AF262E;
+  border-color: #AF262E;
+}
+
+.page-header {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
+  margin-top: 42px;
+  margin-bottom: 20px;
+}
+
+.item-header {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #6F6F6F;
+}
+
+.item-header .header-text {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #E5E5E5;
 }

@@ -16,7 +16,6 @@ export default function Form(props) {
     { value: "ethereum", label: "Ethereum" },
     { value: "ripple", label: "Ripple"},
     { value: "other"  , label:"Other Wallets"}
-
   ];
   const defaultOption = options.find(option => option.value === subType);
   const [selectedOption, setSelectedOption] = useState(defaultOption || null);
@@ -50,7 +49,9 @@ export default function Form(props) {
   const customStyles = {
     control: (base, state) => ({
       ...base,
-      borderRadius: "100px"
+      borderRadius: "100px",
+      paddingLeft: "14px",
+      paddingRight: "14px"
     })
   };
 
