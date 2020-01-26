@@ -22,12 +22,13 @@ export default function Content ( props ) {
   const extensionView=(window.location.pathname.includes("extension"));
   return credentials === undefined || passwords === undefined || notes === undefined ? (<div>Loading..</div>):(
     extensionView ? <ExtensionRouter
-            credentials={credentials}
+            credentials={credentialsArray}
             setCredentials={setCredentials}
-            passwords={passwords}
+            passwords={passwordsArray}
             setPasswords={setPasswords}
-            notes={notes}
+            notes={notesArray}
             setNotes={setNotes}
+            {...props}
     /> :
 
     <main>

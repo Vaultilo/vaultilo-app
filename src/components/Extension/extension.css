@@ -140,3 +140,28 @@
 .item-img {
   color:#E0E0E0;
 }
+
+.view-details {
+  position: absolute;
+  right: 13px;
+  display: none;
+}
+
+.view-details a:hover {
+  text-decoration: none;
+  outline: none;
+}
+
+.view-details i {
+  font-size: 10px;
+  color: #1CD8D2;
+}
+
+.content-list .item:hover .view-details {
+  display: block;
+}
+
+.form-content {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}

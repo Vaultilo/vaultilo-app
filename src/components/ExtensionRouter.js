@@ -5,6 +5,7 @@ import ExtPwShow from './Extension/ExtPwShow'
 import ExtNoteShow from './Extension/ExtNoteShow'
 import ExtCryptoShow from './Extension/ExtCryptoShow'
 import ExtNftShow  from './Extension/ExtNftShow'
+import CryptoDetail from './Extension/CryptoDetail';
 import '../styles/icons.css'
 
 export default function ExtensionRouter(props) {
@@ -29,15 +30,18 @@ export default function ExtensionRouter(props) {
 
         <Route
           exact={true}
-          path="/extension/crypto/"
-          render ={(subType)=><ExtCryptoShow {...props}{...subType}/>}
+          path="/extension/crypto"
+          render ={()=><ExtCryptoShow {...props}/>}
         />
       <Route
           exact={true}
-          path="/extension/nft/"
-          render ={(subType)=><ExtNftShow {...props}{...subType}/>}
+          path="/extension/nft"
+          render ={()=><ExtNftShow {...props} />}
       />
-
+      <Route
+        path="/extension/crypto/view"
+        render ={()=><CryptoDetail {...props} />}
+      />
     </Switch>
   ); 
 }

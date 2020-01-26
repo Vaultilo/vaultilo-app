@@ -31,8 +31,7 @@ const cryptoTypes = [
   },
 ];
 function ExtCryptoShow(props) {
-  const credentials =
-  props.credentials === null ? [] : JSON.parse(props.credentials);
+  const credentials = props.credentials;
   const [cryptoList, setCryptoList] = useState(cryptoTypes);
   
   const handleDropdownClick = (label) => {
@@ -69,13 +68,22 @@ function ExtCryptoShow(props) {
                 {filteredItems.map(item => {
                   const { id, walletName, timeStamp } = item;
                   return (
-                    <div className="item d-flex justify-content-start" key={id}>
+                    <div className="item d-flex justify-content-start position-relative" key={id}>
                       <div className="item-img">
                         <img src={`/images/${type.label}-small.png`} />
                       </div>
                       <div className="item-detail">
                         <div className="text">{walletName}</div>
                         <div className="sub-text">{getFormattedTime(timeStamp)}</div>
+                      </div>
+                      {/* btn to view */}
+                      <div className="view-details">
+                        <Link to={{
+                          pathname: '/extension/crypto/view',
+                          state: {
+                            id: id
+                          }
+                        }}><i className="icon-eye"/></Link>
                       </div>
                     </div>
                   );

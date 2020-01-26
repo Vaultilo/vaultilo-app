@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import "./extension.css";
 import { Link } from "react-router-dom";
 import OpenVaultilo from ".//Icons/OpenVaultilo.png";
-import LockImg from ".//Icons/lock.png";
 
 export default function ExPwShow(props) {
-  const passwords = props.passwords === null ? [] : JSON.parse(props.passwords);
+  const passwords = props.passwords;
   return (
     <div className="extension-container">
       <div className="list-header">

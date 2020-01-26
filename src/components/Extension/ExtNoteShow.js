@@ -5,8 +5,7 @@ import LockImg from "./Icons/lock.png";
 import OpenVaultilo from "./Icons/OpenVaultilo.png";
 
 export default function ExNoteShow(props) {
-  const notes =
-    props.notes === null ? [] : JSON.parse(props.notes);
+  const notes = props.notes;
   console.log(notes)
   return (
 

@@ -3,9 +3,6 @@ import {Link} from "react-router-dom";
 import OpenVaultilo from "./Icons/OpenVaultilo.png";
 
 export default function ExtNftShow(props){
-    const notes =
-        props.notes === null ? [] : JSON.parse(props.notes);
-
     return(
         <div className="extension-container">
             <div className="list-header">
