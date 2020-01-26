@@ -1,12 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { FilePicker } from "react-file-picker";
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState, useRef } from "react";
+import { Link } from 'react-router-dom';
+import { Overlay, Tooltip } from "react-bootstrap";
 import OpenVaultilo from ".//Icons/OpenVaultilo.png";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default function IconView(props) {
+  const [pwTooltip, setPwTooltip] = useState(false);
+  const [pvtKeyTooltip, setPvtKeyTooltip] = useState(false);
+  const [walletAddTooltip, setWalletAddTooltip] = useState(false);
+
+  const passwordRef = useRef(null);
+  const pvtKeyRef = useRef(null);
+  const walletAddRef = useRef(null);
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible, setPrivateVisible] = useState(false);
   const { walletName, walletAddress, privateKey, password, keyStore, keyStoreName} = props.item;
+
+  const handleTooltipClick = (type) => {
+    if (type === 'password') {
+      setPwTooltip(true);
+    }
+    if (type === 'pvtKey') {
+      setPvtKeyTooltip(true);
+    }
+    if (type === 'walletAdd') {
+      setWalletAddTooltip(true);
+    }
+    setTimeout(() => {
+      setPwTooltip(false);
+      setPvtKeyTooltip(false);
+      setWalletAddTooltip(false);
+    }, 1000);
+  }
 
   const handleDownload = () => {
     var a = document.createElement("a");
@@ -54,6 +80,18 @@ export default function IconView(props) {
             id="inputAddress"
             value={walletAddress}
           />
+          <CopyToClipboard text={walletAddress}>
+            <span ref={walletAddRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputAddress" onClick={() => handleTooltipClick('walletAdd')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
         </div>
       </div>
       <div className="form-group row">
@@ -77,6 +115,18 @@ export default function IconView(props) {
               <i className="fa fa-eye" aria-hidden="true" />
             )}
           </span>
+          <CopyToClipboard text={privateKey}>
+            <span ref={pvtKeyRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPrivateKey" onClick={() => handleTooltipClick('pvtKey')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={pvtKeyRef.current} show={pvtKeyTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
         </div>
       </div>
       <div className="form-group row">
@@ -100,6 +150,18 @@ export default function IconView(props) {
               <i className="fa fa-eye" aria-hidden="true" />
             )}
           </span>
+          <CopyToClipboard text={password}>
+            <span ref={passwordRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
         </div>
       </div>
       <div className="d-flex justify-content-start">
