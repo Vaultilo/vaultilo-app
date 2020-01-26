@@ -1,13 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FilePicker } from "react-file-picker";
-import { Modal } from "react-bootstrap";
+import { Modal, Overlay, Tooltip } from "react-bootstrap";
 import IconService from "icon-sdk-js";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
-import PasswordStrength from '../PasswordsForm/PasswordStrength'
+import PasswordStrength from '../PasswordsForm/PasswordStrength';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import './index.css';
 
 export default function Icon(props) {
+  const [pwTooltip, setPwTooltip] = useState(false);
+  const [pvtKeyTooltip, setPvtKeyTooltip] = useState(false);
+  const [walletAddTooltip, setWalletAddTooltip] = useState(false);
+
+  const passwordRef = useRef(null);
+  const pvtKeyRef = useRef(null);
+  const walletAddRef = useRef(null);
+
   const {
     credentials, 
     setCredentials,
@@ -30,6 +39,23 @@ export default function Icon(props) {
         privateKey: "",
         password: ""
       };
+
+  const handleTooltipClick = (type) => {
+    if (type === 'password') {
+      setPwTooltip(true);
+    }
+    if (type === 'pvtKey') {
+      setPvtKeyTooltip(true);
+    }
+    if (type === 'walletAdd') {
+      setWalletAddTooltip(true);
+    }
+    setTimeout(() => {
+      setPwTooltip(false);
+      setPvtKeyTooltip(false);
+      setWalletAddTooltip(false);
+    }, 1000);
+  }
 
   const [walletName, setWalletName] = useState(defaultValue.walletName);
   const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
@@ -231,6 +257,18 @@ export default function Icon(props) {
             value={walletAddress}
             onChange={evt => setWalletAddress(evt.target.value)}
           />
+          <CopyToClipboard text={walletAddress}>
+            <span ref={walletAddRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputAddress" onClick={() => handleTooltipClick('walletAdd')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
         </div>
       </div>
       <div className="form-group row">
@@ -245,7 +283,19 @@ export default function Icon(props) {
             value={privateKey}
             onChange={evt => setPrivateKey(evt.target.value)}
           />
-        <span className="password-visibility-btn" onClick={() => setPrivateVisible(!privateVisible)}>{ privateVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>  
+          <span className="password-visibility-btn" onClick={() => setPrivateVisible(!privateVisible)}>{ privateVisible ? <i className="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
+          <CopyToClipboard text={privateKey}>
+            <span ref={pvtKeyRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPrivateKey" onClick={() => handleTooltipClick('pvtKey')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={pvtKeyRef.current} show={pvtKeyTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
         </div>
       </div>
       <div className="form-group row">
@@ -260,7 +310,19 @@ export default function Icon(props) {
             value={password}
             onChange={evt => setPassword(evt.target.value)}
           />
-          <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i class="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
+          <CopyToClipboard text={password}>
+            <span ref={passwordRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
+          <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i className="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
           <span>
           <PasswordStrength password={password}/>
         </span>
