@@ -4,6 +4,8 @@ import Extension from './Extension/Extension'
 import ExtPwShow from './Extension/ExtPwShow'
 import ExtNoteShow from './Extension/ExtNoteShow'
 import ExtCryptoShow from './Extension/ExtCryptoShow'
+import ExtNftShow  from './Extension/ExtNftShow'
+import '../styles/icons.css'
 
 export default function ExtensionRouter(props) {
   return (
@@ -30,6 +32,11 @@ export default function ExtensionRouter(props) {
           path="/extension/crypto/"
           render ={(subType)=><ExtCryptoShow {...props}{...subType}/>}
         />
+      <Route
+          exact={true}
+          path="/extension/nft/"
+          render ={(subType)=><ExtNftShow {...props}{...subType}/>}
+      />
 
     </Switch>
   ); 

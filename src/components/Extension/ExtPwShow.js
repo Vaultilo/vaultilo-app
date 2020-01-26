@@ -14,22 +14,14 @@ export default function ExPwShow(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Password</div>
+        <div className="title">Passwords</div>
       </div>
       <div className="ext-content">
         <div className="title">
           Password
         </div>
         <div className="content-list">
-          <div className="item d-flex justify-content-start">
-            <div className="item-img">
-              <img src={LockImg} />
-            </div>
-            <div className="item-detail">
-              <div className="text">Facebook</div>
-              <div className="sub-text">hello@gmail.com</div>
-            </div>
-          </div>
+
           {
             passwords.map(item => {
               const {
@@ -40,7 +32,7 @@ export default function ExPwShow(props) {
               return (
                 <div className="item d-flex justify-content-start" key={id}>
                   <div className="item-img">
-                    <img src={LockImg} />
+                    <i className="icon-password" />
                   </div>
                   <div className="item-detail">
                     <div className="text">{domainName}</div>
