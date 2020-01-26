@@ -131,7 +131,7 @@ export default function MainContent(props) {
     if (type === "items") {
       return (
         <>
-          {getItemsHeader("crypto")}
+          {getItemsHeader("crypto wallets")}
           <div className="row mt-3">
             <div className="col-3">
               <AddNewCard onClick={handleAddFormClick} formType={"crypto"} />
@@ -170,7 +170,7 @@ export default function MainContent(props) {
     }
     return (
       <>
-        {getItemsHeader("crypto")}
+        {getItemsHeader(subType)}
         <div className="row mt-3">
           {
             <div className="col-3">
