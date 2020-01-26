@@ -116,3 +116,23 @@
   font-size: 10px;
   color: #6F6F6F;
 }
+
+.crypto-dropdown .title {
+  position: relative;
+  cursor: pointer;
+}
+
+.crypto-dropdown .title i{
+  position: absolute;
+  right: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.crypto-dropdown .content-list {
+  display: none;
+}
+
+.crypto-dropdown .content-list.shown{
+  display: block;
+}

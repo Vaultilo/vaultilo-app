@@ -3,31 +3,47 @@ import "../Sidebar.css";
 import { Link, withRouter } from "react-router-dom";
 import { getFormattedTime } from '../../helper';
 
+const cryptoTypes = [
+  {
+    label: "bitcoin",
+    name: "Bitcoin",
+    shown: false,
+  },
+  {
+    label: "ethereum",
+    name: "Ethereum",
+    shown: false,
+  },
+  {
+    label: "icon",
+    name: "Icon",
+    shown: false,
+  },
+  {
+    label: "ripple",
+    name: "Ripple",
+    shown: false,
+  },
+  {
+    label: "other",
+    name: "Other",
+    shown: false,
+  },
+];
 function ExtCryptoShow(props) {
   const credentials =
-    props.credentials === null ? [] : JSON.parse(props.credentials);
-  const cryptoTypes = [
-    {
-      label: "bitcoin",
-      name: "Bitcoin",
-    },
-    {
-      label: "ethereum",
-      name: "Ethereum",
-    },
-    {
-      label: "icon",
-      name: "Icon",
-    },
-    {
-      label: "ripple",
-      name: "Ripple",
-    },
-    {
-      label: "other",
-      name: "Other",
-    },
-  ];
+  props.credentials === null ? [] : JSON.parse(props.credentials);
+  const [cryptoList, setCryptoList] = useState(cryptoTypes);
+  
+  const handleDropdownClick = (label) => {
+    const updatedList = cryptoList.map( type => {
+      if( type.label === label) {
+        type.shown = !type.shown
+      }
+      return type;
+    });
+    setCryptoList(updatedList);
+  }
 
   return (
     <div className="extension-container">
@@ -40,14 +56,16 @@ function ExtCryptoShow(props) {
         <div className="title">Crypto Wallet</div>
       </div>
       <div className="ext-content">
-        {cryptoTypes.map(type => {
+        {cryptoList.map(type => {
           const filteredItems = credentials.filter(
             item => item.subType === type.label
           );
           return filteredItems.length ? (
-            <div key={`credential-${type.label}`}>
-              <div className="title">{type.name}</div>
-              <div className="content-list">
+            <div key={`credential-${type.label}`} className={`crypto-dropdown`}>
+              <div className="title" onClick={() => handleDropdownClick(type.label)}>{type.name}
+                <i className={`fa ${type.shown ? 'fa-angle-up' : 'fa-angle-down'}`} />
+              </div>
+              <div className={`content-list ${type.shown ? 'shown' : ''}`}>
                 {filteredItems.map(item => {
                   const { id, walletName, timeStamp } = item;
                   return (

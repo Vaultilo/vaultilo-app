@@ -322,7 +322,7 @@ export default function Icon(props) {
       <Modal
         dialogClassName="custom-modal"
         show={confirmationModalShow}
-        onHide={() => setConfirmationModalShow(false)}
+        onHide={handleBackClick}
         aria-labelledby="contained-modal-title-vcenter"
       >
         <Modal.Header closeButton>
