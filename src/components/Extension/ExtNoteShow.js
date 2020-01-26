@@ -40,6 +40,14 @@ export default function ExNoteShow(props) {
                                       <div className="text">{noteInput}</div>
                                       <div className="sub-text">{noteTitle}</div>
                                   </div>
+                                  <div className="view-details">
+                        <Link to={{
+                          pathname: '/extension/notes/view',
+                          state: {
+                            id: id
+                          }
+                        }}><i className="icon-eye"/></Link>
+                      </div>
                               </div>
                           )
                       })

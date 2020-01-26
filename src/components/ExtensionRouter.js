@@ -7,6 +7,7 @@ import ExtCryptoShow from './Extension/ExtCryptoShow'
 import ExtNftShow  from './Extension/ExtNftShow'
 import CryptoDetail from './Extension/CryptoDetail';
 import PasswordDetail from './Extension/PasswordDetail';
+import NotesDetail from './Extension/NotesDetail'
 import '../styles/icons.css'
 
 export default function ExtensionRouter(props) { 
@@ -47,6 +48,11 @@ export default function ExtensionRouter(props) {
       <Route 
         path="/extension/password/view"
         render ={()=><PasswordDetail {...props}/>}
+      />
+
+      <Route 
+        path="/extension/notes/view"
+        render ={()=><NotesDetail {...props}/>}
       />
     </Switch>
   ); 
