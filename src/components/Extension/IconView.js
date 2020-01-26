@@ -114,7 +114,7 @@ export default function IconView(props) {
             Download Keystore File
           </button> : null
         }
-      </div>
+        </div>
       </div>
     </div>
     <div className="ext-footer">

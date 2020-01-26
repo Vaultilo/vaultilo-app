@@ -37,6 +37,14 @@ export default function ExPwShow(props) {
                     <div className="text">{domainName}</div>
                     <div className="sub-text">{domainAddress}</div>
                   </div>
+                  <div className="view-details">
+                        <Link to={{
+                          pathname: '/extension/password/view',
+                          state: {
+                            id: id
+                          }
+                        }}><i className="icon-eye"/></Link>
+                      </div>
                 </div>
               )
             })

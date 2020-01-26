@@ -5,7 +5,9 @@
   "description": "Place your credentials here",
   "icons": {
     "16": "icons/16.png",
+    "32": "icons/32.png",
     "48": "icons/48.png",
+    "64": "icons/64.png",
     "128": "icons/128.png"
   },
   "browser_action": {
