@@ -1,94 +1,87 @@
 import React, { useState } from "react";
 import "./extension.css";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import logo from ".//Icons/logo.png";
-import OpenVaultilo from './/Icons/OpenVaultilo.png'
-
+import OpenVaultilo from ".//Icons/OpenVaultilo.png";
 
 export default function Extension(props) {
-  const credentials =
-    props.credentials === null ? [] : JSON.parse(props.credentials);
   const [activeNav, setActiveNav] = useState("items");
-  const [activeSubNav, setActiveSubNav] = useState("");
-  const handleNavClick = path => { 
+  const handleNavClick = path => {
     setActiveNav(path);
-    setActiveSubNav("");
-  };
-  const handleSubNavClick = path => {
-    setActiveSubNav(path);
-   
   };
   return (
-    <div className="extension-container" style={{borderRadius:"0px",height:"600px",width:"410px"}} >
-
-        <div className="logo-bar"><img  src={logo}/></div>
+    <div
+      className="extension-container"
+    >
+      <div className="ext-header">
+        <img src={logo} />
+      </div>
+      <div className="ext-content">
       <Link
-        className={`dropdown-btn ${activeNav === "passwords" ? "active" : ""}`}
-        to='/extension/passwords'
+        className={`extension-link ${activeNav === "passwords" ? "active" : ""}`}
+        to="/extension/passwords"
         onClick={() => handleNavClick("passwords")}
       >
         <div className="password">
-          <i className="fa fa-lock" />
+          <i className="fa fa-lock"/>
           <span className="nav-title">Passwords</span>
-            <span className="nav-right-angle"><i className="fa fa-angle-right"></i></span>
-
+          <span className="nav-icon nav-right-angle">
+            <i className="fa fa-angle-right"></i>
+          </span>
         </div>
       </Link>
 
       <Link
-        className={`dropdown-btn ${activeNav === "crypto" ? "active" : ""}`}
+        className={`extension-link ${activeNav === "crypto" ? "active" : ""}`}
         onClick={() => handleNavClick("crypto")}
-
+        to="/extension/crypto"
       >
-        <div className="password" style={{top:"140px"}}>
+        <div className="password">
           <i className="fa fa-lock" />
           <span className="nav-title">Crypto Wallets</span>
-            <span className="nav-right-angle"><i className="fa fa-angle-right"></i></span>
+          <span className="nav-icon nav-right-angle">
+            <i className="fa fa-angle-right"></i>
+          </span>
 
           <div
             className={`dropdown-container ${
               activeNav === "crypto" ? "d-block" : "d-none"
             }`}
-          >
-
-          </div>
+          ></div>
         </div>
-
       </Link>
       <Link
-        className={`dropdown-btn ${activeNav === "notes" ? "active" : ""}`}
+        className={`extension-link ${activeNav === "notes" ? "active" : ""}`}
         to="/extension/notes"
         onClick={() => handleNavClick("notes")}
       >
-        <div className="password" style={{top:"210px"}}>
+        <div className="password">
           <i className="fa fa-lock" />
           <span className="nav-title">Note</span>
 
-            <span className="nav-right-angle"><i className="fa fa-angle-right"></i></span>
-
+          <span className="nav-icon nav-right-angle">
+            <i className="fa fa-angle-right"></i>
+          </span>
         </div>
       </Link>
-        <Link
-            className={`dropdown-btn ${activeNav === "notes" ? "active" : ""}`}
-            to="/extension/notes"
-            onClick={() => handleNavClick("NFT")}
-        >
-            <div className="password" style={{top:"280px"}}>
-                <i className="fa fa-lock" />
-                <span className="nav-title">NFT</span>
+      <Link
+        className={`extension-link ${activeNav === "notes" ? "active" : ""}`}
+        to="/extension/notes"
+        onClick={() => handleNavClick("NFT")}
+      >
+        <div className="password">
+          <i className="fa fa-lock" />
+          <span className="nav-title">NFT</span>
 
-                <span className="nav-right-angle"><i className="fa fa-angle-right"></i></span>
-
-            </div>
-        </Link>
-        <div className="open-vaultilo">
-            <img src={OpenVaultilo}/>
-
+          <span className="nav-icon nav-right-angle">
+            <i className="fa fa-angle-right"></i>
+          </span>
         </div>
-
-        </div>
-
-
+      </Link>
+      </div>
+      <div className="ext-footer">
+        <img src={OpenVaultilo} />
+      </div>
+    </div>
   );
 }
-

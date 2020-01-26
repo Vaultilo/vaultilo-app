@@ -4,7 +4,6 @@ import Extension from './Extension/Extension'
 import ExtPwShow from './Extension/ExtPwShow'
 import ExtNoteShow from './Extension/ExtNoteShow'
 import ExtCryptoShow from './Extension/ExtCryptoShow'
-import NoteShow from "./Extension/NoteShow";
 
 export default function ExtensionRouter(props) {
   return (
@@ -28,7 +27,7 @@ export default function ExtensionRouter(props) {
 
         <Route
           exact={true}
-          path="/extension/crypto/:subType"
+          path="/extension/crypto/"
           render ={(subType)=><ExtCryptoShow {...props}{...subType}/>}
         />
 

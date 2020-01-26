@@ -19,7 +19,7 @@ export default function Content ( props ) {
   const notesArray = notes ? JSON.parse(notes) : [];
   const passwordsArray = passwords ? JSON.parse(passwords) : [];
   const name = person.name() || 'User';
-  const extensionView=(window.location.pathname==="/extension/view")
+  const extensionView=(window.location.pathname.includes("extension"));
   return credentials === undefined || passwords === undefined || notes === undefined ? (<div>Loading..</div>):(
     extensionView ? <ExtensionRouter
             credentials={credentials}
