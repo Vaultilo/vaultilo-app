@@ -4,6 +4,7 @@ import Extension from './Extension/Extension'
 import ExtPwShow from './Extension/ExtPwShow'
 import ExtNoteShow from './Extension/ExtNoteShow'
 import ExtCryptoShow from './Extension/ExtCryptoShow'
+import '../styles/icons.css';
 
 export default function ExtensionRouter(props) {
   return (
