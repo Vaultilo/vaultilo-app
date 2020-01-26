@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import * as bip39 from 'bip39';
 import WAValidator from 'wallet-address-validator';
 import toaster from 'toasted-notes'
 
 export default function Ripple(props) {
-  const { credentials, setCredentials, subType, onModalClose, selectedItem } = props;
+  const { credentials, setCredentials, subType, onModalClose, selectedItem, setModalTransparent } = props;
   const credentialsString = JSON.stringify(credentials);
   const defaultValue = selectedItem
   ? {
@@ -22,6 +23,9 @@ export default function Ripple(props) {
   const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
   const [seedWords,setSeedWords]=useState(defaultValue.seedWords)
   const [clicked, setClicked] = useState(false);
+  const [emptyWalletName, setEmptyWalletName] = useState(null);
+  const [confirmationModalShow, setConfirmationModalShow] = useState(false);
+  const [invalidFields, setInvalidFields] = useState([]);
 
   useEffect(() => {
     if (clicked) {
@@ -37,55 +41,80 @@ export default function Ripple(props) {
     });
   };
 
-  const validateForm = () => {
-    const addValid=WAValidator.validate(walletAddress,"XRP")
-    const seedValid=bip39.validateMnemonic(seedWords)
-    console.log("Address ",addValid)
-
-    if (!addValid){
-      showToast('Ripple wallet address invalid',2000)
+  const getInvalidFields = () => {
+    const invalidFields = [];
+    if (!WAValidator.validate(walletAddress,"XRP")) {
+      invalidFields.push("Wallet Address");
     }
-
-    if (!seedValid){
-      showToast('Invalid Seed Words',2000)
+    if (!bip39.validateMnemonic(seedWords)) {
+      invalidFields.push("Seed words");
     }
-
-    if (addValid && seedValid){
-    return (
-      walletName.length &&
-      walletAddress.length
-    );
-    }
+    return invalidFields;
   };
 
-  const handleClick = () => {
-    if (validateForm()) {
-      const newCred = {
-        id: Date.now(),
-        type: 'crypto',
-        subType: subType,
-        walletName,
-        walletAddress,
-        seedWords,
-        timeStamp: Date.now()
-      };
-      setClicked(true);
-      setCredentials(JSON.stringify([...credentials, newCred]));
-    }
-  };
+  const submitCreateForm = () => {
+    const newCred = {
+      id: Date.now(),
+      type: 'crypto',
+      subType: subType,
+      walletName,
+      walletAddress,
+      seedWords,
+      timeStamp: Date.now()
+    };
+    setClicked(true);
+    setCredentials(JSON.stringify([...credentials, newCred]));
+  }
+
+  const submitUpdateForm = () => {
+    const updatedCredentials = credentials.map(item => {
+      if (item.id === selectedItem.id) {
+        return { ...item, walletName, walletAddress, seedWords, timeStamp: Date.now() };
+      }
+      return item;
+    });
+    setClicked(true);
+    setCredentials(JSON.stringify(updatedCredentials));
+  }
 
   const handleUpdate = () => {
-    if (validateForm()) {
-      const updatedCredentials = credentials.map(item => {
-        if (item.id === selectedItem.id) {
-          return { ...item, walletName, walletAddress, seedWords, timeStamp: Date.now() };
-        }
-        return item;
-      });
-      setClicked(true);
-      setCredentials(JSON.stringify(updatedCredentials));
+    if (!walletName.length) {
+      setEmptyWalletName(true);
+    }
+    else if (getInvalidFields().length) {
+      setInvalidFields(getInvalidFields());
+      setConfirmationModalShow(true);
+      setModalTransparent(true);
+    } else {
+      submitUpdateForm();
     }
   };
+
+  const handleSubmit = () => {
+    if (!walletName.length) {
+      setEmptyWalletName(true);
+    }
+    else if (getInvalidFields().length) {
+      setInvalidFields(getInvalidFields());
+      setConfirmationModalShow(true);
+      setModalTransparent(true);
+    } else {
+      submitCreateForm();
+    }
+  };
+
+  const handleBackClick = () => {
+    setConfirmationModalShow(false);
+    setModalTransparent(false);
+  }
+
+  const handleConfirmClick = () => {
+    if (selectedItem) {
+      submitUpdateForm();
+    } else {
+      submitCreateForm();
+    }
+  }
 
   return (
     <>
@@ -96,11 +125,12 @@ export default function Ripple(props) {
         <div className="col-12">
           <input
             type="text"
-            className="custom-input form-control"
+            className={`custom-input form-control ${emptyWalletName ? 'invalid' : ''}`}
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
           />
+          { emptyWalletName ? <span className="validation-text">Required</span> : null }
         </div>
       </div>
       <div className="form-group row">
@@ -148,7 +178,7 @@ export default function Ripple(props) {
             disabled={clicked}
             type="button"
             className="btn btn-primary mr-2"
-            onClick={handleClick}
+            onClick={handleSubmit}
           >
             Save
           </button>
@@ -161,6 +191,26 @@ export default function Ripple(props) {
           Cancel
         </button>
       </div>
+      <Modal
+        dialogClassName="custom-modal"
+        show={confirmationModalShow}
+        onHide={handleBackClick}
+        aria-labelledby="contained-modal-title-vcenter"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            <div>{`The following fields are invalid: ${invalidFields.join(', ')}.`}</div>
+            <br />
+            <div>Do you still want to continue ?</div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="confirmation-body d-flex justify-content-end">
+            <button className="btn btn-danger mr-2" onClick={handleConfirmClick} disabled={clicked}>Confirm</button>
+            <button className="btn btn-primary" onClick={handleBackClick}>Back</button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

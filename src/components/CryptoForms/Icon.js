@@ -79,40 +79,6 @@ export default function Icon(props) {
     }
   }, [credentialsString]);
 
-  // const validateForm = () => {
-  //   const addressBool = IconService.IconValidator.isEoaAddress(walletAddress);
-  //   const privateBool = IconService.IconValidator.isPrivateKey(privateKey);
-
-  //   if (!addressBool) {
-  //     showToast("Invalid Wallet Address", 1922);
-  //   }
-  //   if (!privateBool) {
-  //     showToast("Invalid Private Key", 2372);
-  //   }
-  //   if (keyStore !== "") {
-  //     const wallet = IconService.IconWallet.loadKeystore(keyStore, password);
-  //     const getAddress = wallet.getAddress();
-  //     const getPrivate = wallet.getPrivateKey();
-
-  //     if (getAddress !== walletAddress) {
-  //       showToast("Adress dont match with the keystore", 2400);
-  //     }
-  //     if (getPrivate !== privateKey) {
-  //       showToast("Private key dont match with the keystore", 2400);
-  //     }
-  //   }
-
-  //   if (addressBool && privateBool) {
-  //     return (
-  //       walletName.length &&
-  //       walletAddress.length &&
-  //       password.length &&
-  //       privateKey.length
-  //     );
-  //   }
-  //   return false;
-  // };
-
   const getInvalidFields = () => {
     const invalidFields = [];
     if (!IconService.IconValidator.isEoaAddress(walletAddress)) {
