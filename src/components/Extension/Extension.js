@@ -37,7 +37,7 @@ export default function Extension(props) {
         to="/extension/crypto"
       >
         <div className="password">
-          <i className="fa fa-lock" />
+          <i className="icon-wallet" />
           <span className="nav-title">Crypto Wallets</span>
           <span className="nav-icon nav-right-angle">
             <i className="fa fa-angle-right"></i>
@@ -56,7 +56,7 @@ export default function Extension(props) {
         onClick={() => handleNavClick("notes")}
       >
         <div className="password">
-          <i className="fa fa-lock" />
+          <i className="icon-note" />
           <span className="nav-title">Note</span>
 
           <span className="nav-icon nav-right-angle">
@@ -66,11 +66,11 @@ export default function Extension(props) {
       </Link>
       <Link
         className={`extension-link ${activeNav === "notes" ? "active" : ""}`}
-        to="/extension/notes"
+        to="/extension/nft"
         onClick={() => handleNavClick("NFT")}
       >
         <div className="password">
-          <i className="fa fa-lock" />
+          <i className="icon-ntf" />
           <span className="nav-title">NFT</span>
 
           <span className="nav-icon nav-right-angle">

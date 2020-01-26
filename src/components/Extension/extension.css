@@ -136,3 +136,7 @@
 .crypto-dropdown .content-list.shown{
   display: block;
 }
+
+.item-img {
+  color:#E0E0E0;
+}
