@@ -14,7 +14,7 @@ export const getFormattedTime = (timeStamp) => {
     }
     if (itemTimeStamp.isAfter(moment().subtract(30, 'day'))) {
       const diff = moment().diff(itemTimeStamp, "days")
-      return `${diff} days ago`;
+      return `${diff} ${pluralize('day', diff)} ago`;
     }
     if (itemTimeStamp.years() === moment().years()) {
       return `${itemTimeStamp.date()} ${itemTimeStamp.format('MMM')}`;

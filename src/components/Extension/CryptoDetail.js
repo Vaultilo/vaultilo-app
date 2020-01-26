@@ -4,7 +4,6 @@ import IconView from "./IconView";
 export default function CryptoDetail(props) {
   const cryptoId = props.location.state.id;
   const credentials = props.credentials;
-  console.log(credentials)
   const credentialItem = credentials.find( item => item.id === cryptoId);
 
   const renderCryptoItem = () => {

@@ -6,7 +6,16 @@ import OpenVaultilo from ".//Icons/OpenVaultilo.png";
 export default function IconView(props) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible, setPrivateVisible] = useState(false);
-  const { walletName, walletAddress, privateKey, password, } = props.item;
+  const { walletName, walletAddress, privateKey, password, keyStore, keyStoreName} = props.item;
+
+  const handleDownload = () => {
+    var a = document.createElement("a");
+    var blob = new Blob([keyStore]);
+    a.href = window.URL.createObjectURL(blob);
+    a.download = keyStoreName;
+    a.click();
+  };
+
   return (
     <>
      <div className="list-header">
@@ -93,21 +102,9 @@ export default function IconView(props) {
           </span>
         </div>
       </div>
-      {/* <div className="d-flex justify-content-start">
-        {!selectedItem ? (
-          <FilePicker
-            onChange={FileObject => handleUpload(FileObject)}
-            onError={errMsg => console.log(errMsg)}
-          >
-            <button
-              type="button"
-              className="btn btn-secondary mr-2"
-              size="small"
-            >
-              {!fileUploaded ? "Upload Keystore File" : "Uploaded"}
-            </button>
-          </FilePicker>
-        ) : (
+      <div className="d-flex justify-content-start">
+        {
+        keyStore ? 
           <button
             type="button"
             className="btn btn-secondary mr-2"
@@ -115,9 +112,9 @@ export default function IconView(props) {
             onClick={handleDownload}
           >
             Download Keystore File
-          </button>
-        )}
-      </div> */}
+          </button> : null
+        }
+      </div>
       </div>
     </div>
     <div className="ext-footer">
