@@ -4,7 +4,7 @@ import { Overlay, Tooltip } from "react-bootstrap";
 import OpenVaultilo from "../Icons/OpenVaultilo.png";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-export default function IconView(props) {
+export default function OthersView(props) {
   const [pwTooltip, setPwTooltip] = useState(false);
   const [pvtKeyTooltip, setPvtKeyTooltip] = useState(false);
   const [walletAddTooltip, setWalletAddTooltip] = useState(false);

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
+import React, { useEffect, useState,useRef } from "react";
+import { Modal,Overlay,Tooltip} from "react-bootstrap";
 import * as bip39 from 'bip39';
 import WAValidator from 'wallet-address-validator';
 import toaster from 'toasted-notes'
+import {CopyToClipboard} from "react-copy-to-clipboard"
 
 export default function Bitcoin(props) {
   const { credentials, setCredentials, subType, onModalClose, selectedItem, setModalTransparent} = props;
@@ -26,6 +27,25 @@ export default function Bitcoin(props) {
   const [emptyWalletName, setEmptyWalletName] = useState(null);
   const [confirmationModalShow, setConfirmationModalShow] = useState(false);
   const [invalidFields, setInvalidFields] = useState([]);
+  const [pwTooltip, setPwTooltip] = useState(false);
+  const [walletAddTooltip, setWalletAddTooltip] = useState(false);
+
+  const passwordRef = useRef(null);
+  const walletAddRef = useRef(null);
+  const handleTooltipClick = (type) => {
+    if (type === 'password') { 
+      setPwTooltip(true);
+    }
+   
+    if (type === 'walletAdd') {
+      setWalletAddTooltip(true);
+    }
+    setTimeout(() => {
+      setPwTooltip(false);
+      
+      setWalletAddTooltip(false);
+    }, 1000);
+  }
 
   useEffect(() => {
     if (clicked) {
@@ -145,6 +165,18 @@ export default function Bitcoin(props) {
             value={walletAddress}
             onChange={evt => setWalletAddress(evt.target.value)}
           />
+          <CopyToClipboard text={walletAddress}>
+            <span ref={walletAddRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputAddress" onClick={() => handleTooltipClick('walletAdd')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
         </div>
       </div>
       
@@ -160,6 +192,18 @@ export default function Bitcoin(props) {
             value={seedWords}
             onChange={evt => setSeedWords(evt.target.value)}
           />
+          <CopyToClipboard text={seedWords}>
+            <span ref={passwordRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
         </div>
         
       </div>
