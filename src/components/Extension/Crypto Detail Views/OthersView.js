@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Overlay, Tooltip } from "react-bootstrap";
-import OpenVaultilo from "../Icons/OpenVaultilo.png";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import Footer from "../Footer";
 
 export default function OthersView(props) {
   const [pwTooltip, setPwTooltip] = useState(false);
@@ -15,16 +15,22 @@ export default function OthersView(props) {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible, setPrivateVisible] = useState(false);
-  const { walletName, walletAddress, privateKey, password,  platform} = props.item;
+  const {
+    walletName,
+    walletAddress,
+    privateKey,
+    password,
+    platform
+  } = props.item;
 
-  const handleTooltipClick = (type) => {
-    if (type === 'password') {
+  const handleTooltipClick = type => {
+    if (type === "password") {
       setPwTooltip(true);
     }
-    if (type === 'pvtKey') {
+    if (type === "pvtKey") {
       setPvtKeyTooltip(true);
     }
-    if (type === 'walletAdd') {
+    if (type === "walletAdd") {
       setWalletAddTooltip(true);
     }
     setTimeout(() => {
@@ -32,12 +38,11 @@ export default function OthersView(props) {
       setPvtKeyTooltip(false);
       setWalletAddTooltip(false);
     }, 1000);
-  }
+  };
 
- 
   return (
     <>
-     <div className="list-header">
+      <div className="list-header">
         <Link to="/extension/crypto">
           <span className="nav-icon nav-back">
             <i className="fa fa-angle-left"></i>
@@ -45,145 +50,161 @@ export default function OthersView(props) {
         </Link>
         <div className="title">Other Wallets</div>
       </div>
-    <div className="ext-content">
-    
-    
-      <div className="col-12 form-content">
-      <div className="form-group row">
-        <label htmlFor="inputPlatform" className="col-12 custom-label">
-           Wallet Platform
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputPlatform"
-            value={platform}
-           
-          />
-        
+      <div className="ext-content">
+        <div className="col-12 form-content">
+          <div className="form-group row">
+            <label htmlFor="inputPlatform" className="col-12 custom-label">
+              Wallet Platform
+            </label>
+            <div className="col-12">
+              <input
+                type="text"
+                className="custom-input form-control"
+                id="inputPlatform"
+                value={platform}
+              />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="inputName" className="col-12 custom-label">
+              Wallet Name
+            </label>
+            <div className="col-12">
+              <input
+                autoComplete={"off"}
+                type="text"
+                className="custom-input form-control"
+                id="inputName"
+                value={walletName}
+              />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="inputAddress" className="col-12 custom-label">
+              Wallet Address
+            </label>
+            <div className="col-12">
+              <input
+                type="text"
+                autoComplete={"off"}
+                className="custom-input form-control"
+                id="inputAddress"
+                value={walletAddress}
+              />
+              <CopyToClipboard text={walletAddress}>
+                <span
+                  ref={walletAddRef}
+                  className="copy-btn copy-btn-input"
+                  data-clipboard-target="#inputAddress"
+                  onClick={() => handleTooltipClick("walletAdd")}
+                >
+                  <img src="/images/copy.png" alt="copy" />
+                </span>
+              </CopyToClipboard>
+              <Overlay
+                target={walletAddRef.current}
+                show={walletAddTooltip}
+                placement="top"
+              >
+                {props => (
+                  <Tooltip id="overlay-example" {...props}>
+                    Copied
+                  </Tooltip>
+                )}
+              </Overlay>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="inputPrivateKey" className="col-12 custom-label">
+              Private Key
+            </label>
+            <div className="col-12">
+              <input
+                type={privateVisible ? "text" : "password"}
+                className="custom-input form-control"
+                id="inputPrivateKey"
+                value={privateKey}
+              />
+              <span
+                className="password-visibility-btn"
+                onClick={() => setPrivateVisible(!privateVisible)}
+              >
+                {privateVisible ? (
+                  <i class="fa fa-eye-slash" aria-hidden="true" />
+                ) : (
+                  <i className="fa fa-eye" aria-hidden="true" />
+                )}
+              </span>
+              <CopyToClipboard text={privateKey}>
+                <span
+                  ref={pvtKeyRef}
+                  className="copy-btn copy-btn-pw"
+                  data-clipboard-target="#inputPrivateKey"
+                  onClick={() => handleTooltipClick("pvtKey")}
+                >
+                  <img src="/images/copy.png" alt="copy" />
+                </span>
+              </CopyToClipboard>
+              <Overlay
+                target={pvtKeyRef.current}
+                show={pvtKeyTooltip}
+                placement="top"
+              >
+                {props => (
+                  <Tooltip id="overlay-example" {...props}>
+                    Copied
+                  </Tooltip>
+                )}
+              </Overlay>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="inputPassword" className="col-12 custom-label">
+              Password
+            </label>
+            <div className="col-12">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                className="custom-input form-control"
+                id="inputPassword"
+                value={password}
+              />
+              <span
+                className="password-visibility-btn"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+              >
+                {passwordVisible ? (
+                  <i class="fa fa-eye-slash" aria-hidden="true" />
+                ) : (
+                  <i className="fa fa-eye" aria-hidden="true" />
+                )}
+              </span>
+              <CopyToClipboard text={password}>
+                <span
+                  ref={passwordRef}
+                  className="copy-btn copy-btn-pw"
+                  data-clipboard-target="#inputPassword"
+                  onClick={() => handleTooltipClick("password")}
+                >
+                  <img src="/images/copy.png" alt="copy" />
+                </span>
+              </CopyToClipboard>
+              <Overlay
+                target={passwordRef.current}
+                show={pwTooltip}
+                placement="top"
+              >
+                {props => (
+                  <Tooltip id="overlay-example" {...props}>
+                    Copied
+                  </Tooltip>
+                )}
+              </Overlay>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="form-group row">
-        <label htmlFor="inputName" className="col-12 custom-label">
-          Wallet Name
-        </label>
-        <div className="col-12">
-          <input
-            autoComplete={"off"}
-            type="text"
-            className="custom-input form-control"
-            id="inputName"
-            value={walletName}
-          />
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputAddress" className="col-12 custom-label">
-          Wallet Address
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            autoComplete={"off"}
-            className="custom-input form-control"
-            id="inputAddress"
-            value={walletAddress}
-          />
-          <CopyToClipboard text={walletAddress}>
-            <span ref={walletAddRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputAddress" onClick={() => handleTooltipClick('walletAdd')}>
-              <img src="/images/copy.png" alt="copy"/>
-            </span>
-          </CopyToClipboard>
-          <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputPrivateKey" className="col-12 custom-label">
-          Private Key
-        </label>
-        <div className="col-12">
-          <input
-            type={privateVisible ? "text" : "password"}
-            className="custom-input form-control"
-            id="inputPrivateKey"
-            value={privateKey}
-          />
-          <span
-            className="password-visibility-btn"
-            onClick={() => setPrivateVisible(!privateVisible)}
-          >
-            {privateVisible ? (
-              <i class="fa fa-eye-slash" aria-hidden="true" />
-            ) : (
-              <i className="fa fa-eye" aria-hidden="true" />
-            )}
-          </span>
-          <CopyToClipboard text={privateKey}>
-            <span ref={pvtKeyRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPrivateKey" onClick={() => handleTooltipClick('pvtKey')}>
-              <img src="/images/copy.png" alt="copy"/>
-            </span>
-          </CopyToClipboard>
-          <Overlay target={pvtKeyRef.current} show={pvtKeyTooltip} placement="top">
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputPassword" className="col-12 custom-label">
-          Password
-        </label>
-        <div className="col-12">
-          <input
-            type={passwordVisible ? "text" : "password"}
-            className="custom-input form-control"
-            id="inputPassword"
-            value={password}
-          />
-          <span
-            className="password-visibility-btn"
-            onClick={() => setPasswordVisible(!passwordVisible)}
-          >
-            {passwordVisible ? (
-              <i class="fa fa-eye-slash" aria-hidden="true" />
-            ) : (
-              <i className="fa fa-eye" aria-hidden="true" />
-            )}
-          </span>
-          <CopyToClipboard text={password}>
-            <span ref={passwordRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
-              <img src="/images/copy.png" alt="copy"/>
-            </span>
-          </CopyToClipboard>
-          <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-      </div>
-   
-      </div>
-    </div>
-    <Link 
-         to="/items/all"
-         target="_blank"  >
-      <div className="ext-footer">
-        <img src={OpenVaultilo} />
-      </div>
-      </Link>
+      <Footer />
     </>
   );
 }

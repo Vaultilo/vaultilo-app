@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from "react-router-dom";
-import OpenVaultilo from "../Icons/OpenVaultilo.png";
+import Footer from "../Footer";
 
 export default function ExtNftShow(props){
     return(
@@ -22,13 +22,7 @@ export default function ExtNftShow(props){
                    Coming Soon
                 </div>
             </div>
-            <Link 
-         to="/items/all"
-         target="_blank"  >
-      <div className="ext-footer">
-        <img src={OpenVaultilo} />
-      </div>
-      </Link>
+        <Footer />
         </div>
     )
 }

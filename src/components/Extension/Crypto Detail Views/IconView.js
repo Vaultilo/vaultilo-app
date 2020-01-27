@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Overlay, Tooltip } from "react-bootstrap";
 import OpenVaultilo from "../Icons/OpenVaultilo.png";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import Footer from '../Footer';
 
 export default function IconView(props) {
   const [pwTooltip, setPwTooltip] = useState(false);
@@ -179,13 +180,7 @@ export default function IconView(props) {
         </div>
       </div>
     </div>
-    <Link 
-         to="/items/all"
-         target="_blank"  >
-      <div className="ext-footer">
-        <img src={OpenVaultilo} />
-      </div>
-      </Link>
+    <Footer />
     </>
   );
 }

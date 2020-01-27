@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../Sidebar.css";
 import { Link, withRouter } from "react-router-dom";
 import { getFormattedTime } from '../../../helper';
+import Footer from "../Footer";
 
 const cryptoTypes = [
   {
@@ -93,6 +94,7 @@ function ExtCryptoShow(props) {
           ) : null;
         })}
       </div>
+      <Footer />
     </div>
   );
 }

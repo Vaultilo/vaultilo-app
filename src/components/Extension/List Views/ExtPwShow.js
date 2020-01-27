@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../extension.css";
 import { Link } from "react-router-dom";
-import OpenVaultilo from "../Icons/OpenVaultilo.png";
+import Footer from "../Footer";
 
 export default function ExPwShow(props) {
   const passwords = props.passwords;
@@ -51,13 +51,7 @@ export default function ExPwShow(props) {
           }
         </div>
       </div>
-      <Link 
-         to="/items/all"
-         target="_blank"  >
-      <div className="ext-footer">
-        <img src={OpenVaultilo} />
-      </div>
-      </Link>
+      <Footer />
     </div>
   );
 }

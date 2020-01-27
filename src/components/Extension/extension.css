@@ -55,10 +55,12 @@
 
 .ext-footer {
   height: 50px;
+  text-align: center;
+  background: linear-gradient(180deg, #1CD8D2 -44.19%, #93EDC7 111.63%);
 }
 
 .ext-footer img {
-  width: 100%;
+  width: 120px;
   height: 100%;
 }
 

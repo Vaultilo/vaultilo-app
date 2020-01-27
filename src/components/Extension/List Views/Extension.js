@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../extension.css";
 import { Link } from "react-router-dom";
 import logo from "../Icons/logo.png";
-import OpenVaultilo from "../Icons/OpenVaultilo.png";
+import Footer from "../Footer";
 
 export default function Extension(props) {
   const [activeNav, setActiveNav] = useState("items");
@@ -79,13 +79,7 @@ export default function Extension(props) {
           </div>
         </Link>
       </div>
-      <Link 
-         to="/items/all"
-         target="_blank"  >
-      <div className="ext-footer">
-        <img src={OpenVaultilo} />
-      </div>
-      </Link>
+      <Footer />
     </div>
   );
 }

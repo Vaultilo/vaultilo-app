@@ -1,10 +1,9 @@
 import React, {Card} from "react";
 import "../../Sidebar.css";
 import {Link } from 'react-router-dom';
-import OpenVaultilo from "../Icons/OpenVaultilo.png";
+import Footer from "../Footer";
 export default function ExNoteShow(props) {
   const notes = props.notes;
-  console.log(notes)
   return (
 
       <div className="extension-container">
@@ -52,13 +51,7 @@ export default function ExNoteShow(props) {
                   }
               </div>
           </div>
-          <Link 
-         to="/items/all"
-         target="_blank"  >
-      <div className="ext-footer">
-        <img src={OpenVaultilo} />
-      </div>
-      </Link>
+        <Footer />
       </div>
   );
 }
