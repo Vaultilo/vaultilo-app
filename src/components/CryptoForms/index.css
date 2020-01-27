@@ -39,3 +39,18 @@
   right: 20px;
   color: #FF5862;
 }
+
+.copy-btn {
+  position: absolute;
+  top: 5px;
+  right: 25px;
+  cursor: pointer;
+}
+.copy-btn-pw {
+  right: 48px;
+}
+
+.copy-btn img {
+  height: 15px;
+  width: 15px;
+}

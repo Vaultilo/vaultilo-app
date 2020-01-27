@@ -28,7 +28,6 @@ class PasswordStrength extends Component {
         const pwStrength = zxcvbn(password);
       return (
         <div className="password-strength-meter">
-         <br />
          <progress className={`col-12 password-strength-meter-progress strength-${this.PasswordLabel(pwStrength)}`}
           value={pwStrength.score}
           max="4"

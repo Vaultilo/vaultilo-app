@@ -40,6 +40,10 @@ inspect {
   cursor: pointer;
 }
 
+.password-visibility-btn i {
+  color: #1CD8D2;
+}
+
 .side-content {
   width: 300px;
   overflow-x: hidden;
