@@ -52,9 +52,13 @@ export default function ExNoteShow(props) {
                   }
               </div>
           </div>
-          <div className="ext-footer">
-              <img src={OpenVaultilo} />
-          </div>
+          <Link 
+         to="/items/all"
+         target="_blank"  >
+      <div className="ext-footer">
+        <img src={OpenVaultilo} />
+      </div>
+      </Link>
       </div>
   );
 }

@@ -22,9 +22,13 @@ export default function ExtNftShow(props){
                    Coming Soon
                 </div>
             </div>
-            <div className="ext-footer">
-                <img src={OpenVaultilo} />
-            </div>
+            <Link 
+         to="/items/all"
+         target="_blank"  >
+      <div className="ext-footer">
+        <img src={OpenVaultilo} />
+      </div>
+      </Link>
         </div>
     )
 }

@@ -179,9 +179,13 @@ export default function IconView(props) {
         </div>
       </div>
     </div>
-    <div className="ext-footer">
+    <Link 
+         to="/items/all"
+         target="_blank"  >
+      <div className="ext-footer">
         <img src={OpenVaultilo} />
       </div>
+      </Link>
     </>
   );
 }

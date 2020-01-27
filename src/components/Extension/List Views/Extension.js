@@ -79,9 +79,13 @@ export default function Extension(props) {
           </div>
         </Link>
       </div>
+      <Link 
+         to="/items/all"
+         target="_blank"  >
       <div className="ext-footer">
         <img src={OpenVaultilo} />
       </div>
+      </Link>
     </div>
   );
 }

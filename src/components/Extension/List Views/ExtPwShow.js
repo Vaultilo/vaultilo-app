@@ -51,9 +51,13 @@ export default function ExPwShow(props) {
           }
         </div>
       </div>
+      <Link 
+         to="/items/all"
+         target="_blank"  >
       <div className="ext-footer">
         <img src={OpenVaultilo} />
       </div>
+      </Link>
     </div>
   );
 }
