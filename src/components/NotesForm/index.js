@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import "../CryptoForms/index.css";
+import {Overlay,Tooltip} from "react-bootstrap";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default function NotesForm(props) {
   const { notes, setNotes, onModalClose, selectedItem } = props;
@@ -18,6 +20,17 @@ export default function NotesForm(props) {
   const [noteTitle, setNoteTitle] = useState(defaultValue.noteTitle);
   const [clicked, setClicked] = useState(false);
   const [emptyNoteTitle, setEmptyNoteTitle] = useState(null);
+  const [titleTooltip,setTitleTooltip]=useState(false)
+    const titleRef=useRef(null);
+    const handleTooltipClick = (type) => {
+      if (type === 'title') {
+        setTitleTooltip(true);
+      }
+     
+      setTimeout(() => {
+        setTitleTooltip(false)
+      }, 1000);
+    }
 
   useEffect(() => {
     if (clicked) {
@@ -90,6 +103,27 @@ export default function NotesForm(props) {
             value={noteInput}
             onChange={evt => setNoteInput(evt.target.value)}
           />
+           <CopyToClipboard text={noteInput}>
+                <span
+                  ref={titleRef}
+                  className="copy-btn copy-btn-input"
+                  data-clipboard-target="#inputDomainUsername"
+                  onClick={() => handleTooltipClick("title")}
+                >
+                  <img src="/images/copy.png" alt="copy" />
+                </span>
+              </CopyToClipboard>
+              <Overlay
+                target={titleRef.current}
+                show={titleTooltip}
+                placement="top"
+              >
+                {props => (
+                  <Tooltip id="overlay-example" {...props}>
+                    Copied
+                  </Tooltip>
+                )}
+              </Overlay>
         </div>
       </div>
       <div className="d-flex justify-content-end">

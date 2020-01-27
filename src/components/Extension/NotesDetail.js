@@ -5,7 +5,7 @@ import OpenVaultilo from "./Icons/OpenVaultilo.png";
 import {Overlay,Tooltip} from "react-bootstrap";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-
+ 
 
 export default function NotesDetails(props){
     const id=props.location.state.id;
