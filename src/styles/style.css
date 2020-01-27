@@ -75,6 +75,16 @@ inspect {
   padding: 20px 30px;
 }
 
+.custom-modal .modal-info {
+  padding: 12px 16px;
+  background: #F8FFFF;
+  border: 1px solid #A9D5DE;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
 .modal-title {
   font-family: Rubik;
   font-style: normal;
@@ -196,4 +206,8 @@ inspect {
 .item-header .header-text {
   padding-bottom: 10px;
   border-bottom: 1px solid #E5E5E5;
+}
+
+input[type=password] {
+  padding-right: 50px;
 }

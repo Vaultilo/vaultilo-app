@@ -54,3 +54,16 @@
   height: 15px;
   width: 15px;
 }
+
+.separator {
+  color: #6F6F6F;
+  display: flex;
+  justify-content: space-between;
+}
+
+.separator-line {
+  background: #E5E5E5;
+  width: 45%;
+  height: 2px;
+  margin: 8px 0 16px 0;
+}

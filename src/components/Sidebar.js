@@ -10,7 +10,7 @@ export default function Sidebar(props) {
   return (
     <div className="sidenav">
       <div className="logo-container">
-        <img src="/images/logo.png" />
+        <img src="/images/logo-white.svg" />
       </div>
       <Link
         className={`dropdown-btn ${type === "items" ? "active" : ""}`}

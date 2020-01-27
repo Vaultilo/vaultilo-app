@@ -200,7 +200,7 @@ export default function OtherWallets(props) {
             onChange={evt => setPassword(evt.target.value)}
           />
         <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i className="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
-        <CopyToClipboard text={password}>
+          <CopyToClipboard text={password}>
             <span ref={passwordRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
               <img src="/images/copy.png" alt="copy"/>
             </span>

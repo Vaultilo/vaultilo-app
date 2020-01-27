@@ -5,7 +5,7 @@
 
 .ext-header {
   padding: 14px;
-  border: 1px solid #ccc;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.09);
 }
 
 .ext-content {
@@ -23,19 +23,32 @@
   outline: none;
 }
 
-.extension-link:hover .password:hover {
+.extension-link:hover .link-item:hover {
   background: linear-gradient(89.49deg, #D2FBEA 0.03%, rgba(210, 251, 234, 0) 99.94%);
 }
 
-.extension-link .password {
+.extension-link .link-item {
   font-size: 16px;
   line-height: 19px;
   position: relative;
   padding: 20px 15px;
+  border-bottom: 1px solid #E0E0E0;
 }
 
-.extension-link .password i {
+.extension-link:last-child .link-item {
+  border-bottom: none;
+}
+
+.extension-link .link-item i {
   color: #1CD8D2;
+}
+
+.extension-link .link-item.password i {
+  font-size: 24px;
+}
+
+.extension-link .link-item.note i {
+  font-size: 21px;
 }
 
 .extension-link .nav-title {
@@ -66,7 +79,7 @@
 
 .list-header {
   padding: 14px;
-  border: 1px solid #ccc;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.09);
   text-align: center;
 }
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../extension.css";
 import { Link } from "react-router-dom";
-import logo from "../Icons/logo.png";
 import Footer from "../Footer";
 
 export default function Extension(props) {
@@ -12,7 +11,7 @@ export default function Extension(props) {
   return (
     <div className="extension-container">
       <div className="ext-header">
-        <img src={logo} />
+        <img src="/images/logo-green.svg" />
       </div>
       <div className="ext-content">
         <Link
@@ -22,7 +21,7 @@ export default function Extension(props) {
           to="/extension/passwords"
           onClick={() => handleNavClick("passwords")}
         >
-          <div className="password">
+          <div className="link-item password">
             <i className="fa fa-lock" />
             <span className="nav-title">Passwords</span>
             <span className="nav-icon nav-right-angle">
@@ -36,7 +35,7 @@ export default function Extension(props) {
           onClick={() => handleNavClick("crypto")}
           to="/extension/crypto"
         >
-          <div className="password">
+          <div className="link-item">
             <i className="icon-wallet" />
             <span className="nav-title">Crypto Wallets</span>
             <span className="nav-icon nav-right-angle">
@@ -55,7 +54,7 @@ export default function Extension(props) {
           to="/extension/notes"
           onClick={() => handleNavClick("notes")}
         >
-          <div className="password">
+          <div className="link-item note">
             <i className="icon-note" />
             <span className="nav-title">Note</span>
 
@@ -69,7 +68,7 @@ export default function Extension(props) {
           to="/extension/nft"
           onClick={() => handleNavClick("NFT")}
         >
-          <div className="password">
+          <div className="link-item">
             <i className="icon-ntf" />
             <span className="nav-title">NFT</span>
 

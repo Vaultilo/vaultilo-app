@@ -228,6 +228,11 @@ export default function Ethereum(props) {
           </Overlay>
         </div>
       </div>
+      <div className="separator">
+        <div className="separator-line" />
+        <div>Or</div>
+        <div className="separator-line" />
+      </div>
       <div className="form-group row">
         <label htmlFor="inputSeedWords" className="col-12 custom-label">
           Seed Words
@@ -256,7 +261,7 @@ export default function Ethereum(props) {
         
       </div>
       <div className="d-flex justify-content-end">
-      {selectedItem ? (
+        {selectedItem ? (
           <button
             disabled={clicked}
             type="button"
@@ -291,9 +296,8 @@ export default function Ethereum(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            <div>{`The following fields are invalid: ${invalidFields.join(', ')}.`}</div>
-            <br />
             <div>Do you still want to continue ?</div>
+            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(', ')}.`}</div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
