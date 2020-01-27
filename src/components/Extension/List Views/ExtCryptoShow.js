@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../Sidebar.css";
+import "../../Sidebar.css";
 import { Link, withRouter } from "react-router-dom";
-import { getFormattedTime } from '../../helper';
+import { getFormattedTime } from '../../../helper';
 
 const cryptoTypes = [
   {

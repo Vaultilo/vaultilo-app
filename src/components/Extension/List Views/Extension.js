@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./extension.css";
+import "../extension.css";
 import { Link } from "react-router-dom";
-import logo from ".//Icons/logo.png";
-import OpenVaultilo from ".//Icons/OpenVaultilo.png";
+import logo from "../Icons/logo.png";
+import OpenVaultilo from "../Icons/OpenVaultilo.png";
 
 export default function Extension(props) {
   const [activeNav, setActiveNav] = useState("items");

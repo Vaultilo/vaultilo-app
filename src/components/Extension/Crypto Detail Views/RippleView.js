@@ -1,35 +1,30 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { Overlay, Tooltip } from "react-bootstrap";
-import OpenVaultilo from ".//Icons/OpenVaultilo.png";
+import OpenVaultilo from "../Icons/OpenVaultilo.png";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default function IconView(props) {
   const [pwTooltip, setPwTooltip] = useState(false);
-  const [pvtKeyTooltip, setPvtKeyTooltip] = useState(false);
   const [walletAddTooltip, setWalletAddTooltip] = useState(false);
 
   const passwordRef = useRef(null);
-  const pvtKeyRef = useRef(null);
   const walletAddRef = useRef(null);
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [privateVisible, setPrivateVisible] = useState(false);
-  const { walletName, walletAddress, privateKey, seedWords} = props.item;
+
+  const { walletName, walletAddress,seedWords} = props.item;
 
   const handleTooltipClick = (type) => {
     if (type === 'password') { 
       setPwTooltip(true);
     }
-    if (type === 'pvtKey') {
-      setPvtKeyTooltip(true);
-    }
+   
     if (type === 'walletAdd') {
       setWalletAddTooltip(true);
     }
     setTimeout(() => {
       setPwTooltip(false);
-      setPvtKeyTooltip(false);
+      
       setWalletAddTooltip(false);
     }, 1000);
   }
@@ -44,7 +39,7 @@ export default function IconView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Ethereum</div>
+        <div className="title">Ripple </div>
       </div>
     <div className="ext-content">
       <div className="col-12 form-content">
@@ -88,41 +83,7 @@ export default function IconView(props) {
           </Overlay>
         </div>
       </div>
-      <div className="form-group row">
-        <label htmlFor="inputPrivateKey" className="col-12 custom-label">
-          Private Key
-        </label>
-        <div className="col-12">
-          <input
-            type={privateVisible ? "text" : "password"}
-            className="custom-input form-control"
-            id="inputPrivateKey"
-            value={privateKey}
-          />
-          <span
-            className="password-visibility-btn"
-            onClick={() => setPrivateVisible(!privateVisible)}
-          >
-            {privateVisible ? (
-              <i class="fa fa-eye-slash" aria-hidden="true" />
-            ) : (
-              <i className="fa fa-eye" aria-hidden="true" />
-            )}
-          </span>
-          <CopyToClipboard text={privateKey}>
-            <span ref={pvtKeyRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPrivateKey" onClick={() => handleTooltipClick('pvtKey')}>
-              <img src="/images/copy.png" alt="copy"/>
-            </span>
-          </CopyToClipboard>
-          <Overlay target={pvtKeyRef.current} show={pvtKeyTooltip} placement="top">
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-      </div>
+      
       <div className="form-group row">
         <label htmlFor="inputSeedWords" className="col-12 custom-label">
           Seed Words

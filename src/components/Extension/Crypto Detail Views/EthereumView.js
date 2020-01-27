@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { Overlay, Tooltip } from "react-bootstrap";
-import OpenVaultilo from ".//Icons/OpenVaultilo.png";
+import OpenVaultilo from "../Icons/OpenVaultilo.png";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default function IconView(props) {
@@ -15,10 +15,10 @@ export default function IconView(props) {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible, setPrivateVisible] = useState(false);
-  const { walletName, walletAddress, privateKey, password,  platform} = props.item;
+  const { walletName, walletAddress, privateKey, seedWords} = props.item;
 
   const handleTooltipClick = (type) => {
-    if (type === 'password') {
+    if (type === 'password') { 
       setPwTooltip(true);
     }
     if (type === 'pvtKey') {
@@ -34,7 +34,8 @@ export default function IconView(props) {
     }, 1000);
   }
 
- 
+  
+
   return (
     <>
      <div className="list-header">
@@ -43,27 +44,10 @@ export default function IconView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Other Wallets</div>
+        <div className="title">Ethereum</div>
       </div>
     <div className="ext-content">
-    
-    
       <div className="col-12 form-content">
-      <div className="form-group row">
-        <label htmlFor="inputPlatform" className="col-12 custom-label">
-           Wallet Platform
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputPlatform"
-            value={platform}
-           
-          />
-        
-        </div>
-      </div>
       <div className="form-group row">
         <label htmlFor="inputName" className="col-12 custom-label">
           Wallet Name
@@ -140,27 +124,18 @@ export default function IconView(props) {
         </div>
       </div>
       <div className="form-group row">
-        <label htmlFor="inputPassword" className="col-12 custom-label">
-          Password
+        <label htmlFor="inputSeedWords" className="col-12 custom-label">
+          Seed Words
         </label>
         <div className="col-12">
           <input
-            type={passwordVisible ? "text" : "password"}
+            type="text"
             className="custom-input form-control"
-            id="inputPassword"
-            value={password}
+            id="inputSeedWords"
+            value={seedWords}
           />
-          <span
-            className="password-visibility-btn"
-            onClick={() => setPasswordVisible(!passwordVisible)}
-          >
-            {passwordVisible ? (
-              <i class="fa fa-eye-slash" aria-hidden="true" />
-            ) : (
-              <i className="fa fa-eye" aria-hidden="true" />
-            )}
-          </span>
-          <CopyToClipboard text={password}>
+         
+          <CopyToClipboard text={seedWords}>
             <span ref={passwordRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
               <img src="/images/copy.png" alt="copy"/>
             </span>
@@ -174,7 +149,7 @@ export default function IconView(props) {
           </Overlay>
         </div>
       </div>
-   
+      
       </div>
     </div>
     <div className="ext-footer">

@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, Route} from "react-router-dom";
-import Extension from './Extension/Extension'
-import ExtPwShow from './Extension/ExtPwShow'
-import ExtNoteShow from './Extension/ExtNoteShow'
-import ExtCryptoShow from './Extension/ExtCryptoShow'
-import ExtNftShow  from './Extension/ExtNftShow'
-import CryptoDetail from './Extension/CryptoDetail';
+import Extension from './Extension/List Views/Extension'
+import ExtPwShow from './Extension/List Views/ExtPwShow'
+import ExtNoteShow from './Extension/List Views/ExtNoteShow'
+import ExtCryptoShow from './Extension/List Views/ExtCryptoShow'
+import ExtNftShow  from './Extension/List Views/ExtNftShow'
+import CryptoDetail from './Extension/Crypto Detail Views/CryptoDetail';
 import PasswordDetail from './Extension/PasswordDetail';
 import NotesDetail from './Extension/NotesDetail'
 import '../styles/icons.css'

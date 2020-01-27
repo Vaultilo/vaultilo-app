@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { Overlay, Tooltip } from "react-bootstrap";
-import OpenVaultilo from ".//Icons/OpenVaultilo.png";
+import OpenVaultilo from "../Icons/OpenVaultilo.png";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default function IconView(props) {
@@ -15,7 +15,7 @@ export default function IconView(props) {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible, setPrivateVisible] = useState(false);
-  const { walletName, walletAddress, privateKey, password, keyStore, keyStoreName} = props.item;
+  const { walletName, walletAddress, privateKey, password,  platform} = props.item;
 
   const handleTooltipClick = (type) => {
     if (type === 'password') {
@@ -34,14 +34,7 @@ export default function IconView(props) {
     }, 1000);
   }
 
-  const handleDownload = () => {
-    var a = document.createElement("a");
-    var blob = new Blob([keyStore]);
-    a.href = window.URL.createObjectURL(blob);
-    a.download = keyStoreName;
-    a.click();
-  };
-
+ 
   return (
     <>
      <div className="list-header">
@@ -50,10 +43,27 @@ export default function IconView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Icon</div>
+        <div className="title">Other Wallets</div>
       </div>
     <div className="ext-content">
+    
+    
       <div className="col-12 form-content">
+      <div className="form-group row">
+        <label htmlFor="inputPlatform" className="col-12 custom-label">
+           Wallet Platform
+        </label>
+        <div className="col-12">
+          <input
+            type="text"
+            className="custom-input form-control"
+            id="inputPlatform"
+            value={platform}
+           
+          />
+        
+        </div>
+      </div>
       <div className="form-group row">
         <label htmlFor="inputName" className="col-12 custom-label">
           Wallet Name
@@ -164,19 +174,7 @@ export default function IconView(props) {
           </Overlay>
         </div>
       </div>
-      <div className="d-flex justify-content-start">
-        {
-        keyStore ? 
-          <button
-            type="button"
-            className="btn btn-secondary mr-2"
-            size="small"
-            onClick={handleDownload}
-          >
-            Download Keystore File
-          </button> : null
-        }
-        </div>
+   
       </div>
     </div>
     <div className="ext-footer">

@@ -1,9 +1,7 @@
 import React, {Card} from "react";
-import "../Sidebar.css";
+import "../../Sidebar.css";
 import {Link } from 'react-router-dom';
-import LockImg from "./Icons/lock.png";
-import OpenVaultilo from "./Icons/OpenVaultilo.png";
-
+import OpenVaultilo from "../Icons/OpenVaultilo.png";
 export default function ExNoteShow(props) {
   const notes = props.notes;
   console.log(notes)

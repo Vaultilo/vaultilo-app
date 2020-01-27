@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { Overlay, Tooltip } from "react-bootstrap";
-import OpenVaultilo from ".//Icons/OpenVaultilo.png";
+import OpenVaultilo from "../Icons/OpenVaultilo.png";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default function IconView(props) {
@@ -39,7 +39,7 @@ export default function IconView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Ripple </div>
+        <div className="title">Bitcoin</div>
       </div>
     <div className="ext-content">
       <div className="col-12 form-content">

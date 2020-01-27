@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from "react-router-dom";
-import OpenVaultilo from "./Icons/OpenVaultilo.png";
+import OpenVaultilo from "../Icons/OpenVaultilo.png";
 
 export default function ExtNftShow(props){
     return(

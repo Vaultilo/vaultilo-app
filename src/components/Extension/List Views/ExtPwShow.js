@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./extension.css";
+import "../extension.css";
 import { Link } from "react-router-dom";
-import OpenVaultilo from ".//Icons/OpenVaultilo.png";
+import OpenVaultilo from "../Icons/OpenVaultilo.png";
 
 export default function ExPwShow(props) {
   const passwords = props.passwords;
