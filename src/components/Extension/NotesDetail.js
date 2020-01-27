@@ -23,7 +23,7 @@ export default function NotesDetails(props){
         <div className="col-12 form-content">
         <div className="form-group row">
         <label htmlFor="noteTitleInput" className="col-12 custom-label">
-          Name
+          Title
         </label>
         <div className="col-12">
           <input

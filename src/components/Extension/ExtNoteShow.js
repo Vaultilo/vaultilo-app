@@ -37,8 +37,8 @@ export default function ExNoteShow(props) {
                                       <i className="icon-note" />
                                   </div>
                                   <div className="item-detail">
-                                      <div className="text">{noteInput}</div>
-                                      <div className="sub-text">{noteTitle}</div>
+                                      <div className="text">{noteTitle}</div>
+                                      
                                   </div>
                                   <div className="view-details">
                         <Link to={{
