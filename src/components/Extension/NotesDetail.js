@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { Link } from "react-router-dom";
 import PasswordStrength from "../PasswordsForm/PasswordStrength";
 import OpenVaultilo from "./Icons/OpenVaultilo.png";
+import {Overlay,Tooltip} from "react-bootstrap";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
+
 
 export default function NotesDetails(props){
     const id=props.location.state.id;
     const notes=props.notes;
     const notesItem=notes.find(item => item.id==id);
     const {noteInput,noteTitle}=notesItem;
+    const [titleTooltip,setTitleTooltip]=useState(false)
+    const titleRef=useRef(null);
+    const handleTooltipClick = (type) => {
+      if (type === 'title') {
+        setTitleTooltip(true);
+      }
+     
+      setTimeout(() => {
+        setTitleTooltip(false)
+      }, 1000);
+    }
 
     return(
         <>
@@ -47,6 +62,27 @@ export default function NotesDetails(props){
             value={noteInput}
            
           />
+          <CopyToClipboard text={noteInput}>
+                <span
+                  ref={titleRef}
+                  className="copy-btn copy-btn-input"
+                  data-clipboard-target="#inputDomainUsername"
+                  onClick={() => handleTooltipClick("title")}
+                >
+                  <img src="/images/copy.png" alt="copy" />
+                </span>
+              </CopyToClipboard>
+              <Overlay
+                target={titleRef.current}
+                show={titleTooltip}
+                placement="top"
+              >
+                {props => (
+                  <Tooltip id="overlay-example" {...props}>
+                    Copied
+                  </Tooltip>
+                )}
+              </Overlay>
         </div>
       </div>
             </div>

@@ -136,7 +136,7 @@ export default function IconView(props) {
           />
          
           <CopyToClipboard text={seedWords}>
-            <span ref={passwordRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
+            <span ref={passwordRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
               <img src="/images/copy.png" alt="copy"/>
             </span>
           </CopyToClipboard>
