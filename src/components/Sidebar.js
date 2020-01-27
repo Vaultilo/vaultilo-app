@@ -81,7 +81,12 @@ export default function Sidebar(props) {
                     className={`${subNav === subType ? "active" : ""}`}
                     to={`/crypto/${subType}`}
                   >
-                    {subType}
+                    <div className="sub-nav-item d-flex justify-content-start">
+                      <div className="mr-2 sub-nav-img">
+                        <img src={`/images/${subType}-small.svg`} />
+                      </div>
+                      {subType}
+                    </div>
                   </Link>
                 );
               }

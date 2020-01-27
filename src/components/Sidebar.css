@@ -102,3 +102,14 @@
   right: 0;
   top: -18px;
 }
+
+.sub-nav-item {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.sub-nav-img img {
+  width: 16px;
+  height: 20px;
+  margin-right: 10px;
+}
