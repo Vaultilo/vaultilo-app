@@ -15,10 +15,10 @@ export default function IconView(props) {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible, setPrivateVisible] = useState(false);
-  const { walletName, walletAddress, privateKey, password, keyStore, keyStoreName} = props.item;
+  const { walletName, walletAddress, privateKey, seedWords} = props.item;
 
   const handleTooltipClick = (type) => {
-    if (type === 'password') {
+    if (type === 'password') { 
       setPwTooltip(true);
     }
     if (type === 'pvtKey') {
@@ -34,13 +34,7 @@ export default function IconView(props) {
     }, 1000);
   }
 
-  const handleDownload = () => {
-    var a = document.createElement("a");
-    var blob = new Blob([keyStore]);
-    a.href = window.URL.createObjectURL(blob);
-    a.download = keyStoreName;
-    a.click();
-  };
+  
 
   return (
     <>
@@ -50,7 +44,7 @@ export default function IconView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Icon</div>
+        <div className="title">Ethereum</div>
       </div>
     <div className="ext-content">
       <div className="col-12 form-content">
@@ -131,26 +125,17 @@ export default function IconView(props) {
       </div>
       <div className="form-group row">
         <label htmlFor="inputPassword" className="col-12 custom-label">
-          Password
+          Seed Words
         </label>
         <div className="col-12">
           <input
-            type={passwordVisible ? "text" : "password"}
+            type="text"
             className="custom-input form-control"
             id="inputPassword"
-            value={password}
+            value={seedWords}
           />
-          <span
-            className="password-visibility-btn"
-            onClick={() => setPasswordVisible(!passwordVisible)}
-          >
-            {passwordVisible ? (
-              <i class="fa fa-eye-slash" aria-hidden="true" />
-            ) : (
-              <i className="fa fa-eye" aria-hidden="true" />
-            )}
-          </span>
-          <CopyToClipboard text={password}>
+         
+          <CopyToClipboard text={seedWords}>
             <span ref={passwordRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
               <img src="/images/copy.png" alt="copy"/>
             </span>
@@ -164,19 +149,7 @@ export default function IconView(props) {
           </Overlay>
         </div>
       </div>
-      <div className="d-flex justify-content-start">
-        {
-        keyStore ? 
-          <button
-            type="button"
-            className="btn btn-secondary mr-2"
-            size="small"
-            onClick={handleDownload}
-          >
-            Download Keystore File
-          </button> : null
-        }
-        </div>
+      
       </div>
     </div>
     <div className="ext-footer">

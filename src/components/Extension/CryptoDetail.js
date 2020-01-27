@@ -1,5 +1,6 @@
 import React from "react";
 import IconView from "./IconView";
+import EthereumView from "./EthereumView"
 
 export default function CryptoDetail(props) {
   const cryptoId = props.location.state.id;
@@ -10,9 +11,9 @@ export default function CryptoDetail(props) {
     if (credentialItem.subType === "icon") {
       return <IconView item={credentialItem} />;
     }
-    // if (credentialItem.subType === "ethereum") {
-    //   return <EthereumView subType={formType} {...props} />;
-    // }
+    if (credentialItem.subType === "ethereum") {
+      return <EthereumView item={credentialItem} />;
+    }
     // if (credentialItem.subType === "bitcoin") {
     //   return <BitcoinView subType={formType} {...props} />;
     // }
