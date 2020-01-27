@@ -67,3 +67,9 @@
   height: 2px;
   margin: 8px 0 16px 0;
 }
+
+.key-store-text {
+  font-size: 14px;
+  line-height: 30px;
+  color: #6F6F6F;
+}

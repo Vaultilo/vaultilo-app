@@ -296,27 +296,33 @@ export default function Icon(props) {
       </div>
       <div className="d-flex justify-content-start">
         {(selectedItem && selectedItem.keyStore) ? (
+          <>
+          <span className="key-store-text">Key Store:</span>
           <button
             type="button"
-            className="btn btn-secondary mr-2"
+            className="btn btn-file mx-2"
             size="small"
             onClick={handleDownload}
           >
-            Download Keystore File
+            Download
           </button>
+          </>
         ) : (
+          <>
+          <span className="key-store-text">Key Store:</span>
           <FilePicker
             onChange={FileObject => handleUpload(FileObject)}
             onError={errMsg => console.log(errMsg)}
           >
             <button
               type="button"
-              className="btn btn-secondary mr-2"
+              className="btn btn-file mx-2"
               size="small"
             >
-              {!fileUploaded ? 'Upload Keystore File' : 'Uploaded'}
+              {!fileUploaded ? 'Upload' : 'Uploaded'}
             </button>
           </FilePicker>
+          </>
         )}
       </div>
       <div className="d-flex justify-content-end">

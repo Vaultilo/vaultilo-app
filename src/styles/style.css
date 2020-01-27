@@ -12,7 +12,10 @@
   --brand-accent: #00D4FF;
 }
 
-html,body{background-color:#fdfcff;}
+html,body{
+  background-color:#fdfcff;
+  font-family: Rubik;
+}
 
 inspect {
   border: thin solid red;
@@ -182,6 +185,18 @@ inspect {
 .modal-body .btn-danger:hover {
   background-color: #AF262E;
   border-color: #AF262E;
+}
+
+.modal-body .btn-file {
+  background-color: #C4C4C4;
+  color: #000000;
+  border-color: #C4C4C4;
+}
+
+.modal-body .btn-file:hover {
+  background-color: #989595;
+  color: #000000;
+  border-color: #989595;
 }
 
 .page-header {
