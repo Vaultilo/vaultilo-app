@@ -165,3 +165,8 @@
   padding-top: 32px;
   padding-bottom: 32px;
 }
+
+.item-img img {
+  width: 25px;
+  max-height: 25px;
+}

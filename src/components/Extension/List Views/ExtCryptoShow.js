@@ -70,7 +70,7 @@ function ExtCryptoShow(props) {
                   return (
                     <div className="item d-flex justify-content-start position-relative" key={id}>
                       <div className="item-img">
-                        <img src={`/images/${type.label}-small.png`} />
+                        <img src={`/images/${type.label}-small.svg`} />
                       </div>
                       <div className="item-detail">
                         <div className="text">{walletName}</div>
