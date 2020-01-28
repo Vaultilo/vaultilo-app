@@ -51,7 +51,7 @@ export default function IconView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Icon</div>
+        <div className="title">Icon Wallet Details</div>
       </div>
     <div className="ext-content">
       <div className="col-12 form-content">

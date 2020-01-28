@@ -36,7 +36,7 @@ export default function RippleView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Ripple </div>
+        <div className="title">Ripple Wallet Details </div>
       </div>
       <div className="ext-content">
         <div className="col-12 form-content">

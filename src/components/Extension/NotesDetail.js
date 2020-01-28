@@ -1,6 +1,6 @@
 import React, { useState,useRef } from "react";
 import { Link } from "react-router-dom";
-import PasswordStrength from "../PasswordsForm/PasswordStrength";
+import Footer from "./Footer";
 import OpenVaultilo from "./Icons/OpenVaultilo.png";
 import {Overlay,Tooltip} from "react-bootstrap";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -32,7 +32,7 @@ export default function NotesDetails(props){
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Passwords</div>
+        <div className="title">Note Details</div>
         </div>
         <div className="ext-content">
         <div className="col-12 form-content">
@@ -90,9 +90,7 @@ export default function NotesDetails(props){
             <Link 
          to="/items/all"
          target="_blank"  >
-      <div className="ext-footer">
-        <img src={OpenVaultilo} />
-      </div>
+      <Footer/>
       </Link>
         </>
     )

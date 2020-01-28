@@ -48,7 +48,7 @@ export default function OthersView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Other Wallets</div>
+        <div className="title">Other Wallets Details</div>
       </div>
       <div className="ext-content">
         <div className="col-12 form-content">

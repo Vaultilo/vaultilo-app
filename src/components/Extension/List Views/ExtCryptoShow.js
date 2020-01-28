@@ -53,7 +53,7 @@ function ExtCryptoShow(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Crypto Wallet</div>
+        <div className="title">Crypto Wallets</div>
       </div>
       <div className="ext-content">
         {cryptoList.map(type => {

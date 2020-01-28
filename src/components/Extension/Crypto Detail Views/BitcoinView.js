@@ -36,7 +36,7 @@ export default function BitcoinView(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Bitcoin</div>
+        <div className="title">Bitcoin Wallet Details</div>
       </div>
       <div className="ext-content">
         <div className="col-12 form-content">
