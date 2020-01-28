@@ -12,40 +12,48 @@ export default function Bitcoin(props) {
   ? {
       walletName: selectedItem.walletName,
       walletAddress: selectedItem.walletAddress,
-      seedWords:selectedItem.seedWords
+      seedWords:selectedItem.seedWords,
+      privateKey:selectedItem.privateKey
     }
   : {
       walletName: "",
       walletAddress: "",
-      seedWords:""
+      seedWords:"",
+      privateKey:""
     };
   
   const [walletName, setWalletName] = useState(defaultValue.walletName);
   const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
-  const [seedWords,setSeedWords]=useState(defaultValue.seedWords)
+  const [seedWords,setSeedWords]=useState(defaultValue.seedWords);
+  const [privateKey,setPrivateKey]=useState(defaultValue.privateKey);
   const [clicked, setClicked] = useState(false);
   const [emptyWalletName, setEmptyWalletName] = useState(null);
   const [confirmationModalShow, setConfirmationModalShow] = useState(false);
   const [invalidFields, setInvalidFields] = useState([]);
   const [pwTooltip, setPwTooltip] = useState(false);
   const [walletAddTooltip, setWalletAddTooltip] = useState(false);
+  const [privateKeyTooltip,setPrivateKeyTooltip]=useState(false);
 
   const passwordRef = useRef(null);
   const walletAddRef = useRef(null);
-  const handleTooltipClick = (type) => {
-    if (type === 'password') { 
+  const privateKeyRef = useRef(null);
+  const handleTooltipClick = type => {
+    if (type === "password") {
       setPwTooltip(true);
     }
-   
-    if (type === 'walletAdd') {
+
+    if (type === "walletAdd") {
       setWalletAddTooltip(true);
+    }
+    if (type === "private") {
+      setPrivateKeyTooltip(true);
     }
     setTimeout(() => {
       setPwTooltip(false);
-      
+      setPrivateKeyTooltip(false);
       setWalletAddTooltip(false);
     }, 1000);
-  }
+  };
 
   useEffect(() => {
     if (clicked) {
@@ -93,6 +101,7 @@ export default function Bitcoin(props) {
       walletName,
       walletAddress,
       seedWords,
+      privateKey,
       timeStamp: Date.now()
     };
     setClicked(true);
@@ -102,7 +111,7 @@ export default function Bitcoin(props) {
   const submitUpdateForm = () => {
     const updatedCredentials = credentials.map(item => {
       if (item.id === selectedItem.id) {
-        return { ...item, walletName, walletAddress, seedWords, timeStamp: Date.now() };
+        return { ...item, walletName, walletAddress, seedWords, privateKey,timeStamp: Date.now() };
       }
       return item;
     });
@@ -171,6 +180,32 @@ export default function Bitcoin(props) {
             </span>
           </CopyToClipboard>
           <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
+        </div>
+      </div>
+      <div className="form-group row">
+        <label htmlFor="inputPrivate" className="col-12 custom-label">
+         Private Key
+        </label>
+        <div className="col-12">
+          <input
+            type="text"
+            className="custom-input form-control"
+            id="inputPrivate"
+            value={privateKey}
+            onChange={evt => setPrivateKey(evt.target.value)}
+          />
+          <CopyToClipboard text={privateKey}>
+            <span ref={privateKeyRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputAddress" onClick={() => handleTooltipClick('private')}>
+              <img src="/images/copy.png" alt="copy"/>
+            </span>
+          </CopyToClipboard>
+          <Overlay target={privateKeyRef.current} show={privateKeyTooltip} placement="top">
             {props => (
               <Tooltip id="overlay-example" {...props}>
                 Copied
