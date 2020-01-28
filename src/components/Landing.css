@@ -1,0 +1,51 @@
+.container {
+  padding-top: 22px;
+}
+
+.navbar {
+  margin-bottom: 98px;
+}
+
+.navbar-brand img {
+  width: 175px;
+}
+
+.landing-info {
+  width: 55%;
+  padding: 25px 16px;
+}
+
+.landing-img {
+  width: 45%;
+}
+
+.separator-img {
+  padding: 12px 0;
+}
+
+.landing-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 31px;
+  text-transform: uppercase;
+}
+
+.landing-sub-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #6F6F6F;
+}
+
+.color-primary {
+  color: #1CD8D2;
+}
+
+.login-btn {
+  margin-top: 32px;
+  padding: 0;
+  background: none;
+  border: 0;
+}
