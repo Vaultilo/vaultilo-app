@@ -33,6 +33,7 @@ export default function OtherWallets(props) {
   const [pwTooltip, setPwTooltip] = useState(false);
   const [pvtKeyTooltip, setPvtKeyTooltip] = useState(false);
   const [walletAddTooltip, setWalletAddTooltip] = useState(false);
+  const [emptyWalletName, setEmptyWalletName] = useState(null);
 
   const passwordRef = useRef(null);
   const pvtKeyRef = useRef(null);
@@ -63,18 +64,8 @@ export default function OtherWallets(props) {
     }
   }, [credentialsString]);
 
-  const validateForm = () => {
-    return (
-      walletName.length &&
-      walletAddress.length &&
-      password.length &&
-      privateKey.length &&
-      platform.length
-    );
-  };
-
   const handleClick = () => {
-    if (validateForm()) {
+    if (walletName.length) {
       const newCred = {
         id: Date.now(),
         type: 'crypto',
@@ -88,11 +79,13 @@ export default function OtherWallets(props) {
       };
       setClicked(true);
       setCredentials(JSON.stringify([...credentials, newCred]));
+    } else {
+      setEmptyWalletName(true);
     }
   };
 
   const handleUpdate = () => {
-    if (validateForm()) {
+    if (walletName.length) {
       const updatedCredentials = credentials.map(item => {
         if (item.id === selectedItem.id) {
           return { ...item, walletName, walletAddress, privateKey, password, platform, timeStamp: Date.now() };
@@ -101,6 +94,8 @@ export default function OtherWallets(props) {
       });
       setClicked(true);
       setCredentials(JSON.stringify(updatedCredentials));
+    } else {
+      setEmptyWalletName(true);
     }
   };
 
@@ -127,11 +122,12 @@ export default function OtherWallets(props) {
         <div className="col-12">
           <input
             type="text"
-            className="custom-input form-control"
+            className={`custom-input form-control ${emptyWalletName ? 'invalid' : ''}`}
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
           />
+          { emptyWalletName ? <span className="validation-text">Required</span> : null }
         </div>
       </div>
       <div className="form-group row">
