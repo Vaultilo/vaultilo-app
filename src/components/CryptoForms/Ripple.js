@@ -184,6 +184,47 @@ export default function Ripple(props) {
         </div>
       </div>
       <div className="form-group row">
+        <label htmlFor="inputSeedWords" className="col-12 custom-label">
+          Seed Words
+        </label>
+        <div className="col-12">
+          <input
+            type="text"
+            className="custom-input form-control"
+            id="inputSeedWords"
+            value={seedWords}
+            onChange={evt => setSeedWords(evt.target.value)}
+          />
+          <CopyToClipboard text={seedWords}>
+            <span
+              ref={seedWordsRef}
+              className="copy-btn copy-btn-input"
+              data-clipboard-target="#inputseed"
+              onClick={() => handleTooltipClick("seed")}
+            >
+              <img src="/images/copy.png" alt="copy" />
+            </span>
+          </CopyToClipboard>
+          <Overlay
+            target={seedWordsRef.current}
+            show={seedWordsTooltip}
+            placement="top"
+          >
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
+        </div>
+      </div>
+
+      <div className="separator">
+        <div className="separator-line" />
+        <div>Or</div>
+        <div className="separator-line" />
+      </div>
+      <div className="form-group row">
         <label htmlFor="inputAddress" className="col-12 custom-label">
           Wallet Address
         </label>
@@ -253,46 +294,7 @@ export default function Ripple(props) {
           </Overlay>
         </div>
       </div>
-      <div className="separator">
-        <div className="separator-line" />
-        <div>Or</div>
-        <div className="separator-line" />
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputSeedWords" className="col-12 custom-label">
-          Seed Words
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputSeedWords"
-            value={seedWords}
-            onChange={evt => setSeedWords(evt.target.value)}
-          />
-          <CopyToClipboard text={seedWords}>
-            <span
-              ref={seedWordsRef}
-              className="copy-btn copy-btn-input"
-              data-clipboard-target="#inputseed"
-              onClick={() => handleTooltipClick("seed")}
-            >
-              <img src="/images/copy.png" alt="copy" />
-            </span>
-          </CopyToClipboard>
-          <Overlay
-            target={seedWordsRef.current}
-            show={seedWordsTooltip}
-            placement="top"
-          >
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-      </div>
+
       <div className="d-flex justify-content-end">
         {selectedItem ? (
           <button

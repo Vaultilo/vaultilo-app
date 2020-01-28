@@ -1,34 +1,43 @@
-import React, { useEffect, useState,useRef } from "react";
-import { Modal,Tooltip,Overlay } from "react-bootstrap";
-import * as bip39 from 'bip39';
-import WAValidator from 'wallet-address-validator';
+import React, { useEffect, useState, useRef } from "react";
+import { Modal, Tooltip, Overlay } from "react-bootstrap";
+import * as bip39 from "bip39";
+import WAValidator from "wallet-address-validator";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
-import './index.css';
-import {CopyToClipboard} from "react-copy-to-clipboard"
+import "./index.css";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function Ethereum(props) {
-  const { credentials, setCredentials, subType, onModalClose, selectedItem, setModalTransparent } = props;
+  const {
+    credentials,
+    setCredentials,
+    subType,
+    onModalClose,
+    selectedItem,
+    setModalTransparent
+  } = props;
   const credentialsString = JSON.stringify(credentials);
   const defaultValue = selectedItem
-  ? {
-      walletName: selectedItem.walletName,
-      walletAddress: selectedItem.walletAddress,
-      privateKey: selectedItem.privateKey,
-      seedWords:selectedItem.seedWords
-    }
-  : {
-      walletName: "",
-      walletAddress: "",
-      privateKey: "",
-      seedWords:""
-    };
-  
+    ? {
+        walletName: selectedItem.walletName,
+        walletAddress: selectedItem.walletAddress,
+        privateKey: selectedItem.privateKey,
+        seedWords: selectedItem.seedWords
+      }
+    : {
+        walletName: "",
+        walletAddress: "",
+        privateKey: "",
+        seedWords: ""
+      };
+
   const [walletName, setWalletName] = useState(defaultValue.walletName);
-  const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
+  const [walletAddress, setWalletAddress] = useState(
+    defaultValue.walletAddress
+  );
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [privateVisible, setPrivateVisible] = useState(false);
-  const [seedWords,setSeedWords]=useState(defaultValue.seedWords)
+  const [seedWords, setSeedWords] = useState(defaultValue.seedWords);
   const [clicked, setClicked] = useState(false);
   const [emptyWalletName, setEmptyWalletName] = useState(null);
   const [confirmationModalShow, setConfirmationModalShow] = useState(false);
@@ -40,14 +49,14 @@ export default function Ethereum(props) {
   const passwordRef = useRef(null);
   const pvtKeyRef = useRef(null);
   const walletAddRef = useRef(null);
-  const handleTooltipClick = (type) => {
-    if (type === 'password') { 
+  const handleTooltipClick = type => {
+    if (type === "password") {
       setPwTooltip(true);
     }
-    if (type === 'pvtKey') {
+    if (type === "pvtKey") {
       setPvtKeyTooltip(true);
     }
-    if (type === 'walletAdd') {
+    if (type === "walletAdd") {
       setWalletAddTooltip(true);
     }
     setTimeout(() => {
@@ -55,9 +64,7 @@ export default function Ethereum(props) {
       setPvtKeyTooltip(false);
       setWalletAddTooltip(false);
     }, 1000);
-  }
-
-  
+  };
 
   useEffect(() => {
     if (clicked) {
@@ -75,7 +82,7 @@ export default function Ethereum(props) {
 
   const getInvalidFields = () => {
     const invalidFields = [];
-    if (!WAValidator.validate(walletAddress,"ETH")) {
+    if (!WAValidator.validate(walletAddress, "ETH")) {
       invalidFields.push("Wallet Address");
     }
     if (!bip39.validateMnemonic(seedWords)) {
@@ -87,7 +94,7 @@ export default function Ethereum(props) {
   const submitCreateForm = () => {
     const newCred = {
       id: Date.now(),
-      type: 'crypto',
+      type: "crypto",
       subType: subType,
       walletName,
       walletAddress,
@@ -97,24 +104,30 @@ export default function Ethereum(props) {
     };
     setClicked(true);
     setCredentials(JSON.stringify([...credentials, newCred]));
-  }
+  };
 
   const submitUpdateForm = () => {
     const updatedCredentials = credentials.map(item => {
       if (item.id === selectedItem.id) {
-        return { ...item, walletName, walletAddress, privateKey, seedWords, timeStamp: Date.now()  };
+        return {
+          ...item,
+          walletName,
+          walletAddress,
+          privateKey,
+          seedWords,
+          timeStamp: Date.now()
+        };
       }
       return item;
     });
     setClicked(true);
     setCredentials(JSON.stringify(updatedCredentials));
-  }
-  
+  };
+
   const handleSubmit = () => {
     if (!walletName.length) {
       setEmptyWalletName(true);
-    }
-    else if (getInvalidFields().length) {
+    } else if (getInvalidFields().length) {
       setInvalidFields(getInvalidFields());
       setConfirmationModalShow(true);
       setModalTransparent(true);
@@ -126,8 +139,7 @@ export default function Ethereum(props) {
   const handleUpdate = () => {
     if (!walletName.length) {
       setEmptyWalletName(true);
-    }
-    else if (getInvalidFields().length) {
+    } else if (getInvalidFields().length) {
       setInvalidFields(getInvalidFields());
       setConfirmationModalShow(true);
       setModalTransparent(true);
@@ -139,7 +151,7 @@ export default function Ethereum(props) {
   const handleBackClick = () => {
     setConfirmationModalShow(false);
     setModalTransparent(false);
-  }
+  };
 
   const handleConfirmClick = () => {
     if (selectedItem) {
@@ -147,24 +159,69 @@ export default function Ethereum(props) {
     } else {
       submitCreateForm();
     }
-  }
+  };
 
   return (
     <>
       <div className="form-group row">
         <label htmlFor="inputName" className="col-12 custom-label">
           Ethereum Wallet Name
-        </label> 
+        </label>
         <div className="col-12">
           <input
             type="text"
-            className={`custom-input form-control ${emptyWalletName ? 'invalid' : ''}`}
+            className={`custom-input form-control ${
+              emptyWalletName ? "invalid" : ""
+            }`}
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
           />
-          { emptyWalletName ? <span className="validation-text">Required</span> : null }
+          {emptyWalletName ? (
+            <span className="validation-text">Required</span>
+          ) : null}
         </div>
+      </div>
+      <div className="form-group row">
+        <label htmlFor="inputSeedWords" className="col-12 custom-label">
+          Seed Words
+        </label>
+        <div className="col-12">
+          <input
+            type="text"
+            className="custom-input form-control"
+            id="inputSeedWords"
+            value={seedWords}
+            onChange={evt => setSeedWords(evt.target.value)}
+          />
+          <CopyToClipboard text={seedWords}>
+            <span
+              ref={passwordRef}
+              className="copy-btn copy-btn-input"
+              data-clipboard-target="#inputPassword"
+              onClick={() => handleTooltipClick("password")}
+            >
+              <img src="/images/copy.png" alt="copy" />
+            </span>
+          </CopyToClipboard>
+          <Overlay
+            target={passwordRef.current}
+            show={pwTooltip}
+            placement="top"
+          >
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
+        </div>
+      </div>
+
+      <div className="separator">
+        <div className="separator-line" />
+        <div>Or</div>
+        <div className="separator-line" />
       </div>
       <div className="form-group row">
         <label htmlFor="inputAddress" className="col-12 custom-label">
@@ -179,11 +236,20 @@ export default function Ethereum(props) {
             onChange={evt => setWalletAddress(evt.target.value)}
           />
           <CopyToClipboard text={walletAddress}>
-            <span ref={walletAddRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputAddress" onClick={() => handleTooltipClick('walletAdd')}>
-              <img src="/images/copy.png" alt="copy"/>
+            <span
+              ref={walletAddRef}
+              className="copy-btn copy-btn-input"
+              data-clipboard-target="#inputAddress"
+              onClick={() => handleTooltipClick("walletAdd")}
+            >
+              <img src="/images/copy.png" alt="copy" />
             </span>
           </CopyToClipboard>
-          <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
+          <Overlay
+            target={walletAddRef.current}
+            show={walletAddTooltip}
+            placement="top"
+          >
             {props => (
               <Tooltip id="overlay-example" {...props}>
                 Copied
@@ -215,11 +281,20 @@ export default function Ethereum(props) {
             )}
           </span>
           <CopyToClipboard text={privateKey}>
-            <span ref={pvtKeyRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPrivateKey" onClick={() => handleTooltipClick('pvtKey')}>
-              <img src="/images/copy.png" alt="copy"/>
+            <span
+              ref={pvtKeyRef}
+              className="copy-btn copy-btn-pw"
+              data-clipboard-target="#inputPrivateKey"
+              onClick={() => handleTooltipClick("pvtKey")}
+            >
+              <img src="/images/copy.png" alt="copy" />
             </span>
           </CopyToClipboard>
-          <Overlay target={pvtKeyRef.current} show={pvtKeyTooltip} placement="top">
+          <Overlay
+            target={pvtKeyRef.current}
+            show={pvtKeyTooltip}
+            placement="top"
+          >
             {props => (
               <Tooltip id="overlay-example" {...props}>
                 Copied
@@ -228,38 +303,7 @@ export default function Ethereum(props) {
           </Overlay>
         </div>
       </div>
-      <div className="separator">
-        <div className="separator-line" />
-        <div>Or</div>
-        <div className="separator-line" />
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputSeedWords" className="col-12 custom-label">
-          Seed Words
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputSeedWords"
-            value={seedWords}
-            onChange={evt => setSeedWords(evt.target.value)}
-          />
-          <CopyToClipboard text={seedWords}>
-            <span ref={passwordRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
-              <img src="/images/copy.png" alt="copy"/>
-            </span>
-          </CopyToClipboard>
-          <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-        
-      </div>
+
       <div className="d-flex justify-content-end">
         {selectedItem ? (
           <button
@@ -280,11 +324,7 @@ export default function Ethereum(props) {
             Save
           </button>
         )}
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={onModalClose}
-        >
+        <button type="button" className="btn btn-danger" onClick={onModalClose}>
           Cancel
         </button>
       </div>
@@ -297,13 +337,23 @@ export default function Ethereum(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             <div>Do you still want to continue ?</div>
-            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(', ')}.`}</div>
+            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(
+              ", "
+            )}.`}</div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="confirmation-body d-flex justify-content-end">
-            <button className="btn btn-danger mr-2" onClick={handleConfirmClick} disabled={clicked}>Confirm</button>
-            <button className="btn btn-primary" onClick={handleBackClick}>Back</button>
+            <button
+              className="btn btn-danger mr-2"
+              onClick={handleConfirmClick}
+              disabled={clicked}
+            >
+              Confirm
+            </button>
+            <button className="btn btn-primary" onClick={handleBackClick}>
+              Back
+            </button>
           </div>
         </Modal.Body>
       </Modal>

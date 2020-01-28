@@ -264,6 +264,11 @@ export default function Icon(props) {
           </Overlay>
         </div>
       </div>
+      <div className="separator">
+        <div className="separator-line" />
+        <div>Or</div>
+        <div className="separator-line" />
+      </div>
       <div className="form-group row">
         <label htmlFor="inputPassword" className="col-12 custom-label">
           Password
