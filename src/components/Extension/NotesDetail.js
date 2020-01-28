@@ -27,7 +27,7 @@ export default function NotesDetails(props){
     return(
         <>
             <div className="list-header">
-                 <Link to="/extension/view">
+                 <Link to="/extension/notes">
           <span className="nav-icon nav-back">
             <i className="fa fa-angle-left"></i>
           </span>

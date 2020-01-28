@@ -46,7 +46,7 @@ export default function PasswordDetail(props) {
   return (
     <>
       <div className="list-header">
-        <Link to="/extension/view">
+        <Link to="/extension/passwords">
           <span className="nav-icon nav-back">
             <i className="fa fa-angle-left"></i>
           </span>
