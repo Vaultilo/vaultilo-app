@@ -183,118 +183,119 @@ export default function Ripple(props) {
           ) : null}
         </div>
       </div>
-      <div className="form-group row">
-        <label htmlFor="inputSeedWords" className="col-12 custom-label">
-          Seed Words
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputSeedWords"
-            value={seedWords}
-            onChange={evt => setSeedWords(evt.target.value)}
-          />
-          <CopyToClipboard text={seedWords}>
-            <span
-              ref={seedWordsRef}
-              className="copy-btn copy-btn-input"
-              data-clipboard-target="#inputseed"
-              onClick={() => handleTooltipClick("seed")}
+      <div className="field-wrapper">
+        <div className="form-group row">
+          <label htmlFor="inputSeedWords" className="col-12 custom-label">
+            Seed Words
+          </label>
+          <div className="col-12">
+            <input
+              type="text"
+              className="custom-input form-control"
+              id="inputSeedWords"
+              value={seedWords}
+              onChange={evt => setSeedWords(evt.target.value)}
+            />
+            <CopyToClipboard text={seedWords}>
+              <span
+                ref={seedWordsRef}
+                className="copy-btn copy-btn-input"
+                data-clipboard-target="#inputseed"
+                onClick={() => handleTooltipClick("seed")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={seedWordsRef.current}
+              show={seedWordsTooltip}
+              placement="top"
             >
-              <img src="/images/copy.png" alt="copy" />
-            </span>
-          </CopyToClipboard>
-          <Overlay
-            target={seedWordsRef.current}
-            show={seedWordsTooltip}
-            placement="top"
-          >
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
         </div>
-      </div>
 
-      <div className="separator">
-        <div className="separator-line" />
-        <div>Or</div>
-        <div className="separator-line" />
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputAddress" className="col-12 custom-label">
-          Wallet Address
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputAddress"
-            value={walletAddress}
-            onChange={evt => setWalletAddress(evt.target.value)}
-          />
-          <CopyToClipboard text={walletAddress}>
-            <span
-              ref={walletAddRef}
-              className="copy-btn copy-btn-input"
-              data-clipboard-target="#inputAddress"
-              onClick={() => handleTooltipClick("walletAdd")}
+        <div className="separator">
+          <div className="separator-line" />
+          <div>Or</div>
+          <div className="separator-line" />
+        </div>
+        <div className="form-group row">
+          <label htmlFor="inputAddress" className="col-12 custom-label">
+            Wallet Address
+          </label>
+          <div className="col-12">
+            <input
+              type="text"
+              className="custom-input form-control"
+              id="inputAddress"
+              value={walletAddress}
+              onChange={evt => setWalletAddress(evt.target.value)}
+            />
+            <CopyToClipboard text={walletAddress}>
+              <span
+                ref={walletAddRef}
+                className="copy-btn copy-btn-input"
+                data-clipboard-target="#inputAddress"
+                onClick={() => handleTooltipClick("walletAdd")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={walletAddRef.current}
+              show={walletAddTooltip}
+              placement="top"
             >
-              <img src="/images/copy.png" alt="copy" />
-            </span>
-          </CopyToClipboard>
-          <Overlay
-            target={walletAddRef.current}
-            show={walletAddTooltip}
-            placement="top"
-          >
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
+        </div>
+        <div className="form-group row">
+          <label htmlFor="inputPrivate" className="col-12 custom-label">
+            Private Key
+          </label>
+          <div className="col-12">
+            <input
+              type="text"
+              className="custom-input form-control"
+              id="inputPrivate"
+              value={privateKey}
+              onChange={evt => setPrivateKey(evt.target.value)}
+            />
+            <CopyToClipboard text={privateKey}>
+              <span
+                ref={privateKeyRef}
+                className="copy-btn copy-btn-input"
+                data-clipboard-target="#inputAddress"
+                onClick={() => handleTooltipClick("private")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={privateKeyRef.current}
+              show={privKeyTooltip}
+              placement="top"
+            >
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
         </div>
       </div>
-      <div className="form-group row">
-        <label htmlFor="inputPrivate" className="col-12 custom-label">
-          Private Key
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputPrivate"
-            value={privateKey}
-            onChange={evt => setPrivateKey(evt.target.value)}
-          />
-          <CopyToClipboard text={privateKey}>
-            <span
-              ref={privateKeyRef}
-              className="copy-btn copy-btn-input"
-              data-clipboard-target="#inputAddress"
-              onClick={() => handleTooltipClick("private")}
-            >
-              <img src="/images/copy.png" alt="copy" />
-            </span>
-          </CopyToClipboard>
-          <Overlay
-            target={privateKeyRef.current}
-            show={privKeyTooltip}
-            placement="top"
-          >
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-      </div>
-
       <div className="d-flex justify-content-end">
         {selectedItem ? (
           <button

@@ -41,10 +41,7 @@ export default function AppRouter() {
       <Route
         path="/:type/:subType"
         render={(routeProps) => {
-          // if (!person) {
-          //   window.location.assign("https://vaultilo.madoveradvertising.com/");
-          // }
-          if(person) {
+          if (person) {
             return <Content {...routeProps} person={person} />
           } else if( person === null ) {
             window.location.assign("https://vaultilo.madoveradvertising.com/");

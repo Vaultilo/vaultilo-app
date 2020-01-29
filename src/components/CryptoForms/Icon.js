@@ -4,9 +4,9 @@ import { Modal, Overlay, Tooltip } from "react-bootstrap";
 import IconService from "icon-sdk-js";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
-import PasswordStrength from '../PasswordsForm/PasswordStrength';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import './index.css';
+import PasswordStrength from "../PasswordsForm/PasswordStrength";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import "./index.css";
 
 export default function Icon(props) {
   const [pwTooltip, setPwTooltip] = useState(false);
@@ -18,7 +18,7 @@ export default function Icon(props) {
   const walletAddRef = useRef(null);
 
   const {
-    credentials, 
+    credentials,
     setCredentials,
     subType,
     onModalClose,
@@ -40,14 +40,14 @@ export default function Icon(props) {
         password: ""
       };
 
-  const handleTooltipClick = (type) => {
-    if (type === 'password') {
+  const handleTooltipClick = type => {
+    if (type === "password") {
       setPwTooltip(true);
     }
-    if (type === 'pvtKey') {
+    if (type === "pvtKey") {
       setPvtKeyTooltip(true);
     }
-    if (type === 'walletAdd') {
+    if (type === "walletAdd") {
       setWalletAddTooltip(true);
     }
     setTimeout(() => {
@@ -55,18 +55,20 @@ export default function Icon(props) {
       setPvtKeyTooltip(false);
       setWalletAddTooltip(false);
     }, 1000);
-  }
+  };
 
   const [walletName, setWalletName] = useState(defaultValue.walletName);
-  const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
+  const [walletAddress, setWalletAddress] = useState(
+    defaultValue.walletAddress
+  );
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [password, setPassword] = useState(defaultValue.password);
   const [clicked, setClicked] = useState(false);
-  const [keyStore, setKeystore] = useState('');
-  const [keyStoreName, setKeystoreName] = useState('');
+  const [keyStore, setKeystore] = useState("");
+  const [keyStoreName, setKeystoreName] = useState("");
   const [fileUploaded, setFileUploaded] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [privateVisible,setPrivateVisible] = useState(false);
+  const [privateVisible, setPrivateVisible] = useState(false);
   const [emptyWalletName, setEmptyWalletName] = useState(null);
   const [confirmationModalShow, setConfirmationModalShow] = useState(false);
   const [invalidFields, setInvalidFields] = useState([]);
@@ -88,7 +90,7 @@ export default function Icon(props) {
       invalidFields.push("Private Key");
     }
     return invalidFields;
-  }
+  };
 
   const showToast = (text, time) => {
     toaster.notify(() => <span className="btn btn-primary mr-2">{text}</span>, {
@@ -112,24 +114,32 @@ export default function Icon(props) {
     };
     setClicked(true);
     setCredentials(JSON.stringify([...credentials, newCred]));
-  }
+  };
 
   const submitUpdateForm = () => {
     const updatedCredentials = credentials.map(item => {
       if (item.id === selectedItem.id) {
-        return { ...item, walletName, walletAddress, privateKey, password, keyStore, keyStoreName, timeStamp: Date.now() };
+        return {
+          ...item,
+          walletName,
+          walletAddress,
+          privateKey,
+          password,
+          keyStore,
+          keyStoreName,
+          timeStamp: Date.now()
+        };
       }
       return item;
     });
     setClicked(true);
     setCredentials(JSON.stringify(updatedCredentials));
-  }
+  };
 
   const handleSubmit = () => {
     if (!walletName.length) {
       setEmptyWalletName(true);
-    }
-    else if (getInvalidFields().length) {
+    } else if (getInvalidFields().length) {
       setInvalidFields(getInvalidFields());
       setConfirmationModalShow(true);
       setModalTransparent(true);
@@ -141,8 +151,7 @@ export default function Icon(props) {
   const handleUpdate = () => {
     if (!walletName.length) {
       setEmptyWalletName(true);
-    }
-    else if (getInvalidFields().length) {
+    } else if (getInvalidFields().length) {
       setInvalidFields(getInvalidFields());
       setConfirmationModalShow(true);
       setModalTransparent(true);
@@ -154,7 +163,7 @@ export default function Icon(props) {
   const handleBackClick = () => {
     setConfirmationModalShow(false);
     setModalTransparent(false);
-  }
+  };
 
   const handleConfirmClick = () => {
     if (selectedItem) {
@@ -162,10 +171,10 @@ export default function Icon(props) {
     } else {
       submitCreateForm();
     }
-  }
+  };
 
   const handleDownload = () => {
-    const {keyStore, keyStoreName} = selectedItem;
+    const { keyStore, keyStoreName } = selectedItem;
     var a = document.createElement("a");
     var blob = new Blob([keyStore]);
     a.href = window.URL.createObjectURL(blob);
@@ -192,7 +201,7 @@ export default function Icon(props) {
     reader.readAsText(file);
   };
 
-  return ( 
+  return (
     <>
       <div className="form-group row">
         <label htmlFor="inputName" className="col-12 custom-label">
@@ -200,135 +209,186 @@ export default function Icon(props) {
         </label>
         <div className="col-12">
           <input
-            autoComplete={'off'}
+            autoComplete={"off"}
             type="text"
-            className={`custom-input form-control ${emptyWalletName ? 'invalid' : ''}`}
+            className={`custom-input form-control ${
+              emptyWalletName ? "invalid" : ""
+            }`}
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
           />
-          { emptyWalletName ? <span className="validation-text">Required</span> : null }
+          {emptyWalletName ? (
+            <span className="validation-text">Required</span>
+          ) : null}
         </div>
       </div>
-      <div className="form-group row">
-        <label htmlFor="inputAddress" className="col-12 custom-label">
-          Wallet Address
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            autoComplete={'off'}
-            className="custom-input form-control"
-            id="inputAddress"
-            value={walletAddress}
-            onChange={evt => setWalletAddress(evt.target.value)}
-          />
-          <CopyToClipboard text={walletAddress}>
-            <span ref={walletAddRef} className="copy-btn copy-btn-input" data-clipboard-target="#inputAddress" onClick={() => handleTooltipClick('walletAdd')}>
-              <img src="/images/copy.png" alt="copy"/>
-            </span>
-          </CopyToClipboard>
-          <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputPrivateKey" className="col-12 custom-label">
-          Private Key
-        </label>
-        <div className="col-12">
-          <input
-            type={privateVisible ? 'text':'password'}
-            className="custom-input form-control"
-            id="inputPrivateKey"
-            value={privateKey}
-            onChange={evt => setPrivateKey(evt.target.value)}
-          />
-          <span className="password-visibility-btn" onClick={() => setPrivateVisible(!privateVisible)}>{ privateVisible ? <i className="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
-          <CopyToClipboard text={privateKey}>
-            <span ref={pvtKeyRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPrivateKey" onClick={() => handleTooltipClick('pvtKey')}>
-              <img src="/images/copy.png" alt="copy"/>
-            </span>
-          </CopyToClipboard>
-          <Overlay target={pvtKeyRef.current} show={pvtKeyTooltip} placement="top">
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-        </div>
-      </div>
-      <div className="separator">
-        <div className="separator-line" />
-        <div>Or</div>
-        <div className="separator-line" />
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputPassword" className="col-12 custom-label">
-          Password
-        </label>
-        <div className="col-12">
-          <input
-            type={passwordVisible ? 'text' : 'password'}
-            className="custom-input form-control"
-            id="inputPassword"
-            value={password}
-            onChange={evt => setPassword(evt.target.value)}
-          />
-          <CopyToClipboard text={password}>
-            <span ref={passwordRef} className="copy-btn copy-btn-pw" data-clipboard-target="#inputPassword" onClick={() => handleTooltipClick('password')}>
-              <img src="/images/copy.png" alt="copy"/>
-            </span>
-          </CopyToClipboard>
-          <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
-          <span className="password-visibility-btn" onClick={() => setPasswordVisible(!passwordVisible)}>{ passwordVisible ? <i className="fa fa-eye-slash" aria-hidden="true" /> : <i className="fa fa-eye" aria-hidden="true" />}</span>
-          <span>
-          <PasswordStrength password={password}/>
-        </span>
-        </div>
-      </div>
-      <div className="d-flex justify-content-start">
-        {(selectedItem && selectedItem.keyStore) ? (
-          <>
-          <span className="key-store-text">Key Store:</span>
-          <button
-            type="button"
-            className="btn btn-file mx-2"
-            size="small"
-            onClick={handleDownload}
-          >
-            Download
-          </button>
-          </>
-        ) : (
-          <>
-          <span className="key-store-text">Key Store:</span>
-          <FilePicker
-            onChange={FileObject => handleUpload(FileObject)}
-            onError={errMsg => console.log(errMsg)}
-          >
-            <button
-              type="button"
-              className="btn btn-file mx-2"
-              size="small"
+      <div className="field-wrapper">
+        <div className="form-group row">
+          <label htmlFor="inputAddress" className="col-12 custom-label">
+            Wallet Address
+          </label>
+          <div className="col-12">
+            <input
+              type="text"
+              autoComplete={"off"}
+              className="custom-input form-control"
+              id="inputAddress"
+              value={walletAddress}
+              onChange={evt => setWalletAddress(evt.target.value)}
+            />
+            <CopyToClipboard text={walletAddress}>
+              <span
+                ref={walletAddRef}
+                className="copy-btn copy-btn-input"
+                data-clipboard-target="#inputAddress"
+                onClick={() => handleTooltipClick("walletAdd")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={walletAddRef.current}
+              show={walletAddTooltip}
+              placement="top"
             >
-              {!fileUploaded ? 'Upload' : 'Uploaded'}
-            </button>
-          </FilePicker>
-          </>
-        )}
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
+        </div>
+        <div className="form-group row">
+          <label htmlFor="inputPrivateKey" className="col-12 custom-label">
+            Private Key
+          </label>
+          <div className="col-12">
+            <input
+              type={privateVisible ? "text" : "password"}
+              className="custom-input form-control"
+              id="inputPrivateKey"
+              value={privateKey}
+              onChange={evt => setPrivateKey(evt.target.value)}
+            />
+            <span
+              className="password-visibility-btn"
+              onClick={() => setPrivateVisible(!privateVisible)}
+            >
+              {privateVisible ? (
+                <i className="fa fa-eye-slash" aria-hidden="true" />
+              ) : (
+                <i className="fa fa-eye" aria-hidden="true" />
+              )}
+            </span>
+            <CopyToClipboard text={privateKey}>
+              <span
+                ref={pvtKeyRef}
+                className="copy-btn copy-btn-pw"
+                data-clipboard-target="#inputPrivateKey"
+                onClick={() => handleTooltipClick("pvtKey")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={pvtKeyRef.current}
+              show={pvtKeyTooltip}
+              placement="top"
+            >
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
+        </div>
+        <div className="separator">
+          <div className="separator-line" />
+          <div>Or</div>
+          <div className="separator-line" />
+        </div>
+        <div className="form-group row">
+          <label htmlFor="inputPassword" className="col-12 custom-label">
+            Password
+          </label>
+          <div className="col-12">
+            <input
+              type={passwordVisible ? "text" : "password"}
+              className="custom-input form-control"
+              id="inputPassword"
+              value={password}
+              onChange={evt => setPassword(evt.target.value)}
+            />
+            <CopyToClipboard text={password}>
+              <span
+                ref={passwordRef}
+                className="copy-btn copy-btn-pw"
+                data-clipboard-target="#inputPassword"
+                onClick={() => handleTooltipClick("password")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={passwordRef.current}
+              show={pwTooltip}
+              placement="top"
+            >
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+            <span
+              className="password-visibility-btn"
+              onClick={() => setPasswordVisible(!passwordVisible)}
+            >
+              {passwordVisible ? (
+                <i className="fa fa-eye-slash" aria-hidden="true" />
+              ) : (
+                <i className="fa fa-eye" aria-hidden="true" />
+              )}
+            </span>
+            <span>
+              <PasswordStrength password={password} />
+            </span>
+          </div>
+        </div>
+        <div className="form-group d-flex justify-content-start">
+          {selectedItem && selectedItem.keyStore ? (
+            <>
+              <span className="key-store-text">Key Store:</span>
+              <button
+                type="button"
+                className="btn btn-file mx-2"
+                size="small"
+                onClick={handleDownload}
+              >
+                Download
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="key-store-text">Key Store:</span>
+              <FilePicker
+                onChange={FileObject => handleUpload(FileObject)}
+                onError={errMsg => console.log(errMsg)}
+              >
+                <button
+                  type="button"
+                  className="btn btn-file mx-2"
+                  size="small"
+                >
+                  {!fileUploaded ? "Upload" : "Uploaded"}
+                </button>
+              </FilePicker>
+            </>
+          )}
+        </div>
       </div>
       <div className="d-flex justify-content-end">
         {selectedItem ? (
@@ -350,11 +410,7 @@ export default function Icon(props) {
             Save
           </button>
         )}
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={onModalClose}
-        >
+        <button type="button" className="btn btn-danger" onClick={onModalClose}>
           Cancel
         </button>
       </div>
@@ -367,13 +423,23 @@ export default function Icon(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             <div>Do you still want to continue ?</div>
-            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(', ')}.`}</div>
+            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(
+              ", "
+            )}.`}</div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="confirmation-body d-flex justify-content-end">
-            <button className="btn btn-danger mr-2" onClick={handleConfirmClick} disabled={clicked}>Confirm</button>
-            <button className="btn btn-primary" onClick={handleBackClick}>Back</button>
+            <button
+              className="btn btn-danger mr-2"
+              onClick={handleConfirmClick}
+              disabled={clicked}
+            >
+              Confirm
+            </button>
+            <button className="btn btn-primary" onClick={handleBackClick}>
+              Back
+            </button>
           </div>
         </Modal.Body>
       </Modal>

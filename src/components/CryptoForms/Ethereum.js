@@ -182,6 +182,7 @@ export default function Ethereum(props) {
           ) : null}
         </div>
       </div>
+      <div className="field-wrapper">
       <div className="form-group row">
         <label htmlFor="inputSeedWords" className="col-12 custom-label">
           Seed Words
@@ -217,7 +218,6 @@ export default function Ethereum(props) {
           </Overlay>
         </div>
       </div>
-
       <div className="separator">
         <div className="separator-line" />
         <div>Or</div>
@@ -303,7 +303,7 @@ export default function Ethereum(props) {
           </Overlay>
         </div>
       </div>
-
+      </div>
       <div className="d-flex justify-content-end">
         {selectedItem ? (
           <button
