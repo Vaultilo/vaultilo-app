@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useBlockstack } from "react-blockstack";
 import Dropdown from "react-bootstrap/Dropdown";
 import "./TopBar.css";
 
 export default function TopBar({ avatarUrl, name, searchText, setSearchText }) {
-  
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       href=""
@@ -19,8 +18,10 @@ export default function TopBar({ avatarUrl, name, searchText, setSearchText }) {
       <i className="icon-option py-1" />
     </a>
   ));
-
   const { signOut } = useBlockstack();
+  const handleSignOut = async() => {
+    signOut();
+  }
   return (
     <div className="top-bar">
       <div className="form-group mb-0 search-bar-form">
@@ -42,7 +43,7 @@ export default function TopBar({ avatarUrl, name, searchText, setSearchText }) {
         <Dropdown>
           <Dropdown.Toggle as={CustomToggle} variant="link" id="dropdown-basic" />
           <Dropdown.Menu alignRight>
-            <Dropdown.Item onClick={signOut}>Sign Out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </div>
