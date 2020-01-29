@@ -14,6 +14,7 @@
     "icon-sdk-js": "0.0.18",
     "moment": "^2.24.0",
     "pluralize": "^8.0.0",
+    "query-string": "^6.10.1",
     "react": "^16.8.6",
     "react-blockstack": "^0.6.4",
     "react-blockstack-button": "^0.1.0",

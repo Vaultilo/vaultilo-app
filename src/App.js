@@ -5,11 +5,7 @@ import AppRouter from './components/AppRouter.js';
 import './styles/icons.css';
 
 export default function App() {
-  const { person, signIn } = useBlockstack();
   return (
-    <>
-      {signIn && <Landing />}
-      {person && <AppRouter person={person} />}
-    </> 
+    <AppRouter/>
   );
 }
