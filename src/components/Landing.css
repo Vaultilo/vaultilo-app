@@ -5,9 +5,28 @@
 .navbar {
   margin-bottom: 98px;
 }
+.ext-navbar{
+  margin-bottom: 50px;
+  justify-content: center;
+}
+.ext-container{
+  padding-bottom:5px;
+}
 
 .navbar-brand img {
   width: 175px;
+}
+.ext-land-logo{
+  position:absolute;
+  width:60%;
+  align: center;
+  margin-left: 60px;
+
+}
+
+.ext-navbar-brand img{
+  width: 320px;
+
 }
 
 .landing-info {
@@ -29,6 +48,16 @@
   font-size: 26px;
   line-height: 31px;
   text-transform: uppercase;
+}
+.ext-landing-text{
+  font-style: normal;
+  font-weight: 250;
+  font-size: 14px;
+  line-height: 17px;
+  text-transform: uppercase;
+  margin-bottom: 100px;
+  padding:5px;
+
 }
 
 .landing-sub-text {

@@ -66,18 +66,34 @@ export default function Landing(props) {
           </div>
         </div>
       ) : (
-        <div>
-          <Link
+
+          
+
+        <div className="ext-container">
+        <nav className="ext-navbar">
+          <img className="ext-land-logo  py-4" src="/images/logo-white.svg" al="logg"/>
+            <a className="ext-navbar-brand" >
+              <img src="/images/topbar.svg" al="Logo" />
+
+            </a>
+
+
+
+          </nav>
+          <div className="panel-landing text-center py-5">
+            <div className="ext-landing-text text-uppercase">
+                <span className="color-primary">Secure</span> your crypto
+                wallets and credentials with decentralised technology
+              </div>
+            <Link
             to={{ pathname: "/?ext_login=true" }}
             target="_blank"
-          >
-            <button className="login-btn">
-              <img
-                src="/images/login-btn-img.svg"
-                alt="Login with blockstack"
-              />
-            </button>
-          </Link>
+            style={{textDecoration:"none"}}
+          >  <BlockstackButton variant={'light'} /></Link>
+          </div>
+
+
+          
         </div>
       )}
     </>
