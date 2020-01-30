@@ -1,37 +1,31 @@
-import React, { useState ,useRef} from "react";
-import {Overlay,Tooltip} from "react-bootstrap"
-import { Link } from "react-router-dom";
-import Footer from "./Footer";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import React, { useState, useRef } from 'react';
+import { Overlay, Tooltip } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Footer from './Footer';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function PasswordDetail(props) {
-
   const [pwTooltip, setPwTooltip] = useState(false);
   const [domainAddTooltip, setDomainAddTooltip] = useState(false);
-  const [domainUsernameTooltip,setDomainUsernameTootip]=useState(false)
+  const [domainUsernameTooltip, setDomainUsernameTootip] = useState(false);
 
   const passwordRef = useRef(null);
   const domainAddRef = useRef(null);
-  const domainUsernameRef =useRef(null);
+  const domainUsernameRef = useRef(null);
   const id = props.location.state.id;
   const passwords = props.passwords;
   const [passwordVisible, setPasswordVisible] = useState(false);
   const credentialItem = passwords.find(item => item.id === id);
-  const {
-    domainName,
-    domainAddress,
-    domainUsername,
-    password
-  } = credentialItem;
+  const { domainName, domainAddress, domainUsername, password } = credentialItem;
 
-  const handleTooltipClick = (type) => {
-    if (type === 'password') { 
+  const handleTooltipClick = type => {
+    if (type === 'password') {
       setPwTooltip(true);
     }
-    if (type === 'domainUsername'){
+    if (type === 'domainUsername') {
       setDomainUsernameTootip(true);
     }
-   
+
     if (type === 'domainAdd') {
       setDomainAddTooltip(true);
     }
@@ -40,7 +34,7 @@ export default function PasswordDetail(props) {
       setDomainUsernameTootip(false);
       setDomainAddTooltip(false);
     }, 1000);
-  }
+  };
 
   return (
     <>
@@ -83,16 +77,12 @@ export default function PasswordDetail(props) {
                   ref={domainAddRef}
                   className="copy-btn copy-btn-input"
                   data-clipboard-target="#inputAddress"
-                  onClick={() => handleTooltipClick("domainAdd")}
+                  onClick={() => handleTooltipClick('domainAdd')}
                 >
                   <img src="/images/copy.png" alt="copy" />
                 </span>
               </CopyToClipboard>
-              <Overlay
-                target={domainAddRef.current}
-                show={domainAddTooltip}
-                placement="top"
-              >
+              <Overlay target={domainAddRef.current} show={domainAddTooltip} placement="top">
                 {props => (
                   <Tooltip id="overlay-example" {...props}>
                     Copied
@@ -102,10 +92,7 @@ export default function PasswordDetail(props) {
             </div>
           </div>
           <div className="form-group row">
-            <label
-              htmlFor="inputDomainUsername"
-              className="col-12 custom-label"
-            >
+            <label htmlFor="inputDomainUsername" className="col-12 custom-label">
               Username
             </label>
             <div className="col-12">
@@ -120,7 +107,7 @@ export default function PasswordDetail(props) {
                   ref={domainUsernameRef}
                   className="copy-btn copy-btn-input"
                   data-clipboard-target="#inputDomainUsername"
-                  onClick={() => handleTooltipClick("domainUsername")}
+                  onClick={() => handleTooltipClick('domainUsername')}
                 >
                   <img src="/images/copy.png" alt="copy" />
                 </span>
@@ -144,7 +131,7 @@ export default function PasswordDetail(props) {
             </label>
             <div className="col-12">
               <input
-                type={passwordVisible ? "text" : "password"}
+                type={passwordVisible ? 'text' : 'password'}
                 className="custom-input form-control"
                 id="inputPassword"
                 value={password}
@@ -165,16 +152,12 @@ export default function PasswordDetail(props) {
                   ref={passwordRef}
                   className="copy-btn copy-btn-pw"
                   data-clipboard-target="#inputPassword"
-                  onClick={() => handleTooltipClick("password")}
+                  onClick={() => handleTooltipClick('password')}
                 >
                   <img src="/images/copy.png" alt="copy" />
                 </span>
               </CopyToClipboard>
-              <Overlay
-                target={passwordRef.current}
-                show={pwTooltip}
-                placement="top"
-              >
+              <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
                 {props => (
                   <Tooltip id="overlay-example" {...props}>
                     Copied
@@ -183,11 +166,10 @@ export default function PasswordDetail(props) {
               </Overlay>
             </div>
           </div>
-          
         </div>
       </div>
       <Link to="/items/all" target="_blank">
-        <Footer/>
+        <Footer />
       </Link>
     </>
   );

@@ -5,28 +5,26 @@
 .navbar {
   margin-bottom: 98px;
 }
-.ext-navbar{
+.ext-navbar {
   margin-bottom: 50px;
   justify-content: center;
 }
-.ext-container{
-  padding-bottom:5px;
+.ext-container {
+  padding-bottom: 5px;
 }
 
 .navbar-brand img {
   width: 175px;
 }
-.ext-land-logo{
-  position:absolute;
-  width:60%;
+.ext-land-logo {
+  position: absolute;
+  width: 60%;
   align: center;
   margin-left: 60px;
-
 }
 
-.ext-navbar-brand img{
+.ext-navbar-brand img {
   width: 320px;
-
 }
 
 .landing-info {
@@ -49,15 +47,14 @@
   line-height: 31px;
   text-transform: uppercase;
 }
-.ext-landing-text{
+.ext-landing-text {
   font-style: normal;
   font-weight: 250;
   font-size: 14px;
   line-height: 17px;
   text-transform: uppercase;
   margin-bottom: 100px;
-  padding:5px;
-
+  padding: 5px;
 }
 
 .landing-sub-text {
@@ -65,11 +62,11 @@
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
-  color: #6F6F6F;
+  color: #6f6f6f;
 }
 
 .color-primary {
-  color: #1CD8D2;
+  color: #1cd8d2;
 }
 
 .login-btn {

@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import Footer from "./Footer";
-import { Overlay, Tooltip } from "react-bootstrap";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import Footer from './Footer';
+import { Overlay, Tooltip } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function NotesDetails(props) {
   const id = props.location.state.id;
@@ -12,7 +12,7 @@ export default function NotesDetails(props) {
   const [titleTooltip, setTitleTooltip] = useState(false);
   const titleRef = useRef(null);
   const handleTooltipClick = type => {
-    if (type === "title") {
+    if (type === 'title') {
       setTitleTooltip(true);
     }
 
@@ -62,16 +62,12 @@ export default function NotesDetails(props) {
                   ref={titleRef}
                   className="copy-btn copy-btn-input"
                   data-clipboard-target="#inputDomainUsername"
-                  onClick={() => handleTooltipClick("title")}
+                  onClick={() => handleTooltipClick('title')}
                 >
                   <img src="/images/copy.png" alt="copy" />
                 </span>
               </CopyToClipboard>
-              <Overlay
-                target={titleRef.current}
-                show={titleTooltip}
-                placement="top"
-              >
+              <Overlay target={titleRef.current} show={titleTooltip} placement="top">
                 {props => (
                   <Tooltip id="overlay-example" {...props}>
                     Copied

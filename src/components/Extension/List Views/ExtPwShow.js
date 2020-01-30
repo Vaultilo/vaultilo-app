@@ -1,7 +1,7 @@
-import React from "react";
-import "../extension.css";
-import { Link } from "react-router-dom";
-import Footer from "../Footer";
+import React from 'react';
+import '../extension.css';
+import { Link } from 'react-router-dom';
+import Footer from '../Footer';
 
 export default function ExPwShow(props) {
   const passwords = props.passwords;
@@ -16,19 +16,18 @@ export default function ExPwShow(props) {
         <div className="title">Passwords</div>
       </div>
       <div className="ext-content">
-       
         <div className="content-list">
           {passwords.map(item => {
             const { id, domainName, domainAddress } = item;
             return (
               <Link
                 to={{
-                  pathname: "/extension/password/view",
+                  pathname: '/extension/password/view',
                   state: {
-                    id: id
-                  }
+                    id: id,
+                  },
                 }}
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: 'none' }}
               >
                 <div className="item d-flex justify-content-start" key={id}>
                   <div className="item-img">

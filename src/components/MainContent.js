@@ -1,28 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
+import React, { useEffect, useState } from 'react';
+import { Modal } from 'react-bootstrap';
 
-import FormOptions from "./FormOptions.js";
-import CarouselRow from "./CarouselRow";
-import CryptoCard from "./Cards/CryptoCard";
-import NotesCard from "./Cards/NotesCard.js";
-import PasswordsCard from "./Cards/PasswordsCard.js";
-import AddNewCard from "./Cards/AddNewCard.js";
-import {CryptoTypes} from "../helper/constants";
+import FormOptions from './FormOptions.js';
+import CarouselRow from './CarouselRow';
+import CryptoCard from './Cards/CryptoCard';
+import NotesCard from './Cards/NotesCard.js';
+import PasswordsCard from './Cards/PasswordsCard.js';
+import AddNewCard from './Cards/AddNewCard.js';
+import { CryptoTypes } from '../helper/constants';
 
 export default function MainContent(props) {
-  const { credentials, setCredentials, notes, setNotes, passwords, setPasswords, searchText } = props;
+  const {
+    credentials,
+    setCredentials,
+    notes,
+    setNotes,
+    passwords,
+    setPasswords,
+    searchText,
+  } = props;
   const { subType, type } = props.match.params;
   const [formModalShow, setFormModalShow] = useState(false);
   const [confirmationModalShow, setConfirmationModalShow] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [formType, setFormType] = useState(type);
   const [deleteInProgress, setDeleteInProgress] = useState(false);
-  const [modalTransparent, setModalTransparent] = useState(false)
+  const [modalTransparent, setModalTransparent] = useState(false);
 
-  const handleDeleteClick = (item) => {
+  const handleDeleteClick = item => {
     setSelectedItem(item);
     setConfirmationModalShow(true);
-  }
+  };
 
   const handleDeleteConfirm = () => {
     if (selectedItem.type === 'crypto') {
@@ -43,7 +51,7 @@ export default function MainContent(props) {
       setDeleteInProgress(true);
       return false;
     }
-  }
+  };
 
   useEffect(() => {
     if (deleteInProgress) {
@@ -55,7 +63,7 @@ export default function MainContent(props) {
   const handleDeleteCancel = () => {
     setSelectedItem(null);
     setConfirmationModalShow(false);
-  }
+  };
 
   const handleModalClose = () => {
     setFormModalShow(false);
@@ -77,17 +85,17 @@ export default function MainContent(props) {
   const renderHeader = () => {
     let pageTitle;
     switch (type) {
-      case "notes":
-        pageTitle = "Notes";
+      case 'notes':
+        pageTitle = 'Notes';
         break;
-      case "passwords":
-        pageTitle = "Passwords";
+      case 'passwords':
+        pageTitle = 'Passwords';
         break;
-      case "crypto":
+      case 'crypto':
         pageTitle = subType !== 'all' ? `Crypto Wallets / ${subType}` : 'Crypto Wallets';
         break;
       default:
-        pageTitle = "All Items"
+        pageTitle = 'All Items';
         break;
     }
     return (
@@ -96,9 +104,9 @@ export default function MainContent(props) {
           <div className="text-capitalize">{pageTitle}</div>
         </div>
       </div>
-    )
-  }
-  
+    );
+  };
+
   const getItemsHeader = title => (
     <div className="row item-header">
       <div className="col-12">
@@ -108,17 +116,17 @@ export default function MainContent(props) {
   );
 
   const getFormHeader = () => {
-    const formAction = selectedItem ? "Edit" : "Add";
+    const formAction = selectedItem ? 'Edit' : 'Add';
     let formText;
     switch (formType) {
-      case "notes":
-        formText = "Note";
+      case 'notes':
+        formText = 'Note';
         break;
-      case "passwords":
-        formText = "Password";
+      case 'passwords':
+        formText = 'Password';
         break;
       default:
-        formText = "Wallet"
+        formText = 'Wallet';
         break;
     }
     return `${formAction} ${formText}`;
@@ -126,31 +134,34 @@ export default function MainContent(props) {
 
   const renderCryptoItem = credentials => {
     const items = credentials.filter(
-      credential => subType === "all" || credential.subType === subType
+      credential => subType === 'all' || credential.subType === subType,
     );
-    if (type === "items") {
+    if (type === 'items') {
       return (
         <>
-          {getItemsHeader("crypto wallets")}
+          {getItemsHeader('crypto wallets')}
           <div className="row mt-3">
             <div className="col-3">
-              <AddNewCard onClick={handleAddFormClick} formType={"crypto"} />
+              <AddNewCard onClick={handleAddFormClick} formType={'crypto'} />
             </div>
             <div className="col-9">
-              <CarouselRow items={items} cardType={"crypto"} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
+              <CarouselRow
+                items={items}
+                cardType={'crypto'}
+                onClick={handleItemClick}
+                onDeleteClick={handleDeleteClick}
+              />
             </div>
           </div>
         </>
       );
     }
 
-    if (type === "crypto" && subType === "all") {
+    if (type === 'crypto' && subType === 'all') {
       return (
         <>
           {CryptoTypes.map(cryptoType => {
-            const cryptoTypeItems = items.filter(
-              item => item.subType === cryptoType
-            );
+            const cryptoTypeItems = items.filter(item => item.subType === cryptoType);
             return (
               <>
                 {getItemsHeader(cryptoType)}
@@ -159,7 +170,12 @@ export default function MainContent(props) {
                     <AddNewCard onClick={handleAddFormClick} formType={cryptoType} />
                   </div>
                   <div className="col-9">
-                    <CarouselRow items={cryptoTypeItems} cardType={"crypto"} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
+                    <CarouselRow
+                      items={cryptoTypeItems}
+                      cardType={'crypto'}
+                      onClick={handleItemClick}
+                      onDeleteClick={handleDeleteClick}
+                    />
                   </div>
                 </div>
               </>
@@ -180,7 +196,11 @@ export default function MainContent(props) {
           {items.map(credential => {
             return (
               <div className="col-3" key={credential.id}>
-                <CryptoCard credential={credential} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
+                <CryptoCard
+                  credential={credential}
+                  onClick={handleItemClick}
+                  onDeleteClick={handleDeleteClick}
+                />
               </div>
             );
           })}
@@ -191,16 +211,21 @@ export default function MainContent(props) {
 
   const renderPasswordItem = passwords => {
     const items = passwords;
-    if (type === "items") {
+    if (type === 'items') {
       return (
         <>
-          {getItemsHeader("passwords")}
+          {getItemsHeader('passwords')}
           <div className="row mt-3">
             <div className="col-3">
-              <AddNewCard onClick={handleAddFormClick} formType={"passwords"} />
+              <AddNewCard onClick={handleAddFormClick} formType={'passwords'} />
             </div>
             <div className="col-9">
-              <CarouselRow items={items} cardType={"passwords"} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
+              <CarouselRow
+                items={items}
+                cardType={'passwords'}
+                onClick={handleItemClick}
+                onDeleteClick={handleDeleteClick}
+              />
             </div>
           </div>
         </>
@@ -208,19 +233,23 @@ export default function MainContent(props) {
     }
     return (
       <>
-        {getItemsHeader("passwords")}
+        {getItemsHeader('passwords')}
         <div className="row mt-3">
           <>
             {
               <div className="col-3">
-                <AddNewCard onClick={handleAddFormClick} formType={"passwords"} />
+                <AddNewCard onClick={handleAddFormClick} formType={'passwords'} />
               </div>
             }
             {items.map(item => {
               const { id } = item;
               return (
                 <div className="col-3" key={id}>
-                  <PasswordsCard credential={item} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
+                  <PasswordsCard
+                    credential={item}
+                    onClick={handleItemClick}
+                    onDeleteClick={handleDeleteClick}
+                  />
                 </div>
               );
             })}
@@ -232,16 +261,21 @@ export default function MainContent(props) {
 
   const renderNotesItem = notes => {
     const items = notes;
-    if (type === "items") {
+    if (type === 'items') {
       return (
         <>
-          {getItemsHeader("notes")}
+          {getItemsHeader('notes')}
           <div className="row mt-3">
             <div className="col-3">
-              <AddNewCard onClick={handleAddFormClick} formType={"notes"} />
+              <AddNewCard onClick={handleAddFormClick} formType={'notes'} />
             </div>
             <div className="col-9">
-              <CarouselRow items={items} cardType={"notes"} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
+              <CarouselRow
+                items={items}
+                cardType={'notes'}
+                onClick={handleItemClick}
+                onDeleteClick={handleDeleteClick}
+              />
             </div>
           </div>
         </>
@@ -249,19 +283,23 @@ export default function MainContent(props) {
     }
     return (
       <>
-        {getItemsHeader("notes")}
+        {getItemsHeader('notes')}
         <div className="row mt-3">
           <>
             {
               <div className="col-3">
-                <AddNewCard onClick={handleAddFormClick} formType={"notes"} />
+                <AddNewCard onClick={handleAddFormClick} formType={'notes'} />
               </div>
             }
             {items.map(item => {
               const { id } = item;
               return (
                 <div className="col-3" key={id}>
-                  <NotesCard credential={item} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
+                  <NotesCard
+                    credential={item}
+                    onClick={handleItemClick}
+                    onDeleteClick={handleDeleteClick}
+                  />
                 </div>
               );
             })}
@@ -272,91 +310,123 @@ export default function MainContent(props) {
   };
 
   const renderFilteredItems = () => {
-    if (type === "passwords") {
+    if (type === 'passwords') {
       return (
         <div className="row mt-3">
-          {passwords.filter(item => item.domainName.toLowerCase().includes(searchText.toLowerCase())).map(item => {
-            const { id } = item;
-            return (
-              <div className="col-3" key={id}>
-                <PasswordsCard credential={item} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
-              </div>
-            );
-          })}
+          {passwords
+            .filter(item => item.domainName.toLowerCase().includes(searchText.toLowerCase()))
+            .map(item => {
+              const { id } = item;
+              return (
+                <div className="col-3" key={id}>
+                  <PasswordsCard
+                    credential={item}
+                    onClick={handleItemClick}
+                    onDeleteClick={handleDeleteClick}
+                  />
+                </div>
+              );
+            })}
         </div>
-      )
+      );
     }
-    if (type === "crypto") {
+    if (type === 'crypto') {
       return (
         <div className="row mt-3">
-          {credentials.filter(item => item.walletName.toLowerCase().includes(searchText.toLowerCase())).map(credential => {
-            return (
-              <div className="col-3" key={credential.id}>
-                <CryptoCard credential={credential} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
-              </div>
-            );
-          })}
+          {credentials
+            .filter(item => item.walletName.toLowerCase().includes(searchText.toLowerCase()))
+            .map(credential => {
+              return (
+                <div className="col-3" key={credential.id}>
+                  <CryptoCard
+                    credential={credential}
+                    onClick={handleItemClick}
+                    onDeleteClick={handleDeleteClick}
+                  />
+                </div>
+              );
+            })}
         </div>
-      )
+      );
     }
-    if (type === "notes") {
+    if (type === 'notes') {
       return (
         <div className="row mt-3">
-          {notes.filter(item => item.noteTitle.toLowerCase().includes(searchText.toLowerCase())).map(item => {
-            const { id } = item;
-            return (
-              <div className="col-3" key={id}>
-                <NotesCard credential={item} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
-              </div>
-            );
-          })}
+          {notes
+            .filter(item => item.noteTitle.toLowerCase().includes(searchText.toLowerCase()))
+            .map(item => {
+              const { id } = item;
+              return (
+                <div className="col-3" key={id}>
+                  <NotesCard
+                    credential={item}
+                    onClick={handleItemClick}
+                    onDeleteClick={handleDeleteClick}
+                  />
+                </div>
+              );
+            })}
         </div>
-      )
+      );
     }
     return (
       <div className="row mt-3">
-        {passwords.filter(item => item.domainName.toLowerCase().includes(searchText.toLowerCase())).map(item => {
-          const { id } = item;
-          return (
-            <div className="col-3" key={id}>
-              <PasswordsCard credential={item} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
-            </div>
-          );
-        })}
-        {credentials.filter(item => item.walletName.toLowerCase().includes(searchText.toLowerCase())).map(credential => {
-          return (
-            <div className="col-3" key={credential.id}>
-              <CryptoCard credential={credential} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
-            </div>
-          );
-        })}
-        {notes.filter(item => item.noteTitle.toLowerCase().includes(searchText.toLowerCase())).map(item => {
-          const { id } = item;
-          return (
-            <div className="col-3" key={id}>
-              <NotesCard credential={item} onClick={handleItemClick} onDeleteClick={handleDeleteClick} />
-            </div>
-          );
-        })}
+        {passwords
+          .filter(item => item.domainName.toLowerCase().includes(searchText.toLowerCase()))
+          .map(item => {
+            const { id } = item;
+            return (
+              <div className="col-3" key={id}>
+                <PasswordsCard
+                  credential={item}
+                  onClick={handleItemClick}
+                  onDeleteClick={handleDeleteClick}
+                />
+              </div>
+            );
+          })}
+        {credentials
+          .filter(item => item.walletName.toLowerCase().includes(searchText.toLowerCase()))
+          .map(credential => {
+            return (
+              <div className="col-3" key={credential.id}>
+                <CryptoCard
+                  credential={credential}
+                  onClick={handleItemClick}
+                  onDeleteClick={handleDeleteClick}
+                />
+              </div>
+            );
+          })}
+        {notes
+          .filter(item => item.noteTitle.toLowerCase().includes(searchText.toLowerCase()))
+          .map(item => {
+            const { id } = item;
+            return (
+              <div className="col-3" key={id}>
+                <NotesCard
+                  credential={item}
+                  onClick={handleItemClick}
+                  onDeleteClick={handleDeleteClick}
+                />
+              </div>
+            );
+          })}
       </div>
-    )
-  }
+    );
+  };
 
   const renderItems = () => {
-    if (type === "passwords") {
+    if (type === 'passwords') {
       return renderPasswordItem(passwords);
     }
-    if (type === "crypto") {
+    if (type === 'crypto') {
       return renderCryptoItem(credentials);
     }
-    if (type === "notes") {
+    if (type === 'notes') {
       return renderNotesItem(notes);
     }
-    return [
-      renderPasswordItem(passwords),
-      renderCryptoItem(credentials),
-      renderNotesItem(notes)
-    ];
+    return [renderPasswordItem(passwords), renderCryptoItem(credentials), renderNotesItem(notes)];
   };
 
   return (
@@ -370,9 +440,7 @@ export default function MainContent(props) {
         aria-labelledby="contained-modal-title-vcenter"
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {getFormHeader()}
-          </Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">{getFormHeader()}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <FormOptions
@@ -381,7 +449,9 @@ export default function MainContent(props) {
             type={type}
             selectedItem={selectedItem}
             formType={formType}
-            setModalTransparent={(bool) => {setModalTransparent(bool)}}
+            setModalTransparent={bool => {
+              setModalTransparent(bool);
+            }}
           />
         </Modal.Body>
       </Modal>
@@ -398,8 +468,20 @@ export default function MainContent(props) {
         </Modal.Header>
         <Modal.Body>
           <div className="confirmation-body d-flex justify-content-end">
-            <button className="btn btn-primary mr-2" onClick={handleDeleteConfirm} disabled={deleteInProgress}>Confirm</button>
-            <button className="btn btn-danger" onClick={handleDeleteCancel} disabled={deleteInProgress}>Cancel</button>
+            <button
+              className="btn btn-primary mr-2"
+              onClick={handleDeleteConfirm}
+              disabled={deleteInProgress}
+            >
+              Confirm
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={handleDeleteCancel}
+              disabled={deleteInProgress}
+            >
+              Cancel
+            </button>
           </div>
         </Modal.Body>
       </Modal>

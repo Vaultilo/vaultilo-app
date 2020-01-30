@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
-import "../CryptoForms/index.css";
-import { Overlay, Tooltip } from "react-bootstrap";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import React, { useEffect, useState, useRef } from 'react';
+import '../CryptoForms/index.css';
+import { Overlay, Tooltip } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function NotesForm(props) {
   const { notes, setNotes, onModalClose, selectedItem } = props;
@@ -9,11 +9,11 @@ export default function NotesForm(props) {
   const defaultValue = selectedItem
     ? {
         noteInput: selectedItem.noteInput,
-        noteTitle: selectedItem.noteTitle
+        noteTitle: selectedItem.noteTitle,
       }
     : {
-        noteInput: "",
-        noteTitle: ""
+        noteInput: '',
+        noteTitle: '',
       };
 
   const [noteInput, setNoteInput] = useState(defaultValue.noteInput);
@@ -23,7 +23,7 @@ export default function NotesForm(props) {
   const [titleTooltip, setTitleTooltip] = useState(false);
   const titleRef = useRef(null);
   const handleTooltipClick = type => {
-    if (type === "title") {
+    if (type === 'title') {
       setTitleTooltip(true);
     }
 
@@ -43,10 +43,10 @@ export default function NotesForm(props) {
     if (noteTitle.length) {
       const newCred = {
         id: Date.now(),
-        type: "notes",
-        subType: "",
+        type: 'notes',
+        subType: '',
         noteInput,
-        noteTitle
+        noteTitle,
       };
       setClicked(true);
       setNotes(JSON.stringify([...notes, newCred]));
@@ -79,16 +79,12 @@ export default function NotesForm(props) {
         <div className="col-12">
           <input
             type="text"
-            className={`custom-input form-control ${
-              emptyNoteTitle ? "invalid" : ""
-            }`}
+            className={`custom-input form-control ${emptyNoteTitle ? 'invalid' : ''}`}
             id="noteTitleInput"
             value={noteTitle}
             onChange={evt => setNoteTitle(evt.target.value)}
           />
-          {emptyNoteTitle ? (
-            <span className="validation-text">Required</span>
-          ) : null}
+          {emptyNoteTitle ? <span className="validation-text">Required</span> : null}
         </div>
       </div>
       <div className="form-group row">
@@ -108,16 +104,12 @@ export default function NotesForm(props) {
               ref={titleRef}
               className="copy-btn copy-btn-input"
               data-clipboard-target="#inputDomainUsername"
-              onClick={() => handleTooltipClick("title")}
+              onClick={() => handleTooltipClick('title')}
             >
               <img src="/images/copy.png" alt="copy" />
             </span>
           </CopyToClipboard>
-          <Overlay
-            target={titleRef.current}
-            show={titleTooltip}
-            placement="top"
-          >
+          <Overlay target={titleRef.current} show={titleTooltip} placement="top">
             {props => (
               <Tooltip id="overlay-example" {...props}>
                 Copied

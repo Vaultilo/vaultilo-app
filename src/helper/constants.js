@@ -1,1 +1,1 @@
-export const CryptoTypes = ["bitcoin", "ethereum", "icon", "ripple", "other"];
+export const CryptoTypes = ['bitcoin', 'ethereum', 'icon', 'ripple', 'other'];

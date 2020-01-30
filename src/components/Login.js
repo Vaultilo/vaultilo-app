@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useBlockstack } from "react-blockstack";
+import React, { useEffect } from 'react';
+import { useBlockstack } from 'react-blockstack';
 import Loader from './Loader';
 
 export default function Login() {
@@ -7,7 +7,5 @@ export default function Login() {
   useEffect(() => {
     signIn();
   }, []);
-  return (
-    <Loader />
-  ); 
+  return <Loader />;
 }
