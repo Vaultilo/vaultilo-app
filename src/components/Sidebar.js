@@ -33,27 +33,7 @@ export default function Sidebar(props) {
           ) : null}
         </div>
       </Link>
-      <Link
-        className={`dropdown-btn ${type === "passwords" ? "active" : ""}`}
-        to="/passwords/all"
-      >
-        <div className="nav-item">
-          {type === "passwords" ? (
-            <div className="curve-up">
-              <img src={up} />
-            </div>
-          ) : null}
-          <div className="nav-title-block">
-            <i className="icon-password" />
-            <span className="nav-title">Password</span>
-          </div>
-          {type === "passwords" ? (
-            <div className="curve-down">
-              <img src={down} />
-            </div>
-          ) : null}
-        </div>
-      </Link>
+     
       <Link
         className={`dropdown-btn ${type === "crypto" ? "active" : ""}`}
         to="/crypto/all"
@@ -100,6 +80,27 @@ export default function Sidebar(props) {
         </div>
       </Link>
       <Link
+        className={`dropdown-btn ${type === "passwords" ? "active" : ""}`}
+        to="/passwords/all"
+      >
+        <div className="nav-item">
+          {type === "passwords" ? (
+            <div className="curve-up">
+              <img src={up} />
+            </div>
+          ) : null}
+          <div className="nav-title-block">
+            <i className="icon-password" />
+            <span className="nav-title">Passwords</span>
+          </div>
+          {type === "passwords" ? (
+            <div className="curve-down">
+              <img src={down} />
+            </div>
+          ) : null}
+        </div>
+      </Link>
+      <Link
         className={`dropdown-btn ${type === "notes" ? "active" : ""}`}
         to="/notes/all"
       >
@@ -111,7 +112,7 @@ export default function Sidebar(props) {
           ) : null}
           <div className="nav-title-block">
             <i className="icon-note" />
-            <span className="nav-title">Note</span>
+            <span className="nav-title">Notes</span>
           </div>
           {type === "notes" ? (
             <div className="curve-down">

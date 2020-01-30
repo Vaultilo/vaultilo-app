@@ -14,21 +14,7 @@ export default function Extension(props) {
         <img src="/images/logo-green.svg" />
       </div>
       <div className="ext-content">
-        <Link
-          className={`extension-link ${
-            activeNav === "passwords" ? "active" : ""
-          }`}
-          to="/extension/passwords"
-          onClick={() => handleNavClick("passwords")}
-        >
-          <div className="link-item password">
-            <i className="fa fa-lock" />
-            <span className="nav-title">Passwords</span>
-            <span className="nav-icon nav-right-angle">
-              <i className="fa fa-angle-right"></i>
-            </span>
-          </div>
-        </Link>
+       
 
         <Link
           className={`extension-link ${activeNav === "crypto" ? "active" : ""}`}
@@ -47,6 +33,21 @@ export default function Extension(props) {
                 activeNav === "crypto" ? "d-block" : "d-none"
               }`}
             ></div>
+          </div>
+        </Link>
+        <Link
+          className={`extension-link ${
+            activeNav === "passwords" ? "active" : ""
+          }`}
+          to="/extension/passwords"
+          onClick={() => handleNavClick("passwords")}
+        >
+          <div className="link-item password">
+            <i className="fa fa-lock" />
+            <span className="nav-title">Passwords</span>
+            <span className="nav-icon nav-right-angle">
+              <i className="fa fa-angle-right"></i>
+            </span>
           </div>
         </Link>
         <Link
