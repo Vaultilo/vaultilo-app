@@ -3,7 +3,8 @@ import TopBar from './TopBar.js';
 import MainContent from './MainContent.js';
 import SideBar from './Sidebar.js';
 import { useFile } from "react-blockstack"; 
-import ExtensionRouter from "./ExtensionRouter"
+import ExtensionRouter from "./ExtensionRouter";
+import Loader from './Loader';
 
 export default function Content ( props ) {
   const { person } = props;
@@ -20,7 +21,7 @@ export default function Content ( props ) {
   const passwordsArray = passwords ? JSON.parse(passwords) : [];
   const name = person.name() || 'User';
   const extensionView=(window.location.pathname.includes("extension"));
-  return credentials === undefined || passwords === undefined || notes === undefined ? (<div>Loading..</div>):(
+  return credentials === undefined || passwords === undefined || notes === undefined ? (<Loader />):(
     extensionView ? <ExtensionRouter
             credentials={credentialsArray}
             setCredentials={setCredentials}

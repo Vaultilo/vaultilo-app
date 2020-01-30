@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useBlockstack } from "react-blockstack";
+import Loader from './Loader';
 
 export default function Login() {
   const { signIn } = useBlockstack();
@@ -7,8 +8,6 @@ export default function Login() {
     signIn();
   }, []);
   return (
-    <div>
-      Logging In...
-    </div>
+    <Loader />
   ); 
 }
