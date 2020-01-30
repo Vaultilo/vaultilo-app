@@ -1,11 +1,11 @@
 .wallet-box {
   position: relative;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.14);
   border-radius: 4px;
   padding: 22px 16px 8px 16px;
   height: 120px;
-  border:1px solid #f3f0f0;
+  border: 1px solid #f3f0f0;
   margin-bottom: 35px;
 }
 .wallet-box .top-img {
@@ -26,7 +26,7 @@
   border-radius: 4px;
   height: 120px;
   background-color: white;
-  border:1px solid #f3f0f0;
+  border: 1px solid #f3f0f0;
   margin-bottom: 35px;
 }
 .note-img {
@@ -35,7 +35,8 @@
   padding: 22px 0;
   background-color: #2b9b97;
 }
-.notes-box .icon-note, .notes-box .icon-password {
+.notes-box .icon-note,
+.notes-box .icon-password {
   font-size: 38px;
 }
 .notes-box .title {
@@ -50,7 +51,7 @@
   background: rgba(196, 196, 196, 0.2);
   border-radius: 4px;
   text-align: center;
-  color: #2B9B98;
+  color: #2b9b98;
   cursor: pointer;
   margin-bottom: 35px;
 }
@@ -67,7 +68,7 @@
   position: absolute;
   cursor: pointer;
   visibility: hidden;
-  color: #CACACA;
+  color: #cacaca;
 }
 
 .wallet-box .action-btn:hover {
@@ -90,7 +91,8 @@
   top: 11px;
 }
 
-.wallet-box:hover .action-btn, .notes-box:hover .action-btn {
+.wallet-box:hover .action-btn,
+.notes-box:hover .action-btn {
   visibility: visible;
 }
 
@@ -101,7 +103,7 @@
   font-size: 13px;
   line-height: 14px;
   /* identical to box height */
-  color: #6F6F6F;
+  color: #6f6f6f;
   padding-top: 12px;
   text-align: right;
 }

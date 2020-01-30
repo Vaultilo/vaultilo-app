@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import "../extension.css";
-import { Link } from "react-router-dom";
-import Footer from "../Footer";
+import React, { useState } from 'react';
+import '../extension.css';
+import { Link } from 'react-router-dom';
+import Footer from '../Footer';
 
 export default function Extension(props) {
-  const [activeNav, setActiveNav] = useState("items");
+  const [activeNav, setActiveNav] = useState('items');
   const handleNavClick = path => {
     setActiveNav(path);
   };
@@ -14,11 +14,9 @@ export default function Extension(props) {
         <img src="/images/logo-green.svg" />
       </div>
       <div className="ext-content">
-       
-
         <Link
-          className={`extension-link ${activeNav === "crypto" ? "active" : ""}`}
-          onClick={() => handleNavClick("crypto")}
+          className={`extension-link ${activeNav === 'crypto' ? 'active' : ''}`}
+          onClick={() => handleNavClick('crypto')}
           to="/extension/crypto"
         >
           <div className="link-item">
@@ -29,18 +27,14 @@ export default function Extension(props) {
             </span>
 
             <div
-              className={`dropdown-container ${
-                activeNav === "crypto" ? "d-block" : "d-none"
-              }`}
+              className={`dropdown-container ${activeNav === 'crypto' ? 'd-block' : 'd-none'}`}
             ></div>
           </div>
         </Link>
         <Link
-          className={`extension-link ${
-            activeNav === "passwords" ? "active" : ""
-          }`}
+          className={`extension-link ${activeNav === 'passwords' ? 'active' : ''}`}
           to="/extension/passwords"
-          onClick={() => handleNavClick("passwords")}
+          onClick={() => handleNavClick('passwords')}
         >
           <div className="link-item password">
             <i className="fa fa-lock" />
@@ -51,9 +45,9 @@ export default function Extension(props) {
           </div>
         </Link>
         <Link
-          className={`extension-link ${activeNav === "notes" ? "active" : ""}`}
+          className={`extension-link ${activeNav === 'notes' ? 'active' : ''}`}
           to="/extension/notes"
-          onClick={() => handleNavClick("notes")}
+          onClick={() => handleNavClick('notes')}
         >
           <div className="link-item note">
             <i className="icon-note" />
@@ -65,9 +59,9 @@ export default function Extension(props) {
           </div>
         </Link>
         <Link
-          className={`extension-link ${activeNav === "notes" ? "active" : ""}`}
+          className={`extension-link ${activeNav === 'notes' ? 'active' : ''}`}
           to="/extension/nft"
-          onClick={() => handleNavClick("NFT")}
+          onClick={() => handleNavClick('NFT')}
         >
           <div className="link-item">
             <i className="icon-ntf" />

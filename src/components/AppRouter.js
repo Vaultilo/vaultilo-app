@@ -1,9 +1,9 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import Content from "./Content";
-import ExtLanding from "./ExtLanding";
-import { useBlockstack } from "react-blockstack";
-import Login from "./Login";
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Content from './Content';
+import ExtLanding from './ExtLanding';
+import { useBlockstack } from 'react-blockstack';
+import Login from './Login';
 
 export default function AppRouter() {
   const { person, signOut } = useBlockstack();
@@ -13,18 +13,14 @@ export default function AppRouter() {
         exact={true}
         path="/login"
         render={routeProps => {
-          return !person ? (
-            <Login {...routeProps} />
-          ) : (
-            <Redirect to="/items/all" />
-          );
+          return !person ? <Login {...routeProps} /> : <Redirect to="/items/all" />;
         }}
       />
       <Route
         exact={true}
         path="/"
         render={() => {
-          return <Redirect to="/items/all" />
+          return <Redirect to="/items/all" />;
         }}
       />
       <Route
@@ -40,11 +36,11 @@ export default function AppRouter() {
       />
       <Route
         path="/:type/:subType"
-        render={(routeProps) => {
+        render={routeProps => {
           if (person) {
-            return <Content {...routeProps} person={person} />
-          } else if( person === null ) {
-            window.location.assign("https://vaultilo.madoveradvertising.com/");
+            return <Content {...routeProps} person={person} />;
+          } else if (person === null) {
+            window.location.assign('https://vaultilo.madoveradvertising.com/');
           }
         }}
       />

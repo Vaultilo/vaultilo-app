@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Modal, Tooltip, Overlay } from "react-bootstrap";
-import * as bip39 from "bip39";
-import WAValidator from "wallet-address-validator";
-import toaster from "toasted-notes";
-import "toasted-notes/src/styles.css";
-import "./index.css";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import React, { useEffect, useState, useRef } from 'react';
+import { Modal, Tooltip, Overlay } from 'react-bootstrap';
+import * as bip39 from 'bip39';
+import WAValidator from 'wallet-address-validator';
+import toaster from 'toasted-notes';
+import 'toasted-notes/src/styles.css';
+import './index.css';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function Ethereum(props) {
   const {
@@ -14,7 +14,7 @@ export default function Ethereum(props) {
     subType,
     onModalClose,
     selectedItem,
-    setModalTransparent
+    setModalTransparent,
   } = props;
   const credentialsString = JSON.stringify(credentials);
   const defaultValue = selectedItem
@@ -22,19 +22,17 @@ export default function Ethereum(props) {
         walletName: selectedItem.walletName,
         walletAddress: selectedItem.walletAddress,
         privateKey: selectedItem.privateKey,
-        seedWords: selectedItem.seedWords
+        seedWords: selectedItem.seedWords,
       }
     : {
-        walletName: "",
-        walletAddress: "",
-        privateKey: "",
-        seedWords: ""
+        walletName: '',
+        walletAddress: '',
+        privateKey: '',
+        seedWords: '',
       };
 
   const [walletName, setWalletName] = useState(defaultValue.walletName);
-  const [walletAddress, setWalletAddress] = useState(
-    defaultValue.walletAddress
-  );
+  const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [privateVisible, setPrivateVisible] = useState(false);
   const [seedWords, setSeedWords] = useState(defaultValue.seedWords);
@@ -50,13 +48,13 @@ export default function Ethereum(props) {
   const pvtKeyRef = useRef(null);
   const walletAddRef = useRef(null);
   const handleTooltipClick = type => {
-    if (type === "password") {
+    if (type === 'password') {
       setPwTooltip(true);
     }
-    if (type === "pvtKey") {
+    if (type === 'pvtKey') {
       setPvtKeyTooltip(true);
     }
-    if (type === "walletAdd") {
+    if (type === 'walletAdd') {
       setWalletAddTooltip(true);
     }
     setTimeout(() => {
@@ -75,27 +73,27 @@ export default function Ethereum(props) {
 
   const showToast = (text, time) => {
     toaster.notify(() => <span className="btn btn-primary mr-2">{text}</span>, {
-      position: "top",
-      duration: time
+      position: 'top',
+      duration: time,
     });
   };
 
   const getInvalidFields = () => {
     const invalidFields = [];
-    if (!WAValidator.validate(walletAddress, "Eth") && walletAddress.length) {
-      invalidFields.push("Wallet Address is not valid");
+    if (!WAValidator.validate(walletAddress, 'Eth') && walletAddress.length) {
+      invalidFields.push('Wallet Address is not valid');
     }
     if (walletAddress.length && !privateKey.length) {
-      invalidFields.push("Private key is empty ");
+      invalidFields.push('Private key is empty ');
     }
     if (!bip39.validateMnemonic(seedWords) && seedWords.length) {
-      invalidFields.push("Seed words not valid");
+      invalidFields.push('Seed words not valid');
     }
     if (privateKey.length && !walletAddress.length) {
-      invalidFields.push("Address is empty ");
+      invalidFields.push('Address is empty ');
     }
-    if ((!walletAddress.length) && (!privateKey.length) && (!seedWords.length)){
-      invalidFields.push("All fields are empty");
+    if (!walletAddress.length && !privateKey.length && !seedWords.length) {
+      invalidFields.push('All fields are empty');
     }
     return invalidFields;
   };
@@ -103,13 +101,13 @@ export default function Ethereum(props) {
   const submitCreateForm = () => {
     const newCred = {
       id: Date.now(),
-      type: "crypto",
+      type: 'crypto',
       subType: subType,
       walletName,
       walletAddress,
       privateKey,
       seedWords,
-      timeStamp: Date.now()
+      timeStamp: Date.now(),
     };
     setClicked(true);
     setCredentials(JSON.stringify([...credentials, newCred]));
@@ -124,7 +122,7 @@ export default function Ethereum(props) {
           walletAddress,
           privateKey,
           seedWords,
-          timeStamp: Date.now()
+          timeStamp: Date.now(),
         };
       }
       return item;
@@ -179,16 +177,12 @@ export default function Ethereum(props) {
         <div className="col-12">
           <input
             type="text"
-            className={`custom-input form-control ${
-              emptyWalletName ? "invalid" : ""
-            }`}
+            className={`custom-input form-control ${emptyWalletName ? 'invalid' : ''}`}
             id="inputName"
             value={walletName}
             onChange={evt => setWalletName(evt.target.value)}
           />
-          {emptyWalletName ? (
-            <span className="validation-text">Required</span>
-          ) : null}
+          {emptyWalletName ? <span className="validation-text">Required</span> : null}
         </div>
       </div>
       <div className="field-wrapper">
@@ -209,16 +203,12 @@ export default function Ethereum(props) {
                 ref={passwordRef}
                 className="copy-btn copy-btn-input"
                 data-clipboard-target="#inputPassword"
-                onClick={() => handleTooltipClick("password")}
+                onClick={() => handleTooltipClick('password')}
               >
                 <img src="/images/copy.png" alt="copy" />
               </span>
             </CopyToClipboard>
-            <Overlay
-              target={passwordRef.current}
-              show={pwTooltip}
-              placement="top"
-            >
+            <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
               {props => (
                 <Tooltip id="overlay-example" {...props}>
                   Copied
@@ -249,16 +239,12 @@ export default function Ethereum(props) {
                 ref={walletAddRef}
                 className="copy-btn copy-btn-input"
                 data-clipboard-target="#inputAddress"
-                onClick={() => handleTooltipClick("walletAdd")}
+                onClick={() => handleTooltipClick('walletAdd')}
               >
                 <img src="/images/copy.png" alt="copy" />
               </span>
             </CopyToClipboard>
-            <Overlay
-              target={walletAddRef.current}
-              show={walletAddTooltip}
-              placement="top"
-            >
+            <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
               {props => (
                 <Tooltip id="overlay-example" {...props}>
                   Copied
@@ -273,7 +259,7 @@ export default function Ethereum(props) {
           </label>
           <div className="col-12">
             <input
-              type={privateVisible ? "text" : "password"}
+              type={privateVisible ? 'text' : 'password'}
               className="custom-input form-control"
               id="inputPrivateKey"
               value={privateKey}
@@ -294,16 +280,12 @@ export default function Ethereum(props) {
                 ref={pvtKeyRef}
                 className="copy-btn copy-btn-pw"
                 data-clipboard-target="#inputPrivateKey"
-                onClick={() => handleTooltipClick("pvtKey")}
+                onClick={() => handleTooltipClick('pvtKey')}
               >
                 <img src="/images/copy.png" alt="copy" />
               </span>
             </CopyToClipboard>
-            <Overlay
-              target={pvtKeyRef.current}
-              show={pvtKeyTooltip}
-              placement="top"
-            >
+            <Overlay target={pvtKeyRef.current} show={pvtKeyTooltip} placement="top">
               {props => (
                 <Tooltip id="overlay-example" {...props}>
                   Copied
@@ -346,16 +328,12 @@ export default function Ethereum(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             <div>Do you still want to continue ?</div>
-            <div className="modal-info">{`${invalidFields.join(", ")}.`}</div>
+            <div className="modal-info">{`${invalidFields.join(', ')}.`}</div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="confirmation-body d-flex justify-content-end">
-            <button
-              className="btn btn-danger mr-2"
-              onClick={handleConfirmClick}
-              disabled={clicked}
-            >
+            <button className="btn btn-danger mr-2" onClick={handleConfirmClick} disabled={clicked}>
               Confirm
             </button>
             <button className="btn btn-primary" onClick={handleBackClick}>

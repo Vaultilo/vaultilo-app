@@ -1,6 +1,6 @@
 .extension-container {
   height: 100vh;
-  width: 100%
+  width: 100%;
 }
 
 .ext-header {
@@ -24,7 +24,7 @@
 }
 
 .extension-link:hover .link-item:hover {
-  background: linear-gradient(89.49deg, #D2FBEA 0.03%, rgba(210, 251, 234, 0) 99.94%);
+  background: linear-gradient(89.49deg, #d2fbea 0.03%, rgba(210, 251, 234, 0) 99.94%);
 }
 
 .extension-link .link-item {
@@ -32,7 +32,7 @@
   line-height: 19px;
   position: relative;
   padding: 20px 15px;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .extension-link:last-child .link-item {
@@ -40,7 +40,7 @@
 }
 
 .extension-link .link-item i {
-  color: #1CD8D2;
+  color: #1cd8d2;
 }
 
 .extension-link .link-item.password i {
@@ -61,7 +61,7 @@
 }
 
 .nav-icon i {
-  color: #CACACA;
+  color: #cacaca;
   font-weight: bold;
   font-size: 20px;
 }
@@ -69,7 +69,7 @@
 .ext-footer {
   height: 50px;
   text-align: center;
-  background: linear-gradient(180deg, #1CD8D2 -44.19%, #93EDC7 111.63%);
+  background: linear-gradient(180deg, #1cd8d2 -44.19%, #93edc7 111.63%);
 }
 
 .ext-footer img {
@@ -100,12 +100,12 @@
 }
 
 .list-header .nav-back i {
-  color: #1CD8D2;
+  color: #1cd8d2;
   font-size: 26px;
 }
 
 .ext-content .title {
-  background: #FAFAFA;
+  background: #fafafa;
   margin-top: 15px;
   padding: 5px 15px;
 }
@@ -129,7 +129,7 @@
 
 .item-detail .sub-text {
   font-size: 10px;
-  color: #6F6F6F;
+  color: #6f6f6f;
 }
 
 .crypto-dropdown .title {
@@ -137,7 +137,7 @@
   cursor: pointer;
 }
 
-.crypto-dropdown .title i{
+.crypto-dropdown .title i {
   position: absolute;
   right: 30px;
   font-size: 16px;
@@ -148,12 +148,12 @@
   display: none;
 }
 
-.crypto-dropdown .content-list.shown{
+.crypto-dropdown .content-list.shown {
   display: block;
 }
 
 .item-img {
-  color:#E0E0E0;
+  color: #e0e0e0;
 }
 
 .view-details {
@@ -169,7 +169,7 @@
 
 .view-details i {
   font-size: 10px;
-  color: #1CD8D2;
+  color: #1cd8d2;
 }
 
 .content-list .item:hover .view-details {

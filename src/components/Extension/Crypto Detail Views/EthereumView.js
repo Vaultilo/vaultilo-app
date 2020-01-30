@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import { Overlay, Tooltip } from "react-bootstrap";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import Footer from "../Footer";
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { Overlay, Tooltip } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Footer from '../Footer';
 
 export default function EthereumView(props) {
   const [pwTooltip, setPwTooltip] = useState(false);
@@ -17,13 +17,13 @@ export default function EthereumView(props) {
   const { walletName, walletAddress, privateKey, seedWords } = props.item;
 
   const handleTooltipClick = type => {
-    if (type === "password") {
+    if (type === 'password') {
       setPwTooltip(true);
     }
-    if (type === "pvtKey") {
+    if (type === 'pvtKey') {
       setPvtKeyTooltip(true);
     }
-    if (type === "walletAdd") {
+    if (type === 'walletAdd') {
       setWalletAddTooltip(true);
     }
     setTimeout(() => {
@@ -51,7 +51,7 @@ export default function EthereumView(props) {
             </label>
             <div className="col-12">
               <input
-                autoComplete={"off"}
+                autoComplete={'off'}
                 type="text"
                 className="custom-input form-control"
                 id="inputName"
@@ -66,7 +66,7 @@ export default function EthereumView(props) {
             <div className="col-12">
               <input
                 type="text"
-                autoComplete={"off"}
+                autoComplete={'off'}
                 className="custom-input form-control"
                 id="inputAddress"
                 value={walletAddress}
@@ -76,16 +76,12 @@ export default function EthereumView(props) {
                   ref={walletAddRef}
                   className="copy-btn copy-btn-input"
                   data-clipboard-target="#inputAddress"
-                  onClick={() => handleTooltipClick("walletAdd")}
+                  onClick={() => handleTooltipClick('walletAdd')}
                 >
                   <img src="/images/copy.png" alt="copy" />
                 </span>
               </CopyToClipboard>
-              <Overlay
-                target={walletAddRef.current}
-                show={walletAddTooltip}
-                placement="top"
-              >
+              <Overlay target={walletAddRef.current} show={walletAddTooltip} placement="top">
                 {props => (
                   <Tooltip id="overlay-example" {...props}>
                     Copied
@@ -100,7 +96,7 @@ export default function EthereumView(props) {
             </label>
             <div className="col-12">
               <input
-                type={privateVisible ? "text" : "password"}
+                type={privateVisible ? 'text' : 'password'}
                 className="custom-input form-control"
                 id="inputPrivateKey"
                 value={privateKey}
@@ -120,16 +116,12 @@ export default function EthereumView(props) {
                   ref={pvtKeyRef}
                   className="copy-btn copy-btn-pw"
                   data-clipboard-target="#inputPrivateKey"
-                  onClick={() => handleTooltipClick("pvtKey")}
+                  onClick={() => handleTooltipClick('pvtKey')}
                 >
                   <img src="/images/copy.png" alt="copy" />
                 </span>
               </CopyToClipboard>
-              <Overlay
-                target={pvtKeyRef.current}
-                show={pvtKeyTooltip}
-                placement="top"
-              >
+              <Overlay target={pvtKeyRef.current} show={pvtKeyTooltip} placement="top">
                 {props => (
                   <Tooltip id="overlay-example" {...props}>
                     Copied
@@ -155,16 +147,12 @@ export default function EthereumView(props) {
                   ref={passwordRef}
                   className="copy-btn copy-btn-input"
                   data-clipboard-target="#inputPassword"
-                  onClick={() => handleTooltipClick("password")}
+                  onClick={() => handleTooltipClick('password')}
                 >
                   <img src="/images/copy.png" alt="copy" />
                 </span>
               </CopyToClipboard>
-              <Overlay
-                target={passwordRef.current}
-                show={pwTooltip}
-                placement="top"
-              >
+              <Overlay target={passwordRef.current} show={pwTooltip} placement="top">
                 {props => (
                   <Tooltip id="overlay-example" {...props}>
                     Copied

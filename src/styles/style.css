@@ -1,19 +1,20 @@
 /* Globals */
 
-:root  {
+:root {
   /* https://projects.invisionapp.com/boards/HE2VVROFSGB27 */
-  --brand-background: #270F34;
-  --brand-lines: #4B3457;
+  --brand-background: #270f34;
+  --brand-lines: #4b3457;
   /* Blockstack colors */
   --brand-dark: #191d24;
-  --brand-mild: #C4D8E5;
-  --brand-greyish: #F1F6F9;
-  --brand-bright: #3700FF;
-  --brand-accent: #00D4FF;
+  --brand-mild: #c4d8e5;
+  --brand-greyish: #f1f6f9;
+  --brand-bright: #3700ff;
+  --brand-accent: #00d4ff;
 }
 
-html,body{
-  background-color:#fdfcff;
+html,
+body {
+  background-color: #fdfcff;
   font-family: Rubik;
 }
 
@@ -27,7 +28,11 @@ inspect {
 
 /* Avatar */
 
-.avatar{width:40px; height:40px; border-radius: 50%}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
 
 /* Scaffolding */
 
@@ -44,13 +49,13 @@ inspect {
 }
 
 .password-visibility-btn i {
-  color: #1CD8D2;
+  color: #1cd8d2;
 }
 
 .side-content {
   width: 300px;
   overflow-x: hidden;
-  background: linear-gradient(180deg, #93EDC7 0%, #1CD8D2 100%);
+  background: linear-gradient(180deg, #93edc7 0%, #1cd8d2 100%);
   border-radius: 0px 50px 50px 0px;
   position: relative;
 }
@@ -80,8 +85,8 @@ inspect {
 
 .custom-modal .modal-info {
   padding: 12px 16px;
-  background: #F8FFFF;
-  border: 1px solid #A9D5DE;
+  background: #f8ffff;
+  border: 1px solid #a9d5de;
   box-sizing: border-box;
   border-radius: 4px;
   font-size: 14px;
@@ -102,7 +107,7 @@ inspect {
 }
 
 .modal-header .close {
-  color: #FF5862;
+  color: #ff5862;
   font-size: 30px;
   line-height: 20px;
   opacity: 1;
@@ -149,8 +154,7 @@ inspect {
   background-color: #1ad8d2;
 }
 
-.carousel-control-next-icon:after
-{
+.carousel-control-next-icon:after {
   content: '>';
   font-size: 18px;
   color: white;
@@ -168,8 +172,8 @@ inspect {
 }
 
 .modal-body .btn-primary {
-  background-color: #1CD8D2;
-  border-color: #1CD8D2;
+  background-color: #1cd8d2;
+  border-color: #1cd8d2;
 }
 
 .modal-body .btn-primary:hover {
@@ -178,19 +182,19 @@ inspect {
 }
 
 .modal-body .btn-danger {
-  background-color: #FF5862;
-  border-color: #FF5862;
+  background-color: #ff5862;
+  border-color: #ff5862;
 }
 
 .modal-body .btn-danger:hover {
-  background-color: #AF262E;
-  border-color: #AF262E;
+  background-color: #af262e;
+  border-color: #af262e;
 }
 
 .modal-body .btn-file {
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   color: #000000;
-  border-color: #C4C4C4;
+  border-color: #c4c4c4;
 }
 
 .modal-body .btn-file:hover {
@@ -215,14 +219,14 @@ inspect {
   font-weight: normal;
   font-size: 14px;
   line-height: 16px;
-  color: #6F6F6F;
+  color: #6f6f6f;
 }
 
 .item-header .header-text {
   padding-bottom: 10px;
-  border-bottom: 1px solid #E5E5E5;
+  border-bottom: 1px solid #e5e5e5;
 }
 
-input[type=password] {
+input[type='password'] {
   padding-right: 50px;
 }
