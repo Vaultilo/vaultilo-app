@@ -57,7 +57,7 @@ export default function Extension(props) {
         >
           <div className="link-item note">
             <i className="icon-note" />
-            <span className="nav-title">Note</span>
+            <span className="nav-title">Notes</span>
 
             <span className="nav-icon nav-right-angle">
               <i className="fa fa-angle-right"></i>

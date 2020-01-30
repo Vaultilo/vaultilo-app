@@ -16,19 +16,20 @@ export default function ExPwShow(props) {
         <div className="title">Passwords</div>
       </div>
       <div className="ext-content">
-        <div className="title">
-          Password
-        </div>
+       
         <div className="content-list">
-
-          {
-            passwords.map(item => {
-              const {
-                id,
-                domainName,
-                domainAddress
-              } = item;
-              return (
+          {passwords.map(item => {
+            const { id, domainName, domainAddress } = item;
+            return (
+              <Link
+                to={{
+                  pathname: "/extension/password/view",
+                  state: {
+                    id: id
+                  }
+                }}
+                style={{ textDecoration: "none" }}
+              >
                 <div className="item d-flex justify-content-start" key={id}>
                   <div className="item-img">
                     <i className="icon-password" />
@@ -38,17 +39,12 @@ export default function ExPwShow(props) {
                     <div className="sub-text">{domainAddress}</div>
                   </div>
                   <div className="view-details">
-                        <Link to={{
-                          pathname: '/extension/password/view',
-                          state: {
-                            id: id
-                          }
-                        }}><i className="icon-eye"/></Link>
-                      </div>
+                    <i className="icon-eye" />
+                  </div>
                 </div>
-              )
-            })
-          }
+              </Link>
+            );
+          })}
         </div>
       </div>
       <Footer />

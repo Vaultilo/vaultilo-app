@@ -69,6 +69,13 @@ function ExtCryptoShow(props) {
                 {filteredItems.map(item => {
                   const { id, walletName, timeStamp } = item;
                   return (
+                    <Link to={{
+                      pathname: '/extension/crypto/view',
+                      state: {
+                        id: id
+                      }
+                    }}
+                    style={{textDecoration:"none"}}>
                     <div className="item d-flex justify-content-start position-relative" key={id}>
                       <div className="item-img">
                         <img src={`/images/${type.label}-small.svg`} />
@@ -79,14 +86,10 @@ function ExtCryptoShow(props) {
                       </div>
                       {/* btn to view */}
                       <div className="view-details">
-                        <Link to={{
-                          pathname: '/extension/crypto/view',
-                          state: {
-                            id: id
-                          }
-                        }}><i className="icon-eye"/></Link>
+                        <i className="icon-eye"/>
                       </div>
                     </div>
+                    </Link>
                   );
                 })}
               </div>

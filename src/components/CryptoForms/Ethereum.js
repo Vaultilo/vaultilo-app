@@ -284,7 +284,7 @@ export default function Ethereum(props) {
               onClick={() => setPrivateVisible(!privateVisible)}
             >
               {privateVisible ? (
-                <i class="fa fa-eye-slash" aria-hidden="true" />
+                <i className="fa fa-eye-slash" aria-hidden="true" />
               ) : (
                 <i className="fa fa-eye" aria-hidden="true" />
               )}
