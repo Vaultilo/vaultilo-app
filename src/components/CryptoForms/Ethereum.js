@@ -82,11 +82,20 @@ export default function Ethereum(props) {
 
   const getInvalidFields = () => {
     const invalidFields = [];
-    if (!WAValidator.validate(walletAddress, "ETH")) {
-      invalidFields.push("Wallet Address");
+    if (!WAValidator.validate(walletAddress, "Eth") && walletAddress.length) {
+      invalidFields.push("Wallet Address is not valid");
     }
-    if (!bip39.validateMnemonic(seedWords)) {
-      invalidFields.push("Seed words");
+    if (walletAddress.length && !privateKey.length) {
+      invalidFields.push("Private key is empty ");
+    }
+    if (!bip39.validateMnemonic(seedWords) && seedWords.length) {
+      invalidFields.push("Seed words not valid");
+    }
+    if (privateKey.length && !walletAddress.length) {
+      invalidFields.push("Address is empty ");
+    }
+    if ((!walletAddress.length) && (!privateKey.length) && (!seedWords.length)){
+      invalidFields.push("All fields are empty");
     }
     return invalidFields;
   };
@@ -183,126 +192,126 @@ export default function Ethereum(props) {
         </div>
       </div>
       <div className="field-wrapper">
-      <div className="form-group row">
-        <label htmlFor="inputSeedWords" className="col-12 custom-label">
-          Seed Words
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputSeedWords"
-            value={seedWords}
-            onChange={evt => setSeedWords(evt.target.value)}
-          />
-          <CopyToClipboard text={seedWords}>
-            <span
-              ref={passwordRef}
-              className="copy-btn copy-btn-input"
-              data-clipboard-target="#inputPassword"
-              onClick={() => handleTooltipClick("password")}
+        <div className="form-group row">
+          <label htmlFor="inputSeedWords" className="col-12 custom-label">
+            Seed Words
+          </label>
+          <div className="col-12">
+            <input
+              type="text"
+              className="custom-input form-control"
+              id="inputSeedWords"
+              value={seedWords}
+              onChange={evt => setSeedWords(evt.target.value)}
+            />
+            <CopyToClipboard text={seedWords}>
+              <span
+                ref={passwordRef}
+                className="copy-btn copy-btn-input"
+                data-clipboard-target="#inputPassword"
+                onClick={() => handleTooltipClick("password")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={passwordRef.current}
+              show={pwTooltip}
+              placement="top"
             >
-              <img src="/images/copy.png" alt="copy" />
-            </span>
-          </CopyToClipboard>
-          <Overlay
-            target={passwordRef.current}
-            show={pwTooltip}
-            placement="top"
-          >
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
         </div>
-      </div>
-      <div className="separator">
-        <div className="separator-line" />
-        <div>Or</div>
-        <div className="separator-line" />
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputAddress" className="col-12 custom-label">
-          Wallet Address
-        </label>
-        <div className="col-12">
-          <input
-            type="text"
-            className="custom-input form-control"
-            id="inputAddress"
-            value={walletAddress}
-            onChange={evt => setWalletAddress(evt.target.value)}
-          />
-          <CopyToClipboard text={walletAddress}>
-            <span
-              ref={walletAddRef}
-              className="copy-btn copy-btn-input"
-              data-clipboard-target="#inputAddress"
-              onClick={() => handleTooltipClick("walletAdd")}
+        <div className="separator">
+          <div className="separator-line" />
+          <div>Or</div>
+          <div className="separator-line" />
+        </div>
+        <div className="form-group row">
+          <label htmlFor="inputAddress" className="col-12 custom-label">
+            Wallet Address
+          </label>
+          <div className="col-12">
+            <input
+              type="text"
+              className="custom-input form-control"
+              id="inputAddress"
+              value={walletAddress}
+              onChange={evt => setWalletAddress(evt.target.value)}
+            />
+            <CopyToClipboard text={walletAddress}>
+              <span
+                ref={walletAddRef}
+                className="copy-btn copy-btn-input"
+                data-clipboard-target="#inputAddress"
+                onClick={() => handleTooltipClick("walletAdd")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={walletAddRef.current}
+              show={walletAddTooltip}
+              placement="top"
             >
-              <img src="/images/copy.png" alt="copy" />
-            </span>
-          </CopyToClipboard>
-          <Overlay
-            target={walletAddRef.current}
-            show={walletAddTooltip}
-            placement="top"
-          >
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
         </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputPrivateKey" className="col-12 custom-label">
-          Private Key
-        </label>
-        <div className="col-12">
-          <input
-            type={privateVisible ? "text" : "password"}
-            className="custom-input form-control"
-            id="inputPrivateKey"
-            value={privateKey}
-            onChange={evt => setPrivateKey(evt.target.value)}
-          />
-          <span
-            className="password-visibility-btn"
-            onClick={() => setPrivateVisible(!privateVisible)}
-          >
-            {privateVisible ? (
-              <i class="fa fa-eye-slash" aria-hidden="true" />
-            ) : (
-              <i className="fa fa-eye" aria-hidden="true" />
-            )}
-          </span>
-          <CopyToClipboard text={privateKey}>
+        <div className="form-group row">
+          <label htmlFor="inputPrivateKey" className="col-12 custom-label">
+            Private Key
+          </label>
+          <div className="col-12">
+            <input
+              type={privateVisible ? "text" : "password"}
+              className="custom-input form-control"
+              id="inputPrivateKey"
+              value={privateKey}
+              onChange={evt => setPrivateKey(evt.target.value)}
+            />
             <span
-              ref={pvtKeyRef}
-              className="copy-btn copy-btn-pw"
-              data-clipboard-target="#inputPrivateKey"
-              onClick={() => handleTooltipClick("pvtKey")}
+              className="password-visibility-btn"
+              onClick={() => setPrivateVisible(!privateVisible)}
             >
-              <img src="/images/copy.png" alt="copy" />
+              {privateVisible ? (
+                <i class="fa fa-eye-slash" aria-hidden="true" />
+              ) : (
+                <i className="fa fa-eye" aria-hidden="true" />
+              )}
             </span>
-          </CopyToClipboard>
-          <Overlay
-            target={pvtKeyRef.current}
-            show={pvtKeyTooltip}
-            placement="top"
-          >
-            {props => (
-              <Tooltip id="overlay-example" {...props}>
-                Copied
-              </Tooltip>
-            )}
-          </Overlay>
+            <CopyToClipboard text={privateKey}>
+              <span
+                ref={pvtKeyRef}
+                className="copy-btn copy-btn-pw"
+                data-clipboard-target="#inputPrivateKey"
+                onClick={() => handleTooltipClick("pvtKey")}
+              >
+                <img src="/images/copy.png" alt="copy" />
+              </span>
+            </CopyToClipboard>
+            <Overlay
+              target={pvtKeyRef.current}
+              show={pvtKeyTooltip}
+              placement="top"
+            >
+              {props => (
+                <Tooltip id="overlay-example" {...props}>
+                  Copied
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
         </div>
-      </div>
       </div>
       <div className="d-flex justify-content-end">
         {selectedItem ? (
@@ -337,9 +346,7 @@ export default function Ethereum(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             <div>Do you still want to continue ?</div>
-            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(
-              ", "
-            )}.`}</div>
+            <div className="modal-info">{`${invalidFields.join(", ")}.`}</div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

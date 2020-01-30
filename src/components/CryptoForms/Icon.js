@@ -26,7 +26,7 @@ export default function Icon(props) {
     setModalTransparent
   } = props;
   const credentialsString = JSON.stringify(credentials);
-  console.log("credentials",credentials)
+  
   const defaultValue = selectedItem
     ? {
         walletName: selectedItem.walletName,
@@ -88,11 +88,27 @@ export default function Icon(props) {
 
   const getInvalidFields = () => {
     const invalidFields = [];
-    if (!IconService.IconValidator.isEoaAddress(walletAddress)) {
-      invalidFields.push("Wallet Address");
+    if (!IconService.IconValidator.isEoaAddress(walletAddress) && (walletAddress.length)) {
+      invalidFields.push("Wallet Address is invalid");
     }
-    if (!IconService.IconValidator.isPrivateKey(privateKey)) {
-      invalidFields.push("Private Key");
+    if (walletAddress.length && !privateKey.length) {
+      invalidFields.push("Private key is empty ");
+    }
+    if (privateKey.length && !walletAddress.length) {
+      invalidFields.push("Address is empty ");
+    }
+    if (!IconService.IconValidator.isPrivateKey(privateKey) &&(privateKey.length)) {
+      invalidFields.push("Private Key is invalid");
+    }
+    if ((!privateKey.length)&& (!walletAddress.length)&&(!keyStore.length)&&(password.length)){
+      invalidFields.push("Keystore not uploaded");
+    }
+    if ((!privateKey.length)&& (!walletAddress.length)&&(keyStore.length)&&(!password.length)){
+      invalidFields.push("Password empty ");
+    }
+
+    if ((!privateKey.length)&& (!walletAddress.length)&&(!keyStore.length)&&(!password.length)){
+      invalidFields.push("All fields are empty");
     }
     return invalidFields;
   };
@@ -424,7 +440,7 @@ export default function Icon(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             <div>Do you still want to continue ?</div>
-            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(
+            <div className="modal-info">{`${invalidFields.join(
               ", "
             )}.`}</div>
           </Modal.Title>

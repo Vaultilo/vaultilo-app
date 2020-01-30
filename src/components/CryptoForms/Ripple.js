@@ -83,11 +83,20 @@ export default function Ripple(props) {
 
   const getInvalidFields = () => {
     const invalidFields = [];
-    if (!WAValidator.validate(walletAddress, "XRP")) {
-      invalidFields.push("Wallet Address");
+    if (!WAValidator.validate(walletAddress, "XRP") && walletAddress.length) {
+      invalidFields.push("Wallet Address is not valid");
     }
-    if (!bip39.validateMnemonic(seedWords)) {
-      invalidFields.push("Seed words");
+    if (walletAddress.length && !privateKey.length) {
+      invalidFields.push("Private key is empty ");
+    }
+    if (!bip39.validateMnemonic(seedWords) && seedWords.length) {
+      invalidFields.push("Seed words not valid");
+    }
+    if (privateKey.length && !walletAddress.length) {
+      invalidFields.push("Address is empty ");
+    }
+    if ((!walletAddress.length) && (!privateKey.length) && (!seedWords.length)){
+      invalidFields.push("All fields are empty");
     }
     return invalidFields;
   };
@@ -329,7 +338,7 @@ export default function Ripple(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             <div>Do you still want to continue ?</div>
-            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(
+            <div className="modal-info">{`${invalidFields.join(
               ", "
             )}.`}</div>
           </Modal.Title>
