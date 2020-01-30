@@ -26,18 +26,23 @@ export default function Icon(props) {
     setModalTransparent
   } = props;
   const credentialsString = JSON.stringify(credentials);
+  console.log("credentials",credentials)
   const defaultValue = selectedItem
     ? {
         walletName: selectedItem.walletName,
         walletAddress: selectedItem.walletAddress,
         privateKey: selectedItem.privateKey,
-        password: selectedItem.password
+        password: selectedItem.password,
+        keyStore:selectedItem.keyStore,
+        keyStoreName:selectedItem.keyStoreName
       }
     : {
         walletName: "",
         walletAddress: "",
         privateKey: "",
-        password: ""
+        password: "",
+        keyStore:"",
+        keyStoreName:""
       };
 
   const handleTooltipClick = type => {
@@ -64,8 +69,8 @@ export default function Icon(props) {
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [password, setPassword] = useState(defaultValue.password);
   const [clicked, setClicked] = useState(false);
-  const [keyStore, setKeystore] = useState("");
-  const [keyStoreName, setKeystoreName] = useState("");
+  const [keyStore, setKeystore] = useState(defaultValue.keyStore);
+  const [keyStoreName, setKeystoreName] = useState(defaultValue.keyStoreName);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible, setPrivateVisible] = useState(false);
@@ -92,12 +97,7 @@ export default function Icon(props) {
     return invalidFields;
   };
 
-  const showToast = (text, time) => {
-    toaster.notify(() => <span className="btn btn-primary mr-2">{text}</span>, {
-      position: "top",
-      duration: time
-    });
-  };
+ 
 
   const submitCreateForm = () => {
     const newCred = {
@@ -119,6 +119,7 @@ export default function Icon(props) {
   const submitUpdateForm = () => {
     const updatedCredentials = credentials.map(item => {
       if (item.id === selectedItem.id) {
+        console.log("Creds-keystore", keyStore)
         return {
           ...item,
           walletName,
@@ -200,7 +201,7 @@ export default function Icon(props) {
 
     reader.readAsText(file);
   };
-
+  console.log()
   return (
     <>
       <div className="form-group row">

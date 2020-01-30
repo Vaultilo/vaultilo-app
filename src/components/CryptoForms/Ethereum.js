@@ -264,7 +264,7 @@ export default function Ethereum(props) {
         </label>
         <div className="col-12">
           <input
-            type="text"
+            type={privateVisible ? "text" : "password"}
             className="custom-input form-control"
             id="inputPrivateKey"
             value={privateKey}

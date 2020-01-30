@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { Modal, Overlay, Tooltip } from "react-bootstrap";
 import * as bip39 from "bip39";
 import WAValidator from "wallet-address-validator";
-import toaster from "toasted-notes";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { invalid } from "moment";
 
 export default function Bitcoin(props) {
   const {
@@ -30,9 +30,7 @@ export default function Bitcoin(props) {
       };
 
   const [walletName, setWalletName] = useState(defaultValue.walletName);
-  const [walletAddress, setWalletAddress] = useState(
-    defaultValue.walletAddress
-  );
+  const [walletAddress, setWalletAddress] = useState(defaultValue.walletAddress);
   const [seedWords, setSeedWords] = useState(defaultValue.seedWords);
   const [privateKey, setPrivateKey] = useState(defaultValue.privateKey);
   const [clicked, setClicked] = useState(false);
@@ -71,20 +69,22 @@ export default function Bitcoin(props) {
     }
   }, [credentialsString]);
 
-  const showToast = (text, time) => {
-    toaster.notify(() => <span className="btn btn-primary mr-2">{text}</span>, {
-      position: "top",
-      duration: time
-    });
-  };
+  
 
   const getInvalidFields = () => {
     const invalidFields = [];
-    if (!WAValidator.validate(walletAddress, "BTC")) {
-      invalidFields.push("Wallet Address");
+    if (!WAValidator.validate(walletAddress, "BTC")&&(walletAddress.length) ) {
+      invalidFields.push("Wallet Address is not valid");
     }
-    if (!bip39.validateMnemonic(seedWords)) {
-      invalidFields.push("Seed words");
+    if ((walletAddress.length) && (!privateKey.length)){
+      invalidFields.push("Private key is empty ")
+
+    }
+    if (!bip39.validateMnemonic(seedWords) && (seedWords.length)) {
+      invalidFields.push("Seed words not valid");
+    }
+    if ((privateKey.length) && (!walletAddress.length)){
+      invalidFields.push("Address is empty ")
     }
     return invalidFields;
   };
@@ -325,7 +325,7 @@ export default function Bitcoin(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             <div>Do you still want to continue ?</div>
-            <div className="modal-info">{`The following fields are invalid:  ${invalidFields.join(
+            <div className="modal-info">{`${invalidFields.join(
               ", "
             )}.`}</div>
           </Modal.Title>
