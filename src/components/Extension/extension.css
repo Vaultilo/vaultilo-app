@@ -1,0 +1,187 @@
+.extension-container {
+  height: 100vh;
+  width: 100%;
+}
+
+.ext-header {
+  padding: 14px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.09);
+}
+
+.ext-content {
+  height: 405px;
+  overflow: auto;
+}
+
+.extension-link {
+  text-decoration: none;
+  outline: none;
+}
+
+.extension-link:hover {
+  text-decoration: none;
+  outline: none;
+}
+
+.extension-link:hover .link-item:hover {
+  background: linear-gradient(89.49deg, #d2fbea 0.03%, rgba(210, 251, 234, 0) 99.94%);
+}
+
+.extension-link .link-item {
+  font-size: 16px;
+  line-height: 19px;
+  position: relative;
+  padding: 20px 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.extension-link:last-child .link-item {
+  border-bottom: none;
+}
+
+.extension-link .link-item i {
+  color: #1cd8d2;
+}
+
+.extension-link .link-item.password i {
+  font-size: 24px;
+}
+
+.extension-link .link-item.note i {
+  font-size: 21px;
+}
+
+.extension-link .nav-title {
+  color: #263238;
+}
+
+.extension-link .nav-right-angle {
+  position: absolute;
+  right: 15px;
+}
+
+.nav-icon i {
+  color: #cacaca;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.ext-footer {
+  height: 50px;
+  text-align: center;
+  background: linear-gradient(180deg, #1cd8d2 -44.19%, #93edc7 111.63%);
+}
+
+.ext-footer img {
+  width: 120px;
+  height: 100%;
+}
+
+.list-header {
+  padding: 14px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.09);
+  text-align: center;
+}
+
+.list-header .title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+  color: #000000;
+}
+
+.list-header .nav-back {
+  position: absolute;
+  left: 15px;
+  top: 10px;
+}
+
+.list-header .nav-back i {
+  color: #1cd8d2;
+  font-size: 26px;
+}
+
+.ext-content .title {
+  background: #fafafa;
+  margin-top: 15px;
+  padding: 5px 15px;
+}
+
+.content-list {
+  padding: 0px 15px;
+}
+
+.content-list .item {
+  padding: 5px 0;
+}
+
+.content-list .item-detail {
+  margin-left: 10px;
+}
+
+.item-detail .text {
+  font-size: 12px;
+  color: black;
+}
+
+.item-detail .sub-text {
+  font-size: 10px;
+  color: #6f6f6f;
+}
+
+.crypto-dropdown .title {
+  position: relative;
+  cursor: pointer;
+}
+
+.crypto-dropdown .title i {
+  position: absolute;
+  right: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.crypto-dropdown .content-list {
+  display: none;
+}
+
+.crypto-dropdown .content-list.shown {
+  display: block;
+}
+
+.item-img {
+  color: #e0e0e0;
+}
+
+.view-details {
+  position: absolute;
+  right: 13px;
+  display: none;
+}
+
+.view-details a:hover {
+  text-decoration: none;
+  outline: none;
+}
+
+.view-details i {
+  font-size: 10px;
+  color: #1cd8d2;
+}
+
+.content-list .item:hover .view-details {
+  display: block;
+}
+
+.form-content {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.item-img img {
+  width: 25px;
+  max-height: 25px;
+}

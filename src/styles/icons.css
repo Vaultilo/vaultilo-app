@@ -6,7 +6,8 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^='icon-'],
+[class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: none;
@@ -22,53 +23,53 @@
 }
 
 .icon-arrow:before {
-  content: "\e900";
+  content: '\e900';
 }
 .icon-bell:before {
-  content: "\e901";
+  content: '\e901';
 }
 .icon-card:before {
-  content: "\e902";
+  content: '\e902';
 }
 .icon-clock:before {
-  content: "\e903";
+  content: '\e903';
 }
 .icon-cross:before {
-  content: "\e904";
+  content: '\e904';
 }
 .icon-delete:before {
-  content: "\e905";
+  content: '\e905';
 }
 .icon-eye:before {
-  content: "\e906";
+  content: '\e906';
 }
 .icon-Delete:before {
-  content: "\e907";
+  content: '\e907';
 }
 .icon-item:before {
-  content: "\e908";
+  content: '\e908';
 }
 .icon-list:before {
-  content: "\e909";
+  content: '\e909';
 }
 .icon-logout:before {
-  content: "\e90a";
+  content: '\e90a';
 }
 .icon-note:before {
-  content: "\e90b";
+  content: '\e90b';
 }
 .icon-ntf:before {
-  content: "\e90c";
+  content: '\e90c';
 }
 .icon-option:before {
-  content: "\e90d";
+  content: '\e90d';
 }
 .icon-password:before {
-  content: "\e90e";
+  content: '\e90e';
 }
 .icon-search:before {
-  content: "\e90f";
+  content: '\e90f';
 }
 .icon-wallet:before {
-  content: "\e910";
+  content: '\e910';
 }

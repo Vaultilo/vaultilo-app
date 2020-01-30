@@ -1,20 +1,36 @@
-import React, { useEffect, useState } from "react";
-import '../CryptoForms/index.css'
+import React, { useEffect, useState, useRef } from 'react';
+import '../CryptoForms/index.css';
+import { Overlay, Tooltip } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function NotesForm(props) {
   const { notes, setNotes, onModalClose, selectedItem } = props;
   const notesString = JSON.stringify(notes);
-  const defaultValue = selectedItem ? {
+  const defaultValue = selectedItem
+    ? {
         noteInput: selectedItem.noteInput,
-        noteTitle: selectedItem.noteTitle
-      } : {
-        noteInput: "",
-        noteTitle:""
+        noteTitle: selectedItem.noteTitle,
+      }
+    : {
+        noteInput: '',
+        noteTitle: '',
       };
 
   const [noteInput, setNoteInput] = useState(defaultValue.noteInput);
-  const [noteTitle,setNoteTitle] = useState (defaultValue.noteTitle)
+  const [noteTitle, setNoteTitle] = useState(defaultValue.noteTitle);
   const [clicked, setClicked] = useState(false);
+  const [emptyNoteTitle, setEmptyNoteTitle] = useState(null);
+  const [titleTooltip, setTitleTooltip] = useState(false);
+  const titleRef = useRef(null);
+  const handleTooltipClick = type => {
+    if (type === 'title') {
+      setTitleTooltip(true);
+    }
+
+    setTimeout(() => {
+      setTitleTooltip(false);
+    }, 1000);
+  };
 
   useEffect(() => {
     if (clicked) {
@@ -24,29 +40,33 @@ export default function NotesForm(props) {
   }, [notesString]);
 
   const handleClick = () => {
-    if (noteInput.length) {
+    if (noteTitle.length) {
       const newCred = {
         id: Date.now(),
-        type: "notes",
-        subType: "",
+        type: 'notes',
+        subType: '',
         noteInput,
-        noteTitle
+        noteTitle,
       };
       setClicked(true);
       setNotes(JSON.stringify([...notes, newCred]));
+    } else {
+      setEmptyNoteTitle(true);
     }
   };
 
   const handleUpdate = () => {
-    if (noteInput.length && noteTitle.length) {
+    if (noteTitle.length) {
       const updatedNotes = notes.map(item => {
         if (item.id === selectedItem.id) {
-          return { ...item, noteInput,noteTitle };
+          return { ...item, noteInput, noteTitle };
         }
         return item;
       });
       setClicked(true);
       setNotes(JSON.stringify(updatedNotes));
+    } else {
+      setEmptyNoteTitle(true);
     }
   };
 
@@ -59,11 +79,12 @@ export default function NotesForm(props) {
         <div className="col-12">
           <input
             type="text"
-            className="custom-input form-control"
+            className={`custom-input form-control ${emptyNoteTitle ? 'invalid' : ''}`}
             id="noteTitleInput"
             value={noteTitle}
             onChange={evt => setNoteTitle(evt.target.value)}
           />
+          {emptyNoteTitle ? <span className="validation-text">Required</span> : null}
         </div>
       </div>
       <div className="form-group row">
@@ -78,6 +99,23 @@ export default function NotesForm(props) {
             value={noteInput}
             onChange={evt => setNoteInput(evt.target.value)}
           />
+          <CopyToClipboard text={noteInput}>
+            <span
+              ref={titleRef}
+              className="copy-btn copy-btn-input"
+              data-clipboard-target="#inputDomainUsername"
+              onClick={() => handleTooltipClick('title')}
+            >
+              <img src="/images/copy.png" alt="copy" />
+            </span>
+          </CopyToClipboard>
+          <Overlay target={titleRef.current} show={titleTooltip} placement="top">
+            {props => (
+              <Tooltip id="overlay-example" {...props}>
+                Copied
+              </Tooltip>
+            )}
+          </Overlay>
         </div>
       </div>
       <div className="d-flex justify-content-end">
@@ -100,11 +138,7 @@ export default function NotesForm(props) {
             Save
           </button>
         )}
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={onModalClose}
-        >
+        <button type="button" className="btn btn-danger" onClick={onModalClose}>
           Cancel
         </button>
       </div>
