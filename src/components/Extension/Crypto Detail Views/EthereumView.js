@@ -13,7 +13,6 @@ export default function EthereumView(props) {
   const pvtKeyRef = useRef(null);
   const walletAddRef = useRef(null);
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [privateVisible, setPrivateVisible] = useState(false);
   const { walletName, walletAddress, privateKey, seedWords } = props.item;
 

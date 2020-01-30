@@ -1,4 +1,4 @@
-import React, { Card } from "react";
+import React from "react";
 import "../../Sidebar.css";
 import { Link } from "react-router-dom";
 import Footer from "../Footer";
@@ -18,7 +18,7 @@ export default function ExNoteShow(props) {
        
         <div className="content-list">
           {notes.map(item => {
-            const { id, noteInput, noteTitle } = item;
+            const { id, noteTitle } = item;
             return (
               <Link
                 to={{

@@ -18,7 +18,7 @@ export default function CryptoCard({credential, onClick, onDeleteClick}) {
       <div className="action-btn view-btn" onClick={() => onClick(credential)}><i className="icon-eye"/></div>
       <div className="action-btn delete-btn" onClick={() => onDeleteClick(credential)}><i className="icon-delete"/></div>
       <div className="top-img">
-        <img src={`/images/${subType}.svg`} /> 
+        <img src={`/images/${subType}.svg`} alt="" /> 
       </div>
       <div className="title">
         {walletName}

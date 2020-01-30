@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../extension.css";
 import { Link } from "react-router-dom";
 import Footer from "../Footer";

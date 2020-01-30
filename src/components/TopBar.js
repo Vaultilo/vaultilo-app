@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useBlockstack } from "react-blockstack";
 import Dropdown from "react-bootstrap/Dropdown";
 import "./TopBar.css";
@@ -19,7 +19,7 @@ export default function TopBar({ avatarUrl, name, searchText, setSearchText }) {
     </a>
   ));
   const { signOut } = useBlockstack();
-  const handleSignOut = async() => {
+  const handleSignOut = () => {
     signOut();
   }
   return (
