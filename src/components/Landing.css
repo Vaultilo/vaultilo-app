@@ -1,0 +1,77 @@
+.container {
+  padding-top: 22px;
+}
+
+.navbar {
+  margin-bottom: 98px;
+}
+.ext-navbar {
+  margin-bottom: 50px;
+  justify-content: center;
+}
+.ext-container {
+  padding-bottom: 5px;
+}
+
+.navbar-brand img {
+  width: 175px;
+}
+.ext-land-logo {
+  position: absolute;
+  width: 60%;
+  align: center;
+  margin-left: 60px;
+}
+
+.ext-navbar-brand img {
+  width: 320px;
+}
+
+.landing-info {
+  width: 55%;
+  padding: 25px 16px;
+}
+
+.landing-img {
+  width: 45%;
+}
+
+.separator-img {
+  padding: 12px 0;
+}
+
+.landing-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 31px;
+  text-transform: uppercase;
+}
+.ext-landing-text {
+  font-style: normal;
+  font-weight: 250;
+  font-size: 14px;
+  line-height: 17px;
+  text-transform: uppercase;
+  margin-bottom: 100px;
+  padding: 5px;
+}
+
+.landing-sub-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #6f6f6f;
+}
+
+.color-primary {
+  color: #1cd8d2;
+}
+
+.login-btn {
+  margin-top: 32px;
+  padding: 0;
+  background: none;
+  border: 0;
+}
