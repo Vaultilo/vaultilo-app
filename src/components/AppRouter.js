@@ -10,6 +10,7 @@ import Loader from './Loader';
 export default function AppRouter() {
   const { person, signOut } = useBlockstack();
   const isSigninPending = new UserSession().isSignInPending();
+  const isSignedIn = new UserSession().isUserSignedIn();
   return isSigninPending ? <Loader/> : (
     <Switch>
       <Route
@@ -23,7 +24,7 @@ export default function AppRouter() {
         exact={true}
         path="/"
         render={() => {
-          return <Redirect to="/items/all" />;
+          return isSignedIn ? <Redirect to="/items/all" /> : <Redirect to="/login"/>;
         }}
       />
       <Route
