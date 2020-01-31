@@ -12,9 +12,10 @@ export default function ExNoteShow(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Notes</div>
+        <div className="title">Vaultilo</div>
       </div>
       <div className="ext-content">
+        <div className="title">Notes</div>
         <div className="content-list">
           {notes.map(item => {
             const { id, noteTitle } = item;
