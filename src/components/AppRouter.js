@@ -43,7 +43,7 @@ export default function AppRouter() {
           if (person) {
             return <Content {...routeProps} person={person} />;
           } else {
-            window.location.assign('https://vaultilo.madoveradvertising.com/');
+            window.location.assign('https://vaultilo.com');
           }
         }}
       />
