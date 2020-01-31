@@ -13,9 +13,10 @@ export default function ExPwShow(props) {
             <i className="fa fa-angle-left"></i>
           </span>
         </Link>
-        <div className="title">Passwords</div>
+        <div className="title">Vaultilo</div>
       </div>
       <div className="ext-content">
+        <div className="title">Passwords</div>
         <div className="content-list">
           {passwords.map(item => {
             const { id, domainName, domainAddress } = item;
