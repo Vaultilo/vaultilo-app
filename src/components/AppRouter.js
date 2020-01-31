@@ -4,10 +4,13 @@ import Content from './Content';
 import ExtLanding from './ExtLanding';
 import { useBlockstack } from 'react-blockstack';
 import Login from './Login';
+import { UserSession } from 'blockstack';
+import Loader from './Loader';
 
 export default function AppRouter() {
   const { person, signOut } = useBlockstack();
-  return (
+  const isSigninPending = new UserSession().isSignInPending();
+  return isSigninPending ? <Loader/> : (
     <Switch>
       <Route
         exact={true}
@@ -39,8 +42,8 @@ export default function AppRouter() {
         render={routeProps => {
           if (person) {
             return <Content {...routeProps} person={person} />;
-          } else if (person === null) {
-            window.location.assign('https://vaultilo.madoveradvertising.com/');
+          } else {
+            window.location.assign('https://vaultilo.com');
           }
         }}
       />
