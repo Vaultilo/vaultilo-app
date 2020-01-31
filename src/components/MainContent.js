@@ -426,7 +426,7 @@ export default function MainContent(props) {
     if (type === 'notes') {
       return renderNotesItem(notes);
     }
-    return [renderPasswordItem(passwords), renderCryptoItem(credentials), renderNotesItem(notes)];
+    return [renderCryptoItem(credentials), renderPasswordItem(passwords), renderNotesItem(notes)];
   };
 
   return (
