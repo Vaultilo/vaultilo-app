@@ -1,14 +1,20 @@
-# React Blockstack Starter App
+# Vaultilo
 
-This is a foundation for developing Blockstack apps with React,
-using the [React-Blockstack](https://www.npmjs.com/package/react-blockstack) library on top of the Blockstack SDK.
+Vaultilo is a secure password manager based on blockstack authentication that not only stores passwords but also the credentials for crypto-wallets & nodes along with their SeedPhrase, Keystore file and Private keys. 
 
-It applies Bootstrap for layout and style, but it is trivial to substitute with another framework of your choice (or none at all).
+## Blockstack Authentication
+The app uses Blockstack authentication for login.<br>
+You can learn more about it[ here](https://docs.blockstack.org/develop/overview_auth.html).
 
-The project is based on [Create React App](https://github.com/facebook/create-react-app),
-a starter app for React, where you can find further documentation.
+##GAIA Hub
+The app uses Gaia hub to store the user application data.Gaia hub is a decentralized storage provided by Blockstack.<br>
+You can know more about it [here.](https://docs.blockstack.org/storage/overview.html)
 
-## Available Scripts
+### Deployment
+Visit [here](www.vaultilo.com) to use the app<br>
+You can also use chrome extension for your convenience.[This](https://chrome.google.com/webstore/detail/vaultilo/odiidinnhhckclnbldbimcndcifeenag) is the link for the extension.
+
+## Running the app to local environment 
 
 First run:
 
@@ -24,10 +30,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -37,7 +40,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
 
 ### `npm run eject`
 
@@ -49,32 +52,5 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
