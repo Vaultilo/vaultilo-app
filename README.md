@@ -6,7 +6,7 @@ Vaultilo is a secure password manager based on blockstack authentication that no
 The app uses Blockstack authentication for login.<br>
 You can learn more about it[ here](https://docs.blockstack.org/develop/overview_auth.html).
 
-##GAIA Hub
+## GAIA Hub
 The app uses Gaia hub to store the user application data.Gaia hub is a decentralized storage provided by Blockstack.<br>
 You can know more about it [here.](https://docs.blockstack.org/storage/overview.html)
 
