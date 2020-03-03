@@ -73,3 +73,6 @@
 .icon-wallet:before {
   content: '\e910';
 }
+.icon-apply-save:before{
+  content: '\e911'
+}

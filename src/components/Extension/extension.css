@@ -157,7 +157,20 @@
 .item-img {
   color: #e0e0e0;
 }
+.apply-details{
+  position: absolute;
+  right: 40px;
+  display: none;
 
+}
+.apply-details i {
+  font-size: 18px;
+  color: #1cd8d2;
+}
+.apply-details a:hover{
+  text-decoration:none;
+  outline: none;
+}
 .view-details {
   position: absolute;
   right: 13px;
@@ -175,6 +188,9 @@
 }
 
 .content-list .item:hover .view-details {
+  display: block;
+}
+.content-list .item:hover .apply-details {
   display: block;
 }
 

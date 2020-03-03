@@ -2,8 +2,25 @@ import React from 'react';
 import '../extension.css';
 import { Link } from 'react-router-dom';
 import Footer from '../Footer';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 export default function ExPwShow(props) {
+  const applyPassword = (url,username,password) =>{
+    window.parent.postMessage(
+      {
+          url: url,
+          username: username,
+          password: password,
+          app:"vaultilo"
+
+      },
+      "*"
+  );
+
+  }
+ const  renderTooltip=(props) => {
+    return <Tooltip {...props}>Click to apply</Tooltip>;
+  }
   const passwords = props.passwords;
   return (
     <div className="extension-container">
@@ -19,30 +36,43 @@ export default function ExPwShow(props) {
         <div className="title">Passwords</div>
         <div className="content-list">
           {passwords.map(item => {
-            const { id, domainName, domainAddress } = item;
+            const { id, domainName, domainAddress,domainUsername,password } = item;
             return (
-              <Link
-                to={{
-                  pathname: '/extension/password/view',
-                  state: {
-                    id: id,
-                  },
-                }}
-                style={{ textDecoration: 'none' }}
-              >
-                <div className="item d-flex justify-content-start" key={id}>
-                  <div className="item-img">
-                    <i className="icon-password" />
-                  </div>
-                  <div className="item-detail">
-                    <div className="text">{domainName}</div>
-                    <div className="sub-text">{domainAddress}</div>
-                  </div>
-                  <div className="view-details">
-                    <i className="icon-eye" />
-                  </div>
+              <div className="item d-flex justify-content-start" key={id}>
+                <div className="item-img">
+                  <i className="icon-password" />
                 </div>
-              </Link>
+                <div className="item-detail">
+                  <div className="text">{domainName}</div>
+                  <div className="sub-text">{domainAddress}</div>
+                </div>
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 100, hide: 100 }}
+                  overlay={(props)=>renderTooltip(props)}
+                >
+                  <div className="apply-details">
+                    <i
+                      className="icon-apply-save"
+                      onClick={() => applyPassword(domainAddress, domainUsername, password)}
+                    />
+                  </div>
+                </OverlayTrigger>
+
+                <div className="view-details" >
+                  <Link
+                    to={{
+                      pathname: '/extension/password/view',
+                      state: {
+                        id: id,
+                      },
+                    }}
+                    style={{ textDecoration: 'none'}}
+                  >
+                    <i className="icon-eye"/>
+                  </Link>
+                </div>
+              </div>
             );
           })}
         </div>
