@@ -4,25 +4,33 @@ import { Link } from 'react-router-dom';
 import Footer from '../Footer';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-export default function ExPwShow(props) {
+export default function ExtFilteredPwShow(props) {
   const applyPassword = (url,username,password) =>{
     window.parent.postMessage(
       {
           url: url,
           username: username,
           password: password,
-          app:"vaultilo"
+          app:"filtered"
 
       },
       "*"
   );
-  console.log("Sent message once ")
 
   }
+
  const  renderTooltip=(props) => {
     return <Tooltip {...props}>Click to apply</Tooltip>;
   }
   const passwords = props.passwords;
+  const domain = props.domain.match.params.domain;
+  const displayList= passwords.filter((item)=>{
+      if (item.domainAddress.includes(domain)){
+          return item
+      }
+    
+  })
+  
   return (
     <div className="extension-container">
       <div className="list-header">
@@ -34,9 +42,9 @@ export default function ExPwShow(props) {
         <div className="title">Vaultilo</div>
       </div>
       <div className="ext-content">
-        <div className="title">Passwords</div>
+        <div className="title">Available Autofill Passwords</div>
         <div className="content-list">
-          {passwords.map(item => {
+          {displayList.map(item => {
             const { id, domainName, domainAddress,domainUsername,password } = item;
             return (
               <div className="item d-flex justify-content-start" key={id}>

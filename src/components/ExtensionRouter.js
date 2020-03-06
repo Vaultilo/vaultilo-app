@@ -8,6 +8,7 @@ import ExtNftShow from './Extension/List Views/ExtNftShow';
 import CryptoDetail from './Extension/Crypto Detail Views/CryptoDetail';
 import PasswordDetail from './Extension/PasswordDetail';
 import NotesDetail from './Extension/NotesDetail';
+import ExtFilteredPwShow from './Extension/List Views/ExtFilteredPwShow';
 import '../styles/icons.css';
 
 export default function ExtensionRouter(props) {
@@ -25,6 +26,7 @@ export default function ExtensionRouter(props) {
       <Route path="/extension/password/view" render={() => <PasswordDetail {...props} />} />
 
       <Route path="/extension/notes/view" render={() => <NotesDetail {...props} />} />
+      <Route path="/extension/password/:domain" render={(domain)=><ExtFilteredPwShow {...props} domain={domain}/>} /> 
     </Switch>
   );
 }
